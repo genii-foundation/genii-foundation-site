@@ -1,208 +1,235 @@
+import Image from "next/image";
+
 const projects = [
   {
-    number: "01",
-    status: "Read now",
+    index: "01",
+    type: "Living publication",
     title: "The Coherence Thesis",
     description:
-      "A living body of work on interpersonal coherence, social architecture, humane technology, and thriving future societies.",
+      "An evolving body of research on interpersonal coherence, social architecture, humane technology, and the conditions for thriving societies.",
     href: "https://www.coherence-thesis.com/",
-    linkLabel: "Enter the thesis",
+    action: "Read the thesis",
   },
   {
-    number: "02",
-    status: "In development",
+    index: "02",
+    type: "Technology in development",
     title: "Coherence",
     description:
-      "A consent first ecosystem for interpersonal biometric measurement and reflection, beginning with native iPhone and Apple Watch experiences.",
+      "A consent-first ecosystem for interpersonal biometric measurement and reflection, beginning with native iPhone and Apple Watch experiences.",
     href: "https://github.com/genii-foundation/coherence-app",
-    linkLabel: "Follow the work",
+    action: "Follow the work",
   },
 ];
 
-const principles = [
+const fields = [
   {
-    number: "I",
-    title: "Begin with the whole",
-    text: "We study people, technology, culture, and ecology as one living field. Fragmented problems rarely yield to fragmented answers.",
+    index: "I",
+    title: "Research",
+    text: "Develop long-horizon inquiry across consciousness, culture, technology, and regeneration.",
   },
   {
-    number: "II",
-    title: "Make knowledge livable",
-    text: "Ideas matter when they change how we relate, decide, build, and care. Our work moves from theory toward practice.",
+    index: "II",
+    title: "Culture",
+    text: "Publish ideas and media that give difficult questions a clear, public, and beautiful form.",
   },
   {
-    number: "III",
-    title: "Build for inheritance",
-    text: "We favor patient work, open inquiry, and tools that can outlast their makers without becoming monuments to them.",
+    index: "III",
+    title: "Infrastructure",
+    text: "Build practical tools and institutions that help coherent ways of living become durable.",
   },
 ];
+
+function Wordmark({ className = "", priority = false }: { className?: string; priority?: boolean }) {
+  return (
+    <Image
+      alt="GENII"
+      className={className}
+      height={238}
+      priority={priority}
+      src="/brand/genii-wordmark-ivory.png"
+      width={1135}
+    />
+  );
+}
 
 export default function Home() {
   return (
-    <main>
+    <main id="top">
+      <a className="skip-link" href="#main-content">
+        Skip to main content
+      </a>
+
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="GENII Foundation, home">
-          <span className="brand-mark" aria-hidden="true">
-            G
-          </span>
-          <span className="brand-name">
-            GENII
-            <small>Foundation</small>
-          </span>
+        <a className="header-brand" href="#top" aria-label="GENII Foundation, home">
+          <Wordmark priority />
+          <span>Foundation</span>
         </a>
         <nav aria-label="Primary navigation">
           <a href="#mission">Mission</a>
+          <a href="#fields">Fields</a>
           <a href="#work">Work</a>
           <a href="#contact">Contact</a>
         </nav>
       </header>
 
-      <section className="hero" id="top">
-        <div className="hero-field" aria-hidden="true">
-          <div className="orbit orbit-one" />
-          <div className="orbit orbit-two" />
-          <div className="orbit orbit-three" />
-          <div className="field-axis field-axis-x" />
-          <div className="field-axis field-axis-y" />
-          <div className="field-core">
-            <span>G</span>
+      <div id="main-content">
+        <section className="hero" aria-labelledby="hero-title">
+          <div className="hero-register" aria-hidden="true">
+            <span>Independent research foundation</span>
+            <span>Field note 001</span>
           </div>
-          <div className="field-point point-one" />
-          <div className="field-point point-two" />
-          <div className="field-point point-three" />
-        </div>
 
-        <div className="hero-copy">
-          <p className="eyebrow">For coherent futures</p>
-          <h1>For futures worth inhabiting.</h1>
-          <p className="hero-deck">
-            GENII Foundation is an independent home for long horizon research,
-            practical tools, and institutions that help life flourish.
-          </p>
-          <div className="hero-actions">
-            <a className="button button-primary" href="#work">
-              Explore our work
-              <span aria-hidden="true">↘</span>
-            </a>
-            <a
-              className="button button-quiet"
-              href="https://aubreyfalconer.com/#contact"
-            >
-              Begin a conversation
-            </a>
+          <div className="hero-wordmark">
+            <Wordmark priority />
+            <p>Foundation</p>
           </div>
-        </div>
 
-        <div className="hero-note">
-          <span>Research</span>
-          <span>Practice</span>
-          <span>Stewardship</span>
-        </div>
-      </section>
+          <div className="hero-lower">
+            <div className="hero-statement">
+              <p className="kicker">For futures worth inhabiting</p>
+              <h1 id="hero-title">
+                Research, culture, and infrastructure for a more coherent world.
+              </h1>
+              <p className="hero-summary">
+                GENII Foundation is an independent home for long-horizon inquiry,
+                consequential media, and public-interest technology.
+              </p>
+              <a className="text-link" href="#work">
+                Explore current work <span aria-hidden="true">↘</span>
+              </a>
+            </div>
 
-      <section className="mission section-shell" id="mission">
-        <div className="section-label">
-          <span>Our mission</span>
-          <span>01</span>
-        </div>
-        <div className="mission-grid">
-          <h2>
-            Human possibility grows when our inner lives, shared systems, and
-            technologies learn to move together.
-          </h2>
-          <div className="mission-copy">
+            <div className="hero-instrument" aria-hidden="true">
+              <div className="instrument-ring ring-outer" />
+              <div className="instrument-ring ring-inner" />
+              <div className="instrument-axis axis-horizontal" />
+              <div className="instrument-axis axis-vertical" />
+              <span className="instrument-point point-a" />
+              <span className="instrument-point point-b" />
+              <span className="instrument-point point-c" />
+              <span className="instrument-label label-a">Research</span>
+              <span className="instrument-label label-b">Culture</span>
+              <span className="instrument-label label-c">Infrastructure</span>
+              <span className="instrument-center">
+                <Image alt="" height={512} src="/icon.png" width={512} />
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section className="mission atlas-section" id="mission" aria-labelledby="mission-title">
+          <div className="section-register">
+            <span>01</span>
+            <span>Purpose</span>
+            <span>Present and long horizon</span>
+          </div>
+          <div className="mission-grid">
+            <h2 id="mission-title">
+              The future is not a destination. It is a capacity we build together.
+            </h2>
+            <div className="mission-copy">
+              <p>
+                We investigate how inner life, social systems, technology, and
+                ecology shape one another. We turn that inquiry into work people
+                can read, use, test, and improve.
+              </p>
+              <p>
+                Our aim is rigorous and practical: expand the conditions for
+                wiser relationships, more capable institutions, and forms of
+                progress that remain worth inheriting.
+              </p>
+            </div>
+          </div>
+          <div className="mission-note">
+            <span>Method</span>
+            <p>Study the whole. Make knowledge public. Build what the evidence requires.</p>
+          </div>
+        </section>
+
+        <section className="fields atlas-section" id="fields" aria-labelledby="fields-title">
+          <div className="section-register">
+            <span>02</span>
+            <span id="fields-title">Fields of action</span>
+            <span>One system, three expressions</span>
+          </div>
+          <div className="fields-grid">
+            {fields.map((field) => (
+              <article className="field-card" key={field.index}>
+                <span className="field-index">{field.index}</span>
+                <h3>{field.title}</h3>
+                <p>{field.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="work atlas-section" id="work" aria-labelledby="work-title">
+          <div className="section-register">
+            <span>03</span>
+            <span>Current work</span>
+            <span>Initial project constellation</span>
+          </div>
+          <div className="work-heading">
+            <h2 id="work-title">A parent institution for ideas that need somewhere real to go.</h2>
             <p>
-              We advance inquiry and build public work at the meeting place of
-              consciousness, culture, technology, and regeneration.
-            </p>
-            <p>
-              Our aim is not a single answer. It is a growing ecology of ideas,
-              practices, and tools that make wiser forms of relationship and
-              collective life possible.
+              Our first projects approach coherence from complementary directions:
+              shared knowledge and lived experience.
             </p>
           </div>
-        </div>
-      </section>
+          <div className="project-list">
+            {projects.map((project) => (
+              <a
+                className="project-card"
+                href={project.href}
+                key={project.index}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div className="project-index">{project.index}</div>
+                <div className="project-type">{project.type}</div>
+                <div className="project-copy">
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                </div>
+                <div className="project-action">
+                  <span>{project.action}</span>
+                  <span aria-hidden="true">↗</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
 
-      <section className="principles section-shell" aria-labelledby="principles-heading">
-        <div className="section-label">
-          <span id="principles-heading">How we work</span>
-          <span>02</span>
-        </div>
-        <div className="principles-grid">
-          {principles.map((principle) => (
-            <article className="principle" key={principle.number}>
-              <span className="principle-number">{principle.number}</span>
-              <h3>{principle.title}</h3>
-              <p>{principle.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="work section-shell" id="work">
-        <div className="section-label section-label-light">
-          <span>Current work</span>
-          <span>03</span>
-        </div>
-        <div className="work-intro">
-          <h2>One foundation. Many expressions.</h2>
-          <p>
-            Our first projects approach coherence from complementary directions,
-            one through shared knowledge, the other through personal experience.
-          </p>
-        </div>
-        <div className="project-list">
-          {projects.map((project) => (
-            <a
-              className="project-card"
-              href={project.href}
-              key={project.number}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <div className="project-meta">
-                <span>{project.number}</span>
-                <span>{project.status}</span>
-              </div>
-              <div className="project-body">
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-              </div>
-              <div className="project-link">
-                <span>{project.linkLabel}</span>
-                <span aria-hidden="true">↗</span>
-              </div>
+        <section className="contact" id="contact" aria-labelledby="contact-title">
+          <div className="contact-register">
+            <span>04</span>
+            <span>Open channel</span>
+          </div>
+          <div className="contact-copy">
+            <p className="kicker">The next work begins in conversation</p>
+            <h2 id="contact-title">Bring a question with consequence.</h2>
+            <p>
+              We welcome researchers, builders, funders, artists, and civic
+              stewards working toward more coherent forms of life.
+            </p>
+            <a className="contact-link" href="https://aubreyfalconer.com/#contact">
+              Contact the foundation <span aria-hidden="true">↗</span>
             </a>
-          ))}
-        </div>
-      </section>
-
-      <section className="contact section-shell" id="contact">
-        <div className="contact-orbit" aria-hidden="true" />
-        <p className="eyebrow">The next work begins in conversation</p>
-        <h2>Bring a question worth living into.</h2>
-        <p>
-          We welcome conversations with researchers, builders, funders, artists,
-          and stewards working toward more coherent forms of life.
-        </p>
-        <a className="button button-primary" href="https://aubreyfalconer.com/#contact">
-          Contact the foundation
-          <span aria-hidden="true">↗</span>
-        </a>
-      </section>
+          </div>
+          <div className="contact-seal" aria-hidden="true">
+            <span>
+              <Image alt="" height={512} src="/icon.png" width={512} />
+            </span>
+          </div>
+        </section>
+      </div>
 
       <footer className="site-footer">
-        <a className="brand footer-brand" href="#top" aria-label="GENII Foundation, home">
-          <span className="brand-mark" aria-hidden="true">
-            G
-          </span>
-          <span className="brand-name">
-            GENII
-            <small>Foundation</small>
-          </span>
+        <a className="footer-brand" href="#top" aria-label="GENII Foundation, home">
+          <Wordmark />
+          <span>Foundation</span>
         </a>
-        <p>Ideas for a world learning to become whole.</p>
+        <p>For futures worth inhabiting.</p>
         <div className="footer-links">
           <a href="https://github.com/genii-foundation" rel="noopener noreferrer" target="_blank">
             GitHub

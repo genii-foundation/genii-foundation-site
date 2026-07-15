@@ -20,23 +20,31 @@ const sans = Manrope({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  colorScheme: "light",
-  themeColor: "#132a25",
+  colorScheme: "dark",
+  themeColor: "#0b0c0c",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://genii.foundation"),
   applicationName: "GENII Foundation",
-  title: "GENII Foundation | For Futures Worth Inhabiting",
+  title: "GENII Foundation | Research, Culture, Infrastructure",
   description:
-    "GENII Foundation is an independent home for research, practical tools, and institutions that help life flourish.",
+    "GENII Foundation is an independent home for long-horizon research, consequential media, and public-interest technology.",
+  keywords: [
+    "GENII Foundation",
+    "coherence",
+    "long-horizon research",
+    "public-interest technology",
+    "culture",
+  ],
   alternates: { canonical: "/" },
   openGraph: {
     title: "GENII Foundation",
-    description: "Research, practice, and stewardship for coherent futures.",
+    description: "Research, culture, and infrastructure for a more coherent world.",
     url: "https://genii.foundation",
     siteName: "GENII Foundation",
     type: "website",
+    locale: "en_US",
     images: [
       {
         url: "/og.png",
@@ -49,7 +57,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "GENII Foundation",
-    description: "Research, practice, and stewardship for coherent futures.",
+    description: "Research, culture, and infrastructure for a more coherent world.",
     images: ["/og.png"],
   },
   robots: {

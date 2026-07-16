@@ -2,7 +2,6 @@ import Image from "next/image";
 
 const projects = [
   {
-    index: "01",
     type: "Living publication",
     title: "The Coherence Thesis",
     description:
@@ -11,7 +10,6 @@ const projects = [
     action: "Read the thesis",
   },
   {
-    index: "02",
     type: "Technology in development",
     title: "Coherence",
     description:
@@ -23,30 +21,27 @@ const projects = [
 
 const fields = [
   {
-    index: "I",
     title: "Research",
-    text: "Develop long-horizon inquiry across consciousness, culture, technology, and regeneration.",
+    text: "Long-horizon inquiry across consciousness, culture, technology, and regeneration.",
   },
   {
-    index: "II",
     title: "Culture",
-    text: "Publish ideas and media that give difficult questions a clear, public, and beautiful form.",
+    text: "Ideas and media that give difficult questions a clear, public, and beautiful form.",
   },
   {
-    index: "III",
     title: "Infrastructure",
-    text: "Build practical tools and institutions that help coherent ways of living become durable.",
+    text: "Practical tools and institutions that help coherent ways of living become durable.",
   },
 ];
 
-function Wordmark({ className = "", priority = false }: { className?: string; priority?: boolean }) {
+function Wordmark({ priority = false }: { priority?: boolean }) {
   return (
     <Image
       alt="GENII"
-      className={className}
       height={238}
+      loading={priority ? "eager" : undefined}
       priority={priority}
-      src="/brand/genii-wordmark-ivory.png"
+      src="/brand/genii-wordmark-black.png"
       width={1135}
     />
   );
@@ -54,108 +49,93 @@ function Wordmark({ className = "", priority = false }: { className?: string; pr
 
 export default function Home() {
   return (
-    <main id="top">
+    <main className="atlas-site" id="top">
       <a className="skip-link" href="#main-content">
         Skip to main content
       </a>
 
       <header className="site-header">
-        <a className="header-brand" href="#top" aria-label="GENII Foundation, home">
-          <Wordmark priority />
-          <span>Foundation</span>
-        </a>
-        <nav aria-label="Primary navigation">
-          <a href="#mission">Mission</a>
-          <a href="#fields">Fields</a>
-          <a href="#work">Work</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </header>
-
-      <div id="main-content">
-        <section className="hero" aria-labelledby="hero-title">
-          <div className="hero-register" aria-hidden="true">
-            <span>Independent research foundation</span>
-            <span>Field note 001</span>
-          </div>
-
-          <div className="hero-wordmark">
+        <div className="header-inner">
+          <a className="header-brand" href="#top" aria-label="GENII Foundation, home">
             <Wordmark priority />
-            <p>Foundation</p>
-          </div>
+            <span>Foundation</span>
+          </a>
+          <nav aria-label="Primary navigation">
+            <a href="#work">Work</a>
+            <a href="#mission">Mission</a>
+            <a href="#fields">Fields</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+      <div className="header-spacer" aria-hidden="true" />
 
-          <div className="hero-lower">
-            <div className="hero-statement">
-              <p className="kicker">For futures worth inhabiting</p>
-              <h1 id="hero-title">
-                Research, culture, and infrastructure for a more coherent world.
-              </h1>
-              <p className="hero-summary">
+      <div className="content-frame" id="main-content">
+        <section className="introduction" aria-labelledby="hero-title">
+          <p className="eyebrow">Independent research foundation</p>
+          <div className="introduction-grid">
+            <h1 id="hero-title">A framework for futures worth inhabiting.</h1>
+            <div className="introduction-copy">
+              <p>
                 GENII Foundation is an independent home for long-horizon inquiry,
                 consequential media, and public-interest technology.
               </p>
-              <a className="text-link" href="#work">
-                Explore current work <span aria-hidden="true">↘</span>
-              </a>
-            </div>
-
-            <div className="hero-instrument" aria-hidden="true">
-              <div className="instrument-ring ring-outer" />
-              <div className="instrument-ring ring-inner" />
-              <div className="instrument-axis axis-horizontal" />
-              <div className="instrument-axis axis-vertical" />
-              <span className="instrument-point point-a" />
-              <span className="instrument-point point-b" />
-              <span className="instrument-point point-c" />
-              <span className="instrument-label label-a">Research</span>
-              <span className="instrument-label label-b">Culture</span>
-              <span className="instrument-label label-c">Infrastructure</span>
-              <span className="instrument-center">
-                <Image alt="" height={512} src="/icon.png" width={512} />
-              </span>
+              <p>Research, culture, and infrastructure for a more coherent world.</p>
             </div>
           </div>
         </section>
 
-        <section className="mission atlas-section" id="mission" aria-labelledby="mission-title">
-          <div className="section-register">
-            <span>01</span>
-            <span>Purpose</span>
-            <span>Present and long horizon</span>
+        <section className="featured-work" id="work" aria-label="Current work">
+          <p className="eyebrow">Current work</p>
+          <div className="project-grid">
+            {projects.map((project) => (
+              <a
+                className="project-card"
+                href={project.href}
+                key={project.title}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <span className="project-type">{project.type}</span>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <span className="project-action">
+                  {project.action} <span aria-hidden="true">↗</span>
+                </span>
+              </a>
+            ))}
           </div>
-          <div className="mission-grid">
+        </section>
+
+        <section className="mission section-panel" id="mission" aria-labelledby="mission-title">
+          <div className="section-heading">
+            <p className="eyebrow">Mission</p>
             <h2 id="mission-title">
               The future is not a destination. It is a capacity we build together.
             </h2>
-            <div className="mission-copy">
-              <p>
-                We investigate how inner life, social systems, technology, and
-                ecology shape one another. We turn that inquiry into work people
-                can read, use, test, and improve.
-              </p>
-              <p>
-                Our aim is rigorous and practical: expand the conditions for
-                wiser relationships, more capable institutions, and forms of
-                progress that remain worth inheriting.
-              </p>
-            </div>
           </div>
-          <div className="mission-note">
-            <span>Method</span>
-            <p>Study the whole. Make knowledge public. Build what the evidence requires.</p>
+          <div className="reading-column">
+            <p>
+              We investigate how inner life, social systems, technology, and
+              ecology shape one another. We turn that inquiry into work people
+              can read, use, test, and improve.
+            </p>
+            <p>
+              Our aim is rigorous and practical: wiser relationships, more
+              capable institutions, and forms of progress that remain worth
+              inheriting.
+            </p>
           </div>
         </section>
 
-        <section className="fields atlas-section" id="fields" aria-labelledby="fields-title">
-          <div className="section-register">
-            <span>02</span>
-            <span id="fields-title">Fields of action</span>
-            <span>One system, three expressions</span>
+        <section className="fields section-panel" id="fields" aria-labelledby="fields-title">
+          <div className="section-heading fields-heading">
+            <p className="eyebrow">Fields of action</p>
+            <h2 id="fields-title">One system. Three expressions.</h2>
           </div>
           <div className="fields-grid">
             {fields.map((field) => (
-              <article className="field-card" key={field.index}>
-                <span className="field-index">{field.index}</span>
+              <article className="field-card" key={field.title}>
                 <h3>{field.title}</h3>
                 <p>{field.text}</p>
               </article>
@@ -163,83 +143,40 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="work atlas-section" id="work" aria-labelledby="work-title">
-          <div className="section-register">
-            <span>03</span>
-            <span>Current work</span>
-            <span>Initial project constellation</span>
-          </div>
-          <div className="work-heading">
-            <h2 id="work-title">A parent institution for ideas that need somewhere real to go.</h2>
-            <p>
-              Our first projects approach coherence from complementary directions:
-              shared knowledge and lived experience.
-            </p>
-          </div>
-          <div className="project-list">
-            {projects.map((project) => (
-              <a
-                className="project-card"
-                href={project.href}
-                key={project.index}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <div className="project-index">{project.index}</div>
-                <div className="project-type">{project.type}</div>
-                <div className="project-copy">
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                </div>
-                <div className="project-action">
-                  <span>{project.action}</span>
-                  <span aria-hidden="true">↗</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        <section className="contact" id="contact" aria-labelledby="contact-title">
-          <div className="contact-register">
-            <span>04</span>
-            <span>Open channel</span>
-          </div>
-          <div className="contact-copy">
-            <p className="kicker">The next work begins in conversation</p>
+        <section className="contact section-panel" id="contact" aria-labelledby="contact-title">
+          <p className="eyebrow">Open channel</p>
+          <div className="contact-grid">
             <h2 id="contact-title">Bring a question with consequence.</h2>
-            <p>
-              We welcome researchers, builders, funders, artists, and civic
-              stewards working toward more coherent forms of life.
-            </p>
-            <a className="contact-link" href="https://aubreyfalconer.com/#contact">
-              Contact the foundation <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-          <div className="contact-seal" aria-hidden="true">
-            <span>
-              <Image alt="" height={512} src="/icon.png" width={512} />
-            </span>
+            <div>
+              <p>
+                We welcome researchers, builders, funders, artists, and civic
+                stewards working toward more coherent forms of life.
+              </p>
+              <a className="text-link" href="https://aubreyfalconer.com/#contact">
+                Contact the foundation <span aria-hidden="true">↗</span>
+              </a>
+            </div>
           </div>
         </section>
       </div>
 
       <footer className="site-footer">
-        <a className="footer-brand" href="#top" aria-label="GENII Foundation, home">
-          <Wordmark />
-          <span>Foundation</span>
-        </a>
-        <p>For futures worth inhabiting.</p>
-        <div className="footer-links">
-          <a href="https://github.com/genii-foundation" rel="noopener noreferrer" target="_blank">
-            GitHub
+        <div className="footer-inner">
+          <a className="footer-brand" href="#top" aria-label="GENII Foundation, home">
+            <Wordmark />
+            <span>Foundation</span>
           </a>
-          <a href="https://www.coherence-thesis.com/" rel="noopener noreferrer" target="_blank">
-            The Coherence Thesis
-          </a>
-          <a href="#top">Back to top</a>
+          <p>For futures worth inhabiting.</p>
+          <div className="footer-links">
+            <a href="https://github.com/genii-foundation" rel="noopener noreferrer" target="_blank">
+              GitHub
+            </a>
+            <a href="https://www.coherence-thesis.com/" rel="noopener noreferrer" target="_blank">
+              The Coherence Thesis
+            </a>
+          </div>
+          <small>© 2026 GENII Foundation</small>
         </div>
-        <small>© 2026 GENII Foundation</small>
       </footer>
     </main>
   );

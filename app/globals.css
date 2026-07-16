@@ -146,7 +146,7 @@ img {
 
 @keyframes collapse-brand {
   from {
-    width: min(52rem, calc(100vw - 30rem));
+    width: min(52rem, calc(100vw - 32rem));
   }
 
   to {
@@ -160,10 +160,10 @@ img {
 
 .header-inner {
   align-items: center;
-  display: flex;
-  gap: clamp(3rem, 5vw, 6.5rem);
+  column-gap: clamp(4.5rem, 7vw, 8rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   height: 100%;
-  justify-content: center;
   margin: 0 auto;
   max-width: var(--navigation-width);
   padding: 0 1.5rem;
@@ -179,6 +179,7 @@ img {
 
 .header-brand {
   align-self: center;
+  max-width: 100%;
   width: max(9.5rem, calc(52rem - (var(--header-collapse) * 2.5px)));
 }
 
@@ -528,7 +529,11 @@ img {
   }
 
   .header-brand {
-    width: max(8.8rem, calc(38rem - (var(--header-collapse) * 2px)));
+    width: max(8.8rem, calc(31rem - (var(--header-collapse) * 1.9px)));
+  }
+
+  .header-inner {
+    column-gap: 3rem;
   }
 
   @supports (animation-timeline: scroll()) {
@@ -713,7 +718,7 @@ img {
 
 @keyframes collapse-brand-tablet {
   from {
-    width: min(38rem, calc(100vw - 24rem));
+    width: min(31rem, calc(100vw - 27rem));
   }
 
   to {

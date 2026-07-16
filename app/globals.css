@@ -268,7 +268,6 @@ img {
 }
 
 .introduction-copy {
-  border-left: 1px solid var(--line);
   padding-left: clamp(1.5rem, 3vw, 3rem);
 }
 
@@ -297,7 +296,6 @@ img {
 }
 
 .section-heading {
-  border-top: 1px solid var(--line);
   display: grid;
   gap: 2rem;
   grid-template-columns: minmax(10rem, 0.35fr) 1fr;
@@ -314,7 +312,7 @@ img {
 
 .project-grid {
   display: grid;
-  gap: 1px;
+  gap: 0;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 3.5rem;
 }
@@ -389,7 +387,6 @@ img {
 .section-panel {
   backdrop-filter: blur(24px) saturate(112%);
   background: rgba(248, 245, 237, 0.7);
-  border: 1px solid var(--line-light);
   border-radius: 0.3rem;
   box-shadow: 0 2.5rem 6rem rgba(51, 47, 38, 0.08);
   margin-top: clamp(6rem, 12vw, 11rem);
@@ -428,8 +425,6 @@ img {
 }
 
 .fields-grid {
-  border-bottom: 1px solid var(--line);
-  border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin-top: clamp(4rem, 7vw, 6rem);
@@ -438,10 +433,6 @@ img {
 .field-card {
   min-height: 21rem;
   padding: 2rem clamp(1.2rem, 3vw, 2.8rem);
-}
-
-.field-card + .field-card {
-  border-left: 1px solid var(--line);
 }
 
 .field-card h3 {
@@ -556,8 +547,6 @@ img {
   }
 
   .introduction-copy {
-    border-left: 0;
-    border-top: 1px solid var(--line);
     max-width: 42rem;
     padding-left: 0;
     padding-top: 2rem;
@@ -582,11 +571,6 @@ img {
   .field-card {
     min-height: 0;
     padding: 2.5rem 0;
-  }
-
-  .field-card + .field-card {
-    border-left: 0;
-    border-top: 1px solid var(--line);
   }
 
   .field-card h3 {

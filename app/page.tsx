@@ -85,11 +85,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="featured-work" id="work" aria-labelledby="work-title">
-          <div className="section-heading">
-            <p className="eyebrow">Current work</p>
-            <h2 id="work-title">Research made concrete.</h2>
-          </div>
+        <section className="featured-work" id="work" aria-label="Current work">
+          <p className="eyebrow">Current work</p>
           <div className="project-grid">
             {projects.map((project) => (
               <a

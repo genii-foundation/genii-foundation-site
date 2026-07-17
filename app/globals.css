@@ -568,6 +568,16 @@ img {
   gap: 1.5rem;
 }
 
+.footer-github-link {
+  gap: 0.5rem;
+}
+
+.footer-link-icon {
+  flex: 0 0 auto;
+  height: 1.05rem;
+  width: 1.05rem;
+}
+
 .footer-inner small {
   color: #8c8981;
   font-size: 0.58rem;

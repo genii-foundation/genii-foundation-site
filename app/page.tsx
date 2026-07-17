@@ -50,10 +50,6 @@ function Wordmark({ priority = false }: { priority?: boolean }) {
 export default function Home() {
   return (
     <main className="atlas-site" id="top">
-      <a className="skip-link" href="#main-content">
-        Skip to main content
-      </a>
-
       <header className="site-header">
         <div className="header-inner">
           <a className="header-brand" href="#top" aria-label="GENII Foundation, home">

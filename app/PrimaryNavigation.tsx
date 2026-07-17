@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { ContactTrigger } from "./ContactDialog";
+
 const navigationItems = [
   { id: "work", label: "Work" },
   { id: "mission", label: "Mission" },
@@ -55,16 +57,26 @@ export function PrimaryNavigation() {
 
   return (
     <nav aria-label="Primary navigation">
-      {navigationItems.map(({ id, label }) => (
-        <a
-          aria-current={activeId === id ? "location" : undefined}
-          href={`#${id}`}
-          key={id}
-          onClick={() => setActiveId(id)}
-        >
-          {label}
-        </a>
-      ))}
+      {navigationItems.map(({ id, label }) => {
+        if (id === "contact") {
+          return (
+            <ContactTrigger current={activeId === id} key={id}>
+              {label}
+            </ContactTrigger>
+          );
+        }
+
+        return (
+          <a
+            aria-current={activeId === id ? "location" : undefined}
+            href={`#${id}`}
+            key={id}
+            onClick={() => setActiveId(id)}
+          >
+            {label}
+          </a>
+        );
+      })}
     </nav>
   );
 }

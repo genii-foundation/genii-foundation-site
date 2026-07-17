@@ -38,6 +38,10 @@ body {
   overflow-x: hidden;
 }
 
+body:has(.contact-dialog[open]) {
+  overflow: hidden;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -189,6 +193,7 @@ img {
 }
 
 .site-header nav a,
+.site-header nav button,
 .footer-links a {
   align-items: center;
   display: inline-flex;
@@ -199,12 +204,19 @@ img {
   text-transform: uppercase;
 }
 
-.site-header nav a {
+.site-header nav :is(a, button) {
+  appearance: none;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
   position: relative;
   transition: color 180ms ease;
 }
 
-.site-header nav a::after {
+.site-header nav :is(a, button)::after {
   background: currentColor;
   bottom: 0.3rem;
   content: "";
@@ -220,23 +232,28 @@ img {
     transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.site-header nav a:hover,
+.site-header nav :is(a, button):hover,
 .footer-links a:hover {
   color: var(--gold);
 }
 
-.site-header nav a:hover::after,
-.site-header nav a:focus-visible::after {
+.site-header nav :is(a, button):hover::after,
+.site-header nav :is(a, button):focus-visible::after {
   height: 1px;
   opacity: 1;
   transform: scaleX(1);
 }
 
-.site-header nav a[aria-current="location"] {
+.site-header nav :is(a, button)[aria-current="location"] {
   color: var(--gold);
 }
 
-.site-header nav a[aria-current="location"]::after {
+.site-header nav button[data-current="true"] {
+  color: var(--gold);
+}
+
+.site-header nav :is(a, button)[aria-current="location"]::after,
+.site-header nav button[data-current="true"]::after {
   height: 3px;
   opacity: 1;
   transform: scaleX(1);
@@ -462,6 +479,17 @@ img {
   color: var(--gold);
 }
 
+button.text-link {
+  appearance: none;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .section-panel {
   background: rgba(248, 245, 237, 0.78);
   border-radius: 0.3rem;
@@ -574,6 +602,167 @@ img {
 
 .contact-grid > div {
   max-width: 34rem;
+}
+
+.contact-dialog {
+  background: transparent;
+  border: 0;
+  color: var(--ink);
+  max-height: calc(100dvh - 2rem);
+  max-width: 52rem;
+  padding: 0;
+  width: calc(100% - 2rem);
+}
+
+.contact-dialog::backdrop {
+  background: rgba(17, 18, 15, 0.68);
+}
+
+.contact-dialog-shell {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(183, 153, 91, 0.2), transparent 38%),
+    var(--paper-light);
+  box-shadow: 0 2.5rem 7rem rgba(0, 0, 0, 0.35);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(2rem, 6vw, 4.5rem);
+}
+
+.contact-dialog-header {
+  align-items: flex-start;
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.contact-dialog-header h2 {
+  font-size: clamp(3.25rem, 7vw, 5.5rem);
+  letter-spacing: -0.055em;
+  line-height: 0.88;
+  margin: 1.5rem 0 0;
+  max-width: 8ch;
+}
+
+.contact-dialog-header h2:focus {
+  outline: 0;
+}
+
+.contact-dialog-description {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1.45;
+  margin: 1.5rem 0 0;
+}
+
+.contact-dialog-header form {
+  margin: 0;
+}
+
+.contact-dialog-close {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 1px solid rgba(17, 18, 15, 0.26);
+  color: currentColor;
+  cursor: pointer;
+  display: inline-flex;
+  height: 2.75rem;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 180ms ease, border-color 180ms ease,
+    color 180ms ease;
+  width: 2.75rem;
+}
+
+.contact-dialog-close svg {
+  fill: none;
+  height: 1rem;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  width: 1rem;
+}
+
+.contact-dialog-close:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper-light);
+}
+
+.contact-options {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.contact-option {
+  background: rgba(255, 253, 247, 0.4);
+  border: 1px solid rgba(17, 18, 15, 0.2);
+  display: flex;
+  flex-direction: column;
+  min-height: 20rem;
+  overflow: hidden;
+  padding: 2rem;
+  position: relative;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.contact-option::before {
+  border: 1px solid var(--gold-bright);
+  content: "";
+  inset: 0.55rem;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: scale(0.985);
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.contact-option:hover,
+.contact-option:focus-visible {
+  background: rgba(255, 253, 247, 0.74);
+  border-color: rgba(128, 106, 63, 0.72);
+}
+
+.contact-option:hover::before,
+.contact-option:focus-visible::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.contact-option-kicker {
+  color: var(--gold);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.contact-option strong {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  margin-top: 2.25rem;
+}
+
+.contact-option p {
+  font-size: 0.78rem;
+  line-height: 1.65;
+  margin: 1.25rem 0 2rem;
+}
+
+.contact-option-action {
+  align-self: flex-start;
+  border-bottom: 1px solid currentColor;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  margin-top: auto;
+  padding-bottom: 0.28rem;
+  text-transform: uppercase;
 }
 
 .site-footer {
@@ -757,9 +946,33 @@ img {
     gap: 0.55rem;
   }
 
-  .site-header nav a {
+  .site-header nav :is(a, button) {
     font-size: 0.5rem;
     letter-spacing: 0.1em;
+  }
+
+  .contact-dialog {
+    max-height: calc(100dvh - 1rem);
+    width: calc(100% - 1rem);
+  }
+
+  .contact-dialog-shell {
+    max-height: calc(100dvh - 1rem);
+    padding: 1.5rem;
+  }
+
+  .contact-dialog-header {
+    gap: 1rem;
+  }
+
+  .contact-options {
+    grid-template-columns: 1fr;
+    margin-top: 2.5rem;
+  }
+
+  .contact-option {
+    min-height: 15rem;
+    padding: 1.6rem;
   }
 
   .introduction {
@@ -874,8 +1087,11 @@ img {
     height: 5.5rem;
   }
 
-  .site-header nav a,
-  .site-header nav a::after {
+  .site-header nav :is(a, button),
+  .site-header nav :is(a, button)::after,
+  .contact-dialog-close,
+  .contact-option,
+  .contact-option::before {
     transition: none;
   }
 }

@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { ContactDialogProvider, ContactTrigger } from "./ContactDialog";
 import { PrimaryNavigation } from "./PrimaryNavigation";
 
 const projects = [
@@ -67,7 +68,8 @@ function GitHubMark() {
 
 export default function Home() {
   return (
-    <div className="atlas-site" id="top">
+    <ContactDialogProvider>
+      <div className="atlas-site" id="top">
       <header className="site-header">
         <div className="header-inner">
           <a className="header-brand" href="#top" aria-label="GENII Foundation, home">
@@ -155,9 +157,9 @@ export default function Home() {
                 artists, and civic stewards whose work intersects with our
                 current projects.
               </p>
-              <a className="text-link" href="https://aubreyfalconer.com/#contact">
+              <ContactTrigger className="text-link">
                 Contact GENII Foundation
-              </a>
+              </ContactTrigger>
             </div>
           </div>
         </section>
@@ -183,6 +185,7 @@ export default function Home() {
           <small>© 2026 GENII Foundation</small>
         </div>
       </footer>
-    </div>
+      </div>
+    </ContactDialogProvider>
   );
 }

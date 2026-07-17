@@ -590,6 +590,12 @@ img {
     width: 31rem;
   }
 
+  .header-brand img {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+  }
+
   .header-inner {
     column-gap: 3rem;
   }

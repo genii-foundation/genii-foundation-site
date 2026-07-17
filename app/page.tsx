@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { PrimaryNavigation } from "./PrimaryNavigation";
+
 const projects = [
   {
     type: "Living publication",
@@ -72,12 +74,7 @@ export default function Home() {
             <Wordmark priority />
             <span>Foundation</span>
           </a>
-          <nav aria-label="Primary navigation">
-            <a href="#work">Work</a>
-            <a href="#mission">Mission</a>
-            <a href="#fields">Fields</a>
-            <a href="#contact">Contact</a>
-          </nav>
+          <PrimaryNavigation />
         </div>
       </header>
       <div className="header-spacer" aria-hidden="true" />

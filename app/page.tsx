@@ -49,7 +49,7 @@ function Wordmark({ priority = false }: { priority?: boolean }) {
 
 export default function Home() {
   return (
-    <main className="atlas-site" id="top">
+    <div className="atlas-site" id="top">
       <header className="site-header">
         <div className="header-inner">
           <a className="header-brand" href="#top" aria-label="GENII Foundation, home">
@@ -66,7 +66,7 @@ export default function Home() {
       </header>
       <div className="header-spacer" aria-hidden="true" />
 
-      <div className="content-frame" id="main-content">
+      <main className="content-frame">
         <section className="introduction" aria-labelledby="hero-title">
           <p className="eyebrow">Independent research foundation</p>
           <div className="introduction-grid">
@@ -89,15 +89,11 @@ export default function Home() {
                 className="project-card"
                 href={project.href}
                 key={project.title}
-                rel="noopener noreferrer"
-                target="_blank"
               >
                 <span className="project-type">{project.type}</span>
-                <h3>{project.title}</h3>
+                <h2>{project.title}</h2>
                 <p>{project.description}</p>
-                <span className="project-action">
-                  {project.action} <span aria-hidden="true">↗</span>
-                </span>
+                <span className="project-action">{project.action}</span>
               </a>
             ))}
           </div>
@@ -106,28 +102,25 @@ export default function Home() {
         <section className="mission section-panel" id="mission" aria-labelledby="mission-title">
           <div className="section-heading">
             <p className="eyebrow">Mission</p>
-            <h2 id="mission-title">
-              The future is not a destination. It is a capacity we build together.
-            </h2>
+            <h2 id="mission-title">Study how inner life, institutions, technology, and ecology shape one another.</h2>
           </div>
           <div className="reading-column">
             <p>
-              We investigate how inner life, social systems, technology, and
-              ecology shape one another. We turn that inquiry into work people
-              can read, use, test, and improve.
+              GENII Foundation develops research and public work at the
+              intersection of human experience, social systems, and technology.
+              Each project is designed to be read, tested, used, and improved.
             </p>
             <p>
-              Our aim is rigorous and practical: wiser relationships, more
-              capable institutions, and forms of progress that remain worth
-              inheriting.
+              Our standard is practical: clearer relationships, more capable
+              institutions, and technologies that support human agency.
             </p>
           </div>
         </section>
 
         <section className="fields section-panel" id="fields" aria-labelledby="fields-title">
           <div className="section-heading fields-heading">
-            <p className="eyebrow">Fields of action</p>
-            <h2 id="fields-title">One system. Three expressions.</h2>
+            <p className="eyebrow">Areas of work</p>
+            <h2 id="fields-title">Research, culture, and infrastructure.</h2>
           </div>
           <div className="fields-grid">
             {fields.map((field) => (
@@ -140,21 +133,22 @@ export default function Home() {
         </section>
 
         <section className="contact section-panel" id="contact" aria-labelledby="contact-title">
-          <p className="eyebrow">Open channel</p>
+          <p className="eyebrow">Contact</p>
           <div className="contact-grid">
-            <h2 id="contact-title">Bring a question with consequence.</h2>
+            <h2 id="contact-title">Work with GENII Foundation.</h2>
             <div>
               <p>
-                We welcome researchers, builders, funders, artists, and civic
-                stewards working toward more coherent forms of life.
+                We welcome inquiries from researchers, builders, funders,
+                artists, and civic stewards whose work intersects with our
+                current projects.
               </p>
               <a className="text-link" href="https://aubreyfalconer.com/#contact">
-                Contact the foundation <span aria-hidden="true">↗</span>
+                Contact GENII Foundation
               </a>
             </div>
           </div>
         </section>
-      </div>
+      </main>
 
       <footer className="site-footer">
         <div className="footer-inner">
@@ -164,16 +158,12 @@ export default function Home() {
           </a>
           <p>For futures worth inhabiting.</p>
           <div className="footer-links">
-            <a href="https://github.com/genii-foundation" rel="noopener noreferrer" target="_blank">
-              GitHub
-            </a>
-            <a href="https://www.coherence-thesis.com/" rel="noopener noreferrer" target="_blank">
-              The Coherence Thesis
-            </a>
+            <a href="https://github.com/genii-foundation">GitHub</a>
+            <a href="https://www.coherence-thesis.com/">The Coherence Thesis</a>
           </div>
           <small>© 2026 GENII Foundation</small>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }

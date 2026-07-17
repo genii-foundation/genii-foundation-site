@@ -26,6 +26,7 @@ html {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   color-scheme: light;
+  scroll-behavior: smooth;
   scroll-padding-top: 7rem;
 }
 
@@ -849,6 +850,10 @@ img {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .site-header {
     animation: none;
     height: 5.5rem;

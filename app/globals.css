@@ -89,25 +89,6 @@ img {
   z-index: -1;
 }
 
-.skip-link {
-  background: var(--ink);
-  color: var(--paper-light);
-  font-size: 0.75rem;
-  font-weight: 700;
-  left: 1rem;
-  letter-spacing: 0.08em;
-  padding: 0.85rem 1rem;
-  position: fixed;
-  text-transform: uppercase;
-  top: 1rem;
-  transform: translateY(-180%);
-  z-index: 100;
-}
-
-.skip-link:focus {
-  transform: translateY(0);
-}
-
 .site-header {
   backdrop-filter: blur(22px) saturate(118%);
   background: rgba(226, 221, 210, 0.74);

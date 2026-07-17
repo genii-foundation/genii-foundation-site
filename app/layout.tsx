@@ -30,13 +30,6 @@ export const metadata: Metadata = {
   title: "GENII Foundation | Research, Culture, Infrastructure",
   description:
     "GENII Foundation is an independent home for long-horizon research, consequential media, and public-interest technology.",
-  keywords: [
-    "GENII Foundation",
-    "coherence",
-    "long-horizon research",
-    "public-interest technology",
-    "culture",
-  ],
   alternates: { canonical: "/" },
   openGraph: {
     title: "GENII Foundation",

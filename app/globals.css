@@ -1,3 +1,15 @@
+@property --brand-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --brand-label-offset {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0rem;
+}
+
 :root {
   --ink: #11120f;
   --paper: #ded9ce;
@@ -72,6 +84,7 @@ img {
 }
 
 .site-header {
+  --header-label-font-size: 0.66rem;
   background: #e2ddd2;
   border-bottom: 1px solid rgba(41, 42, 37, 0.2);
   contain: layout paint;
@@ -106,6 +119,15 @@ img {
   }
 }
 
+@supports (animation-timeline: scroll()) and
+  (not (transform: scale(calc(1 / 0.5)))) {
+  .header-brand {
+    animation: none;
+    transform: none;
+    width: 9.5rem;
+  }
+}
+
 @keyframes collapse-header-transform {
   from {
     transform: translate3d(0, 0, 0);
@@ -128,11 +150,13 @@ img {
 
 @keyframes collapse-brand-transform {
   from {
-    transform: scale(1);
+    --brand-label-offset: 0rem;
+    --brand-scale: 1;
   }
 
   to {
-    transform: scale(0.1827);
+    --brand-label-offset: 0.65384rem;
+    --brand-scale: 0.1827;
   }
 }
 
@@ -161,8 +185,11 @@ img {
 }
 
 .header-brand {
+  --brand-label-offset: 0rem;
+  --brand-scale: 1;
   align-self: center;
   max-width: 100%;
+  transform: scale(var(--brand-scale));
   transform-origin: left center;
   will-change: transform;
   width: 52rem;
@@ -177,11 +204,21 @@ img {
 .footer-brand span {
   color: var(--gold);
   flex: 0 0 auto;
-  font-size: 0.54rem;
   font-weight: 700;
   letter-spacing: 0.23em;
   margin-bottom: 0.18rem;
   text-transform: uppercase;
+}
+
+.header-brand span {
+  font-size: var(--header-label-font-size);
+  transform: scale(calc(1 / var(--brand-scale)))
+    translateX(var(--brand-label-offset));
+  transform-origin: left bottom;
+}
+
+.footer-brand span {
+  font-size: 0.54rem;
 }
 
 .site-header nav {
@@ -197,11 +234,19 @@ img {
 .footer-links a {
   align-items: center;
   display: inline-flex;
-  font-size: 0.66rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   min-height: 2.75rem;
   text-transform: uppercase;
+}
+
+.site-header nav a,
+.site-header nav button {
+  font-size: var(--header-label-font-size);
+}
+
+.footer-links a {
+  font-size: 0.66rem;
 }
 
 .site-header nav :is(a, button) {
@@ -855,6 +900,13 @@ button.text-link {
     }
   }
 
+  @supports (animation-timeline: scroll()) and
+    (not (transform: scale(calc(1 / 0.5)))) {
+    .header-brand {
+      width: 8.8rem;
+    }
+  }
+
   .introduction-grid,
   .mission,
   .contact-grid {
@@ -907,6 +959,7 @@ button.text-link {
   }
 
   .site-header {
+    --header-label-font-size: 0.5rem;
     animation: none;
     height: 5.25rem;
   }
@@ -938,7 +991,6 @@ button.text-link {
 
   .header-brand span {
     display: block;
-    font-size: 0.4rem;
     margin-top: 0.22rem;
   }
 
@@ -947,7 +999,6 @@ button.text-link {
   }
 
   .site-header nav :is(a, button) {
-    font-size: 0.5rem;
     letter-spacing: 0.1em;
   }
 
@@ -1054,11 +1105,13 @@ button.text-link {
 
 @keyframes collapse-brand-transform-tablet {
   from {
-    transform: scale(1);
+    --brand-label-offset: 0rem;
+    --brand-scale: 1;
   }
 
   to {
-    transform: scale(0.2839);
+    --brand-label-offset: 0.57288rem;
+    --brand-scale: 0.2839;
   }
 }
 

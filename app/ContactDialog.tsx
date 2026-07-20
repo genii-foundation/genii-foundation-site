@@ -62,7 +62,6 @@ export function ContactDialogProvider({ children }: { children: ReactNode }) {
     <ContactDialogContext.Provider value={{ openDialog }}>
       {children}
       <dialog
-        aria-describedby="contact-dialog-description"
         aria-labelledby="contact-dialog-title"
         className="contact-dialog"
         onClick={(event) => {
@@ -73,15 +72,9 @@ export function ContactDialogProvider({ children }: { children: ReactNode }) {
       >
         <div className="contact-dialog-shell">
           <div className="contact-dialog-header">
-            <div>
-              <p className="eyebrow">Contact</p>
-              <h2 id="contact-dialog-title" ref={headingRef} tabIndex={-1}>
-                Choose the right channel.
-              </h2>
-              <p className="contact-dialog-description" id="contact-dialog-description">
-                Email for the foundation. GitHub for the thesis.
-              </p>
-            </div>
+            <h2 id="contact-dialog-title" ref={headingRef} tabIndex={-1}>
+              Contact
+            </h2>
             <form method="dialog">
               <button
                 className="contact-dialog-close"
@@ -107,10 +100,10 @@ export function ContactDialogProvider({ children }: { children: ReactNode }) {
               href="https://github.com/genii-foundation/coherence-thesis/issues/new"
             >
               <span className="contact-option-kicker">GitHub</span>
-              <strong>Open a thesis issue</strong>
+              <strong>Open a thesis ticket</strong>
               <p>
-                Corrections, source questions, and problems with The Coherence
-                Thesis. Tickets are public.
+                Corrections and source questions for The Coherence Thesis.
+                Tickets are public.
               </p>
               <span className="contact-option-action">Open a ticket</span>
             </a>

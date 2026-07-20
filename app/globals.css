@@ -85,8 +85,11 @@ img {
 
 .site-header {
   --header-label-font-size: 0.66rem;
-  background: #e2ddd2;
+  -webkit-backdrop-filter: blur(0) saturate(100%);
+  backdrop-filter: blur(0) saturate(100%);
+  background-color: rgb(226 221 210 / 1);
   border-bottom: 1px solid rgba(41, 42, 37, 0.2);
+  box-shadow: 0 0 0 rgba(17, 18, 15, 0);
   contain: layout paint;
   height: 22.5rem;
   left: 0;
@@ -95,15 +98,17 @@ img {
   right: 0;
   top: 0;
   transform: translate3d(0, 0, 0);
-  will-change: transform;
+  will-change: backdrop-filter, background-color, transform;
   z-index: 40;
 }
 
 @supports (animation-timeline: scroll()) {
   .site-header {
-    animation: collapse-header-transform linear both;
-    animation-range: 0 272px;
-    animation-timeline: scroll(root block);
+    animation:
+      collapse-header-transform linear both,
+      frost-header-surface linear both;
+    animation-range: 0 272px, 0 272px;
+    animation-timeline: scroll(root block), scroll(root block);
   }
 
   .header-inner {
@@ -119,12 +124,21 @@ img {
   }
 }
 
-@supports (animation-timeline: scroll()) and
-  (not (transform: scale(calc(1 / 0.5)))) {
-  .header-brand {
-    animation: none;
-    transform: none;
-    width: 9.5rem;
+@keyframes frost-header-surface {
+  from {
+    -webkit-backdrop-filter: blur(0) saturate(100%);
+    backdrop-filter: blur(0) saturate(100%);
+    background-color: rgb(226 221 210 / 1);
+    border-bottom-color: rgba(41, 42, 37, 0.2);
+    box-shadow: 0 0 0 rgba(17, 18, 15, 0);
+  }
+
+  to {
+    -webkit-backdrop-filter: blur(14px) saturate(110%);
+    backdrop-filter: blur(14px) saturate(110%);
+    background-color: rgb(226 221 210 / 0.72);
+    border-bottom-color: rgba(41, 42, 37, 0.14);
+    box-shadow: 0 0.75rem 2rem rgba(17, 18, 15, 0.07);
   }
 }
 
@@ -150,13 +164,31 @@ img {
 
 @keyframes collapse-brand-transform {
   from {
-    --brand-label-offset: 0rem;
-    --brand-scale: 1;
+    align-items: flex-end;
+    flex-direction: row;
+    gap: 0.8rem;
+    width: 52rem;
+  }
+
+  61.99% {
+    align-items: flex-end;
+    flex-direction: row;
+    gap: 0.8rem;
+    width: 21rem;
+  }
+
+  62% {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
+    width: 14.6rem;
   }
 
   to {
-    --brand-label-offset: 0.65384rem;
-    --brand-scale: 0.1827;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
+    width: 9.5rem;
   }
 }
 
@@ -185,19 +217,16 @@ img {
 }
 
 .header-brand {
-  --brand-label-offset: 0rem;
-  --brand-scale: 1;
   align-self: center;
   max-width: 100%;
-  transform: scale(var(--brand-scale));
-  transform-origin: left center;
-  will-change: transform;
+  will-change: width;
   width: 52rem;
 }
 
 .header-brand img {
-  flex: 0 1 auto;
-  width: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
 }
 
 .header-brand span,
@@ -212,13 +241,13 @@ img {
 
 .header-brand span {
   font-size: var(--header-label-font-size);
-  transform: scale(calc(1 / var(--brand-scale)))
-    translateX(var(--brand-label-offset));
-  transform-origin: left bottom;
+  line-height: 1;
+  margin-bottom: 0;
 }
 
 .footer-brand span {
   font-size: 0.54rem;
+  margin-bottom: 0.18rem;
 }
 
 .site-header nav {
@@ -357,7 +386,7 @@ img {
 }
 
 .introduction-copy p,
-.reading-column p,
+.mission-statement,
 .contact-grid > div > p {
   font-family: var(--font-display), Georgia, serif;
   font-size: clamp(1.25rem, 1.7vw, 1.55rem);
@@ -449,6 +478,10 @@ img {
   letter-spacing: -0.05em;
   line-height: 0.88;
   margin: auto 0 1.5rem;
+}
+
+.project-title-h {
+  margin-left: 0.05em;
 }
 
 .project-card p {
@@ -544,50 +577,55 @@ button.text-link {
   scroll-margin-top: 7rem;
 }
 
-.mission {
+.mission-fields-intro {
+  align-items: end;
   display: grid;
   gap: clamp(4rem, 9vw, 9rem);
   grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
 }
 
-.mission .section-heading {
+.mission-fields .section-heading {
   display: block;
 }
 
-.mission .section-heading h2 {
-  font-size: clamp(3.4rem, 6.7vw, 6.9rem);
-  line-height: 0.89;
+.mission-fields .section-heading h2 {
+  font-size: clamp(3.4rem, 5.8vw, 6rem);
+  line-height: 0.91;
   margin-top: 3rem;
-  max-width: 11ch;
-}
-
-.reading-column {
-  align-self: end;
-  max-width: 38rem;
-}
-
-.reading-column p + p {
-  margin-top: 1.6rem;
-}
-
-.fields-heading h2 {
   max-width: 12ch;
+}
+
+.mission-statement {
+  max-width: 32rem;
+}
+
+.fields-block {
+  border-top: 1px solid rgba(41, 42, 37, 0.18);
+  margin-top: clamp(4rem, 8vw, 7rem);
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  scroll-margin-top: 7rem;
 }
 
 .fields-grid {
   display: grid;
   gap: clamp(0.9rem, 2vw, 1.5rem);
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: clamp(4rem, 7vw, 6rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 2rem;
+  width: 100%;
 }
 
 .field-card {
   background: rgba(255, 253, 247, 0.18);
   border: 1px solid rgba(41, 42, 37, 0.2);
   border-radius: 0.25rem;
-  min-height: 21rem;
-  padding: 2rem clamp(1.2rem, 3vw, 2.8rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 16rem;
+  min-width: 0;
+  padding: clamp(1.75rem, 2.4vw, 2.5rem);
   position: relative;
+  text-align: left;
   transition: background-color 180ms ease, border-color 180ms ease;
 }
 
@@ -613,9 +651,10 @@ button.text-link {
 }
 
 .field-card h3 {
-  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-size: clamp(2.4rem, 3.3vw, 3.5rem);
   letter-spacing: -0.04em;
-  margin: 5rem 0 1.2rem;
+  line-height: 0.95;
+  margin: 0 0 1rem;
 }
 
 .field-card p {
@@ -654,7 +693,7 @@ button.text-link {
   border: 0;
   color: var(--ink);
   max-height: calc(100dvh - 2rem);
-  max-width: 52rem;
+  max-width: 68rem;
   padding: 0;
   width: calc(100% - 2rem);
 }
@@ -672,6 +711,7 @@ button.text-link {
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: clamp(2rem, 6vw, 4.5rem);
+  position: relative;
 }
 
 .contact-dialog-header {
@@ -682,26 +722,22 @@ button.text-link {
 }
 
 .contact-dialog-header h2 {
-  font-size: clamp(3.25rem, 7vw, 5.5rem);
+  font-size: clamp(4.5rem, 9vw, 7.5rem);
   letter-spacing: -0.055em;
   line-height: 0.88;
-  margin: 1.5rem 0 0;
-  max-width: 8ch;
+  margin: 0;
+  max-width: none;
 }
 
 .contact-dialog-header h2:focus {
   outline: 0;
 }
 
-.contact-dialog-description {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 1.15rem;
-  line-height: 1.45;
-  margin: 1.5rem 0 0;
-}
-
 .contact-dialog-header form {
   margin: 0;
+  position: absolute;
+  right: 1.25rem;
+  top: 1.25rem;
 }
 
 .contact-dialog-close {
@@ -873,20 +909,14 @@ button.text-link {
     width: 31rem;
   }
 
-  .header-brand img {
-    flex: 1 1 0;
-    min-width: 0;
-    width: auto;
-  }
-
   .header-inner {
     column-gap: 3rem;
   }
 
   @supports (animation-timeline: scroll()) {
     .site-header {
-      animation-name: collapse-header-transform-tablet;
-      animation-range: 0 188px;
+      animation-name: collapse-header-transform-tablet, frost-header-surface;
+      animation-range: 0 188px, 0 188px;
     }
 
     .header-inner {
@@ -900,15 +930,8 @@ button.text-link {
     }
   }
 
-  @supports (animation-timeline: scroll()) and
-    (not (transform: scale(calc(1 / 0.5)))) {
-    .header-brand {
-      width: 8.8rem;
-    }
-  }
-
   .introduction-grid,
-  .mission,
+  .mission-fields-intro,
   .contact-grid {
     grid-template-columns: 1fr;
   }
@@ -923,11 +946,11 @@ button.text-link {
     grid-template-columns: minmax(8rem, 0.3fr) 1fr;
   }
 
-  .mission .section-heading h2 {
+  .mission-fields .section-heading h2 {
     max-width: 12ch;
   }
 
-  .reading-column {
+  .mission-statement {
     max-width: 42rem;
   }
 
@@ -964,6 +987,14 @@ button.text-link {
     height: 5.25rem;
   }
 
+  @supports (animation-timeline: scroll()) {
+    .site-header {
+      animation: frost-header-surface linear both;
+      animation-range: 0 160px;
+      animation-timeline: scroll(root block);
+    }
+  }
+
   .header-spacer {
     height: 5.25rem;
   }
@@ -978,8 +1009,9 @@ button.text-link {
   .header-brand {
     animation: none;
     align-self: center;
-    display: block;
-    margin-bottom: 0;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
     width: 6.5rem;
   }
 
@@ -991,7 +1023,6 @@ button.text-link {
 
   .header-brand span {
     display: block;
-    margin-top: 0.22rem;
   }
 
   .site-header nav {
@@ -1010,6 +1041,11 @@ button.text-link {
   .contact-dialog-shell {
     max-height: calc(100dvh - 1rem);
     padding: 1.5rem;
+  }
+
+  .contact-dialog-header form {
+    right: 0.75rem;
+    top: 0.75rem;
   }
 
   .contact-dialog-header {
@@ -1062,7 +1098,7 @@ button.text-link {
     padding: 3.5rem 1.25rem;
   }
 
-  .mission .section-heading h2,
+  .mission-fields .section-heading h2,
   .contact h2 {
     font-size: clamp(3.4rem, 15vw, 4.8rem);
   }
@@ -1105,13 +1141,31 @@ button.text-link {
 
 @keyframes collapse-brand-transform-tablet {
   from {
-    --brand-label-offset: 0rem;
-    --brand-scale: 1;
+    align-items: flex-end;
+    flex-direction: row;
+    gap: 0.8rem;
+    width: 31rem;
+  }
+
+  57.99% {
+    align-items: flex-end;
+    flex-direction: row;
+    gap: 0.8rem;
+    width: 18rem;
+  }
+
+  58% {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
+    width: 11.6rem;
   }
 
   to {
-    --brand-label-offset: 0.57288rem;
-    --brand-scale: 0.2839;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
+    width: 8.8rem;
   }
 }
 
@@ -1127,7 +1181,9 @@ button.text-link {
 
   .header-brand {
     animation: none;
-    transform: none;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
     width: 9.5rem;
   }
 

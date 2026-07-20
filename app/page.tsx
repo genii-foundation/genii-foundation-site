@@ -16,7 +16,7 @@ const projects = [
     type: "Technology in development",
     title: "Coherence",
     description:
-      "A consent-first ecosystem for interpersonal biometric measurement and reflection, beginning with native iPhone and Apple Watch experiences.",
+      "A consent-first ecosystem for interpersonal biometric measurement and reflection.",
     href: "https://github.com/genii-foundation/coherence-app",
     action: "Follow the work",
   },
@@ -25,15 +25,15 @@ const projects = [
 const fields = [
   {
     title: "Research",
-    text: "Long-horizon inquiry across consciousness, culture, technology, and regeneration.",
+    text: "Long-horizon inquiry into consciousness, culture, technology, and regeneration.",
   },
   {
     title: "Culture",
-    text: "Ideas and media that give difficult questions a clear, public, and beautiful form.",
+    text: "Clear public forms for consequential ideas.",
   },
   {
     title: "Infrastructure",
-    text: "Practical tools and institutions that help coherent ways of living become durable.",
+    text: "Practical tools and institutions that support human agency.",
   },
 ];
 
@@ -63,6 +63,19 @@ function GitHubMark() {
         fill="currentColor"
       />
     </svg>
+  );
+}
+
+function ProjectTitle({ title }: { title: string }) {
+  if (title !== "The Coherence Thesis") {
+    return title;
+  }
+
+  return (
+    <>
+      T<span className="project-title-h">h</span>e Coherence T
+      <span className="project-title-h">h</span>esis
+    </>
   );
 }
 
@@ -106,7 +119,9 @@ export default function Home() {
                 key={project.title}
               >
                 <span className="project-type">{project.type}</span>
-                <h2>{project.title}</h2>
+                <h2>
+                  <ProjectTitle title={project.title} />
+                </h2>
                 <p>{project.description}</p>
                 <span className="project-action">{project.action}</span>
               </a>
@@ -114,37 +129,35 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mission section-panel" id="mission" aria-labelledby="mission-title">
-          <div className="section-heading">
-            <p className="eyebrow">Mission</p>
-            <h2 id="mission-title">Study how inner life, institutions, technology, and ecology shape one another.</h2>
-          </div>
-          <div className="reading-column">
-            <p>
-              GENII Foundation develops research and public work at the
-              intersection of human experience, social systems, and technology.
-              Each project is designed to be read, tested, used, and improved.
+        <section
+          className="mission-fields section-panel"
+          id="mission"
+          aria-labelledby="mission-title"
+        >
+          <div className="mission-fields-intro">
+            <div className="section-heading">
+              <p className="eyebrow">Mission</p>
+              <h2 id="mission-title">
+                Study what makes coherent lives and societies possible.
+              </h2>
+            </div>
+            <p className="mission-statement">
+              We turn that inquiry into research, culture, and practical tools
+              that support human agency.
             </p>
-            <p>
-              Our standard is practical: clearer relationships, more capable
-              institutions, and technologies that support human agency.
-            </p>
           </div>
-        </section>
 
-        <section className="fields section-panel" id="fields" aria-labelledby="fields-title">
-          <div className="section-heading fields-heading">
-            <p className="eyebrow">Areas of work</p>
-            <h2 id="fields-title">Research, culture, and infrastructure.</h2>
-          </div>
-          <div className="fields-grid">
-            {fields.map((field) => (
-              <article className="field-card" key={field.title}>
-                <h3>{field.title}</h3>
-                <p>{field.text}</p>
-              </article>
-            ))}
-          </div>
+          <section className="fields-block" id="fields" aria-labelledby="fields-title">
+            <h2 className="eyebrow" id="fields-title">Fields of work</h2>
+            <div className="fields-grid">
+              {fields.map((field) => (
+                <article className="field-card" key={field.title}>
+                  <h3>{field.title}</h3>
+                  <p>{field.text}</p>
+                </article>
+              ))}
+            </div>
+          </section>
         </section>
 
         <section className="contact section-panel" id="contact" aria-labelledby="contact-title">

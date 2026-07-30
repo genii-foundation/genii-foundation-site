@@ -198,6 +198,7 @@ export default function Home() {
           <small>© 2026 GENII Foundation</small>
         </div>
       </footer>
+      <div aria-hidden="true" className="mobile-header-frost" />
       </div>
     </ContactDialogProvider>
   );

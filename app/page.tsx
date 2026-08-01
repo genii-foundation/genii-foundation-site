@@ -151,7 +151,11 @@ export default function Home() {
             <h2 className="eyebrow" id="fields-title">Fields of work</h2>
             <div className="fields-grid">
               {fields.map((field) => (
-                <article className="field-card" key={field.title}>
+                <article
+                  className="field-card"
+                  data-title-scale={field.title.length > 10 ? "compact" : undefined}
+                  key={field.title}
+                >
                   <h3>{field.title}</h3>
                   <p>{field.text}</p>
                 </article>
@@ -198,7 +202,6 @@ export default function Home() {
           <small>© 2026 GENII Foundation</small>
         </div>
       </footer>
-      <div aria-hidden="true" className="mobile-header-frost" />
       </div>
     </ContactDialogProvider>
   );

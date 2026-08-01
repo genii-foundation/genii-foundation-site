@@ -140,7 +140,7 @@ img {
   to {
     -webkit-backdrop-filter: blur(14px) saturate(110%);
     backdrop-filter: blur(14px) saturate(110%);
-    background-color: rgb(226 221 210 / 0.72);
+    background-color: rgb(226 221 210 / 0.94);
     border-bottom-color: rgba(41, 42, 37, 0.14);
     box-shadow: 0 0.75rem 2rem rgba(17, 18, 15, 0.07);
   }
@@ -154,7 +154,7 @@ img {
   }
 
   to {
-    background-color: rgb(226 221 210 / 0.72);
+    background-color: rgb(226 221 210 / 0.94);
     border-bottom-color: rgba(41, 42, 37, 0.14);
     box-shadow: 0 0.75rem 2rem rgba(17, 18, 15, 0.07);
   }

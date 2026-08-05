@@ -147,6 +147,12 @@ img {
     animation-range: 0 272px;
     animation-timeline: scroll(root block);
   }
+
+  .site-header .navigation-stack {
+    animation: collapse-header-navigation-gap linear both;
+    animation-range: 0 272px;
+    animation-timeline: scroll(root block);
+  }
 }
 
 @keyframes collapse-header-surface {
@@ -196,6 +202,16 @@ img {
 
   to {
     top: 8.5rem;
+  }
+}
+
+@keyframes collapse-header-navigation-gap {
+  from {
+    row-gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  to {
+    row-gap: 0;
   }
 }
 
@@ -298,6 +314,13 @@ body:has(.atlas-site[data-route-leaving="true"]) .header-brand {
   width: 9.5rem;
 }
 
+body:has(.atlas-site[data-route-leaving="true"])
+  .site-header
+  .navigation-stack {
+  animation: none;
+  row-gap: 0;
+}
+
 .header-brand img {
   flex: 1 1 auto;
   min-width: 0;
@@ -358,6 +381,10 @@ body:has(.atlas-site[data-route-leaving="true"]) .header-brand {
   min-width: 0;
 }
 
+.site-header .navigation-stack {
+  row-gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
 .navigation-scroll-region {
   justify-self: end;
   max-width: 100%;
@@ -371,10 +398,15 @@ body:has(.atlas-site[data-route-leaving="true"]) .header-brand {
 .site-header .section-navigation {
   border-top: 1px solid rgba(41, 42, 37, 0.16);
   gap: clamp(1rem, 2vw, 2rem);
-  justify-content: flex-end;
+  justify-content: center;
   max-width: 100%;
   min-height: 2rem;
-  width: max-content;
+  width: 100%;
+}
+
+.site-header .section-navigation-scroll-region {
+  justify-self: stretch;
+  width: 100%;
 }
 
 .site-header .section-navigation a {
@@ -1157,6 +1189,10 @@ button.text-link {
       animation-name: collapse-brand-transform-tablet;
       animation-range: 0 188px;
     }
+
+    .site-header .navigation-stack {
+      animation-range: 0 188px;
+    }
   }
 
   .introduction-grid,
@@ -1360,7 +1396,9 @@ button.text-link {
     gap: 0.55rem;
   }
 
-  .navigation-stack {
+  .site-header .navigation-stack {
+    animation: none;
+    row-gap: 0;
     width: 100%;
   }
 
@@ -1587,6 +1625,11 @@ button.text-link {
     top: 0;
     transition: none;
     transform: none;
+  }
+
+  .site-header .navigation-stack {
+    animation: none;
+    row-gap: 0;
   }
 
   .header-spacer {

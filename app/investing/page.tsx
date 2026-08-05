@@ -266,6 +266,37 @@ export default function InvestingPage() {
               </article>
             </div>
 
+            <aside
+              className={styles.contributorSignal}
+              aria-labelledby="contributor-signal-title"
+            >
+              <p className={styles.eyebrow}>Recurring individual support</p>
+              <div>
+                <h3 id="contributor-signal-title">
+                  Recurring contributors turn conviction into leverage.
+                </h3>
+                <p>
+                  Individual gifts fund GENII&apos;s public-interest work immediately.
+                  They also show patient angels that Providence is earning durable
+                  support from the people it intends to serve. A one-time gift is a
+                  vote of confidence. A monthly contribution makes that vote legible
+                  over time and gives the team a dependable base for planning.
+                </p>
+                <p>
+                  This support increases the force of larger investment. Angels can
+                  finance product capacity, research, practitioner infrastructure,
+                  and community work against demonstrated commitment. A broad base
+                  of recurring contributors also reduces dependence on any single
+                  funder.
+                </p>
+                <p className={styles.contributorBoundary}>
+                  Charitable gifts to GENII, customer payments to Providence, and
+                  investment capital will be tracked and reported separately. They
+                  fund different work and create different rights.
+                </p>
+              </div>
+            </aside>
+
             <div className={styles.twoChecks}>
               <p className={styles.eyebrow}>Dual-capital participation</p>
               <div>

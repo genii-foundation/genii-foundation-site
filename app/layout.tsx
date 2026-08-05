@@ -4,6 +4,7 @@ import { ContactDialogProvider } from "./ContactDialog";
 import { SiteHeader } from "./SiteHeader";
 import "./globals.css";
 import "./footer.css";
+import "./contact-dialog.css";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],

@@ -118,8 +118,13 @@
 }
 
 .unified-footer-contact:hover .unified-footer-arrow-stem,
-.unified-footer-contact:focus-visible .unified-footer-arrow-stem {
+.unified-footer-contact:focus-visible .unified-footer-arrow-stem,
+.unified-footer-contact[data-current="true"] .unified-footer-arrow-stem {
   transform: scale(1);
+}
+
+.unified-footer-contact[data-current="true"] {
+  box-shadow: inset 0 -1px currentColor;
 }
 
 .unified-footer-provenance {

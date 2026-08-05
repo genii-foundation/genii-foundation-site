@@ -4,10 +4,12 @@ import {
   createContext,
   useContext,
   useRef,
+  useState,
   type ReactNode,
 } from "react";
 
 type ContactDialogContextValue = {
+  isOpen: boolean;
   openDialog: (trigger: HTMLButtonElement) => void;
 };
 
@@ -37,10 +39,22 @@ function CloseIcon() {
   );
 }
 
+function ContactActionArrow() {
+  return (
+    <span aria-hidden="true" className="contact-option-arrow">
+      <svg focusable="false" viewBox="0 0 16 16">
+        <path className="contact-option-arrow-stem" d="M4 12 11 5" />
+        <path d="M7.25 5H11v3.75" />
+      </svg>
+    </span>
+  );
+}
+
 export function ContactDialogProvider({ children }: { children: ReactNode }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const openDialog = (trigger: HTMLButtonElement) => {
     const dialog = dialogRef.current;
@@ -49,21 +63,24 @@ export function ContactDialogProvider({ children }: { children: ReactNode }) {
     triggerRef.current = trigger;
     if (!dialog.open) {
       dialog.showModal();
+      setIsOpen(true);
       requestAnimationFrame(() => headingRef.current?.focus());
     }
   };
 
   const restoreTriggerFocus = () => {
+    setIsOpen(false);
     triggerRef.current?.focus();
     triggerRef.current = null;
   };
 
   return (
-    <ContactDialogContext.Provider value={{ openDialog }}>
+    <ContactDialogContext.Provider value={{ isOpen, openDialog }}>
       {children}
       <dialog
         aria-labelledby="contact-dialog-title"
         className="contact-dialog"
+        id="contact-dialog"
         onClick={(event) => {
           if (event.target === event.currentTarget) event.currentTarget.close();
         }}
@@ -93,7 +110,10 @@ export function ContactDialogProvider({ children }: { children: ReactNode }) {
               <p>
                 Collaboration, funding, press, and private foundation inquiries.
               </p>
-              <span className="contact-option-action">hello@genii.foundation</span>
+              <span className="contact-option-action">
+                <span>hello@genii.foundation</span>
+                <ContactActionArrow />
+              </span>
             </a>
             <a
               className="contact-option"
@@ -105,7 +125,10 @@ export function ContactDialogProvider({ children }: { children: ReactNode }) {
                 Corrections and source questions for The Coherence Thesis.
                 Tickets are public.
               </p>
-              <span className="contact-option-action">Open a ticket</span>
+              <span className="contact-option-action">
+                <span>Open a ticket</span>
+                <ContactActionArrow />
+              </span>
             </a>
           </div>
         </div>
@@ -119,13 +142,16 @@ export function ContactTrigger({
   className,
   current = false,
 }: ContactTriggerProps) {
-  const { openDialog } = useContactDialog();
+  const { isOpen, openDialog } = useContactDialog();
+  const active = current || isOpen;
 
   return (
     <button
+      aria-controls="contact-dialog"
+      aria-expanded={isOpen}
       aria-haspopup="dialog"
       className={className}
-      data-current={current ? "true" : undefined}
+      data-current={active ? "true" : undefined}
       onClick={(event) => openDialog(event.currentTarget)}
       type="button"
     >

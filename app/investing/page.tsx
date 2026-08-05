@@ -123,7 +123,8 @@ function Arrow() {
   return (
     <span aria-hidden="true" className={styles.actionArrow}>
       <svg focusable="false" viewBox="0 0 16 16">
-        <path d="M5.75 10.25 11 5M7.25 5H11v3.75" />
+        <path className={styles.actionArrowStem} d="M4 12 11 5" />
+        <path d="M7.25 5H11v3.75" />
       </svg>
     </span>
   );

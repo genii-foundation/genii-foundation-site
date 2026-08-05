@@ -306,7 +306,6 @@
   flex: 0 0 auto;
   height: 0.9rem;
   justify-content: center;
-  transition: transform 160ms ease;
   width: 0.9rem;
 }
 
@@ -321,6 +320,13 @@
   width: 100%;
 }
 
+.actionArrowStem {
+  transform: scale(0.75);
+  transform-box: view-box;
+  transform-origin: 11px 5px;
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .heroCopy a:hover,
 .heroCopy a:focus-visible,
 .pathAction:hover,
@@ -331,13 +337,13 @@
   color: var(--night);
 }
 
-.heroCopy a:hover .actionArrow,
-.heroCopy a:focus-visible .actionArrow,
-.pathAction:hover .actionArrow,
-.pathAction:focus-visible .actionArrow,
-.invitationAction:hover .actionArrow,
-.invitationAction:focus-visible .actionArrow {
-  transform: translate(0.12rem, -0.12rem);
+.heroCopy a:hover .actionArrowStem,
+.heroCopy a:focus-visible .actionArrowStem,
+.pathAction:hover .actionArrowStem,
+.pathAction:focus-visible .actionArrowStem,
+.invitationAction:hover .actionArrowStem,
+.invitationAction:focus-visible .actionArrowStem {
+  transform: scale(1);
 }
 
 .formationNote {
@@ -1796,7 +1802,7 @@
   .heroCopy a,
   .pathAction,
   .invitationAction,
-  .actionArrow {
+  .actionArrowStem {
     animation: none;
     transition: none;
   }

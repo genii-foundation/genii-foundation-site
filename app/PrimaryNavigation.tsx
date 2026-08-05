@@ -28,6 +28,7 @@ export function PrimaryNavigation({
   const pathname = usePathname();
   const onFoundationPage = pathname === "/";
   const [activeId, setActiveId] = useState<SectionId | null>(null);
+  const [activeSectionHref, setActiveSectionHref] = useState<string | null>(null);
 
   useEffect(() => {
     if (!onFoundationPage) return;
@@ -69,6 +70,47 @@ export function PrimaryNavigation({
     for (const { element } of targets) observer.observe(element);
     return () => observer.disconnect();
   }, [onFoundationPage]);
+
+  useEffect(() => {
+    if (sectionItems.length === 0) return;
+
+    const sectionTargets = sectionItems.flatMap(({ href }) => {
+      const id = href.startsWith("#") ? href.slice(1) : null;
+      const element = id ? document.getElementById(id) : null;
+      return element ? [{ element, href }] : [];
+    });
+    const pageTop = document.querySelector<HTMLElement>("main > section:first-of-type");
+    const targets: Array<{
+      element: HTMLElement;
+      href: string | null;
+    }> = pageTop
+      ? [{ element: pageTop, href: null }, ...sectionTargets]
+      : sectionTargets;
+    const visibleTargets = new Set<HTMLElement>();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const element = entry.target as HTMLElement;
+          if (entry.isIntersecting) visibleTargets.add(element);
+          else visibleTargets.delete(element);
+        }
+
+        let current: (typeof targets)[number] | undefined;
+        for (const target of targets) {
+          if (visibleTargets.has(target.element)) current = target;
+        }
+        if (current) setActiveSectionHref(current.href);
+      },
+      {
+        rootMargin: "-24% 0px -66% 0px",
+        threshold: 0,
+      },
+    );
+
+    for (const { element } of targets) observer.observe(element);
+    return () => observer.disconnect();
+  }, [sectionItems]);
 
   return (
     <div className="navigation-stack">
@@ -113,7 +155,12 @@ export function PrimaryNavigation({
       {sectionItems.length > 0 ? (
         <nav aria-label="On this page" className="section-navigation">
           {sectionItems.map(({ href, label }) => (
-            <a href={href} key={href}>
+            <a
+              aria-current={activeSectionHref === href ? "location" : undefined}
+              href={href}
+              key={href}
+              onClick={() => setActiveSectionHref(href)}
+            >
               {label}
             </a>
           ))}

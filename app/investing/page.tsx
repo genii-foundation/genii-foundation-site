@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { PrimaryNavigation } from "../PrimaryNavigation";
+import { FinancialModel } from "./FinancialModel";
 import styles from "./investing.module.css";
 
 export const metadata: Metadata = {
@@ -68,7 +69,7 @@ const developmentSequence = [
   {
     number: "02",
     title: "Test the signal",
-    text: "Independent research asks whether interpersonal coherence can be measured reliably, interpreted humbly, and reflected without coercion.",
+    text: "Independent research asks whether interpersonal coherence can be measured reliably, interpreted humbly, and reflected through freely chosen participation.",
   },
   {
     number: "03",
@@ -88,21 +89,21 @@ const developmentSequence = [
   {
     number: "06",
     title: "Earn the frontier",
-    text: "Portable relational standing and future currency research remain long-horizon work. They are not part of the near-term return case.",
+    text: "Portable relational standing and future currency research remain long-horizon work, pursued only after the near-term products earn the evidence and governance they require.",
   },
 ];
 
 const principles = [
-  "Participant control of intimate data",
-  "Explicit, renewable, multi-person consent",
-  "No advertising or sale of behavioral data",
-  "No engagement optimization",
-  "No universal coherence or reputation score",
-  "No promised clinical or spiritual outcomes",
-  "No workplace or employer deployment",
-  "No investor right to force a sale or change of control",
-  "Independent review where risk is material",
-  "Open-source core and auditable protocols",
+  "Participants govern their intimate data",
+  "Consent remains explicit, renewable, and multi-person",
+  "Revenue comes from chosen products and services",
+  "Human agency outranks engagement metrics",
+  "Coherence remains contextual, plural, and non-ranking",
+  "Clinical and spiritual claims remain bounded by evidence and scope",
+  "Providence serves personal and community practice, independent of employment evaluation",
+  "Mission stewards retain permanent authority over any change of control",
+  "Material risks receive independent review",
+  "Core software and protocols remain open and auditable",
 ];
 
 function Wordmark({ priority = false }: { priority?: boolean }) {
@@ -162,10 +163,11 @@ export default function InvestingPage() {
               <p>
                 GENII Foundation is in formation. Fiscal sponsorship, an
                 independent public charity, and a separate mission-locked
-                commercial company are being designed with counsel. No jurisdiction
-                has been selected. Entity form and domicile will follow function,
-                governance, capital needs, and operating footprint. This page states
-                our intent. It does not describe completed entities or offer securities.
+                commercial company are being designed with counsel. Entity form and
+                domicile will follow function, governance, capital needs, and operating
+                footprint. This page states our intended architecture as a working
+                discussion document. Final entities and any securities offering will
+                require definitive formation and offering documents.
               </p>
             </aside>
           </div>
@@ -189,7 +191,8 @@ export default function InvestingPage() {
                 <p>
                   The commercial opportunity lives within that wider ecology.
                   The public-benefit work protects the research, access,
-                  standards, and shared infrastructure that no investor should own.
+                  standards, and shared infrastructure held permanently in
+                  mission stewardship.
                 </p>
               </div>
             </div>
@@ -202,8 +205,8 @@ export default function InvestingPage() {
             <div className={styles.sectionHeading}>
               <h2 id="paths-title">Different duties. Shared work.</h2>
               <p>
-                Each form of capital receives a clear mandate. Neither can quietly
-                acquire the rights of the other.
+                Each form of capital receives a clear mandate and remains faithful
+                to the duties attached to it.
               </p>
             </div>
 
@@ -215,8 +218,8 @@ export default function InvestingPage() {
                 <p className={styles.pathLead}>
                   Providence&apos;s primary initial financing strategy is patient
                   impact investment into the commercial venture, led by
-                  values-aligned angels and family offices. It is not pursuing
-                  conventional institutional venture capital at this stage.
+                  values-aligned angels and family offices. These patient partners
+                  define the initial strategy.
                 </p>
 
                 <div className={styles.pathDetails}>
@@ -245,9 +248,10 @@ export default function InvestingPage() {
                     <p>
                       A mission-locked commercial company in the jurisdiction best
                       suited to its governance and financing, with patient,
-                      potentially capped return mechanics. Investors will have no
-                      right to force a sale, merger, or change of control. Any terms
-                      will be established through counsel and definitive documents.
+                      potentially capped return mechanics. Permanent mission
+                      governance gives mission stewards exclusive authority over any
+                      sale, merger, or change of control. Counsel and definitive
+                      documents will establish the final terms.
                     </p>
                   </section>
                 </div>
@@ -266,8 +270,8 @@ export default function InvestingPage() {
                 <h3>Protect the commons.</h3>
                 <p className={styles.pathLead}>
                   Charitable capital for measurable public benefit over the same
-                  three to ten year horizon, without converting the shared work
-                  into private property.
+                  three to ten year horizon, preserving the shared work as durable
+                  public-benefit infrastructure.
                 </p>
 
                 <div className={styles.pathDetails}>
@@ -315,8 +319,8 @@ export default function InvestingPage() {
                 <p>
                   A philanthropic gift can support charitable research and public
                   infrastructure. A separate investment can fund the commercial
-                  company and seek a return. Equity, repayment rights, or private
-                  product benefits do not arise from the charitable gift.
+                  company and seek a return. Investment rights arise solely from
+                  that separately documented investment.
                 </p>
               </div>
             </div>
@@ -329,8 +333,8 @@ export default function InvestingPage() {
             <div className={styles.sectionHeading}>
               <h2 id="venture-title">An experience system, beginning on device.</h2>
               <p>
-                The company can extend beyond a single app without claiming the
-                entire Providence ecosystem as investor property.
+                The company can unite the application with a wider experience
+                system while GENII stewards the public-benefit ecosystem.
               </p>
             </div>
 
@@ -357,109 +361,14 @@ export default function InvestingPage() {
                   while revealing what the companion should become.
                 </p>
                 <p>
-                  GENII does not need to own land. Partner venues and intentional
-                  communities offer a clearer, more scalable path while each place
-                  retains responsibility for its land and culture.
+                  Partnership replaces land ownership in this model. Retreat venues
+                  and intentional communities provide a clearer, more scalable path
+                  while each place retains responsibility for its land and culture.
                 </p>
               </div>
             </div>
 
-            <section className={styles.retreatModel} aria-labelledby="retreat-model-title">
-              <div className={styles.retreatModelHeading}>
-                <div>
-                  <p className={styles.eyebrow}>First retreat model</p>
-                  <h3 id="retreat-model-title">
-                    Thirty people. $3,500 each. Revenue positive by design.
-                  </h3>
-                </div>
-                <p>
-                  An illustrative five-day, four-night program at a partner venue.
-                  The retreat must cover hospitality, the full delivery team,
-                  founder labor, technology, administration, and contingency before
-                  companion subscriptions or research support receive any credit.
-                </p>
-              </div>
-
-              <dl className={styles.retreatMetrics}>
-                <div>
-                  <dt>Gross revenue</dt>
-                  <dd>$105,000</dd>
-                </div>
-                <div>
-                  <dt>Break-even occupancy</dt>
-                  <dd>20 paid equivalents</dd>
-                </div>
-                <div>
-                  <dt>Target contribution</dt>
-                  <dd>$21,000</dd>
-                </div>
-              </dl>
-
-              <div className={styles.retreatBudget}>
-                <table>
-                  <caption>Illustrative operating budget for one retreat</caption>
-                  <thead>
-                    <tr>
-                      <th scope="col">Budget line</th>
-                      <th scope="col">Basis</th>
-                      <th scope="col">Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">Venue, lodging, and meals</th>
-                      <td>$1,150 per participant</td>
-                      <td>$34,500</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Participant technology, payment, and support</th>
-                      <td>$350 per participant</td>
-                      <td>$10,500</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Facilitators and practitioners</th>
-                      <td>Fixed</td>
-                      <td>$15,000</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Production, operations, and founder compensation</th>
-                      <td>Fixed</td>
-                      <td>$10,000</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Technology setup and support</th>
-                      <td>Fixed</td>
-                      <td>$6,000</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Insurance, legal, and administration</th>
-                      <td>Fixed</td>
-                      <td>$4,000</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Contingency</th>
-                      <td>Fixed</td>
-                      <td>$4,000</td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th scope="row" colSpan={2}>Total operating cost</th>
-                      <td>$84,000</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" colSpan={2}>Operating contribution</th>
-                      <td>$21,000</td>
-                    </tr>
-                  </tfoot>
-                </table>
-                <p>
-                  This model treats scholarships as separately funded access and
-                  excludes companion revenue, donations, and research grants. The
-                  retreat stands on its own economics.
-                </p>
-              </div>
-            </section>
+            <FinancialModel />
 
             <section className={styles.poweredSystem} aria-labelledby="powered-title">
               <div className={styles.poweredHeader}>
@@ -533,8 +442,8 @@ export default function InvestingPage() {
                 <strong>Community boundary</strong>
                 <p>
                   Housing, employment, leadership, membership, and access to
-                  community life must never depend on a physiological measure.
-                  Leaders receive no private dashboard of individual coherence.
+                  community life remain independent of physiological measures.
+                  Individual coherence remains private from community leaders.
                   Participation remains voluntary, contestable, and reversible.
                 </p>
               </aside>
@@ -543,10 +452,10 @@ export default function InvestingPage() {
                 <strong>Ambient sensing frontier</strong>
                 <p>
                   Continuous ambient sensing could deepen the companion over time.
-                  It also captures people who may never have chosen the instrument.
-                  The research path must solve multi-person consent, visible session
-                  boundaries, bystander protection, redaction, and withdrawal before
-                  continuous sensing becomes an ordinary product feature.
+                  Its field includes bystanders as well as active participants. The
+                  research path therefore requires multi-person consent, visible
+                  session boundaries, bystander protection, redaction, and withdrawal
+                  before continuous sensing becomes an ordinary product feature.
                 </p>
               </aside>
             </section>
@@ -558,10 +467,9 @@ export default function InvestingPage() {
                   <h3 id="return-title">Retreats establish trust. The companion compounds.</h3>
                 </div>
                 <p>
-                  The path to venture-scale economics does not require Providence
-                  to turn every human relationship into a market. It requires a
-                  repeatable route from a powerful experience into recurring,
-                  voluntary use.
+                  Venture-scale economics come from a repeatable route between a
+                  powerful experience and recurring, voluntary use. Human
+                  relationships remain ends in themselves rather than inventory.
                 </p>
               </div>
 
@@ -596,10 +504,10 @@ export default function InvestingPage() {
                 <h4>Patient capital comes first.</h4>
                 <p>
                   Providence is raising first from values-aligned angels and family
-                  offices, not conventional institutional venture funds. Large
-                  companion adoption and repeatable partner licensing may create
-                  substantial enterprise value, but Providence will permanently
-                  forbid investors from forcing a sale, merger, or change of control.
+                  offices. Large companion adoption and repeatable partner licensing
+                  may create substantial enterprise value. Permanent mission
+                  governance gives mission stewards exclusive authority over any
+                  sale, merger, or change of control.
                 </p>
                 <p>
                   The software core can remain open source. Revenue comes from the
@@ -641,8 +549,8 @@ export default function InvestingPage() {
               <h2 id="architecture-title">Federated by design.</h2>
               <p>
                 Valuable things belong in the entity capable of protecting them.
-                Communities, intimate data, and the commons should never appear
-                as assets on an investor-owned balance sheet.
+                Communities steward their cultures, participants govern their
+                intimate data, and the Foundation protects the commons.
               </p>
             </div>
 
@@ -670,7 +578,7 @@ export default function InvestingPage() {
                   <li>Premium experience systems</li>
                   <li>Subscriptions and partner licenses</li>
                   <li>Customer support and implementations</li>
-                  <li>Patient investor return without a forced sale</li>
+                  <li>Patient, noncontrolling investor return</li>
                 </ul>
               </article>
             </div>
@@ -684,7 +592,7 @@ export default function InvestingPage() {
                 Robbie authored the founding manuscripts. Aubrey and Robbie are
                 the founding team building Providence and GENII together. Robbie
                 and Aubrey control all relevant founding intellectual property.
-                Before outside capital enters, counsel will document that control,
+                Before accepting capital, counsel will document that control,
                 founder contributions, open-source and trademark policies, and the
                 licenses separating charitable and commercial use.
               </p>
@@ -720,8 +628,10 @@ export default function InvestingPage() {
         <section className={styles.guardrails} aria-labelledby="guardrails-title">
           <div className={styles.contentFrame}>
             <div className={styles.guardrailIntro}>
-              <p className={styles.eyebrow}>The refusals</p>
-              <h2 id="guardrails-title">The product is partly defined by what it will not do.</h2>
+              <p className={styles.eyebrow}>Inviolable principles</p>
+              <h2 id="guardrails-title">
+                Every product, partnership, and capital agreement must preserve them.
+              </h2>
             </div>
             <ul className={styles.principleGrid}>
               {principles.map((principle, index) => (

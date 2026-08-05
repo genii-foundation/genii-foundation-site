@@ -1,7 +1,6 @@
 import Image from "next/image";
 
-import { ContactDialogProvider, ContactTrigger } from "./ContactDialog";
-import { PrimaryNavigation } from "./PrimaryNavigation";
+import { ContactTrigger } from "./ContactDialog";
 
 const projects = [
   {
@@ -81,20 +80,10 @@ function ProjectTitle({ title }: { title: string }) {
 
 export default function Home() {
   return (
-    <ContactDialogProvider>
-      <div className="atlas-site" id="top">
-      <header className="site-header">
-        <div className="header-inner">
-          <a className="header-brand" href="#top" aria-label="GENII Foundation, home">
-            <Wordmark priority />
-            <span>Foundation</span>
-          </a>
-          <PrimaryNavigation />
-        </div>
-      </header>
+    <div className="atlas-site" id="top">
       <div className="header-spacer" aria-hidden="true" />
 
-      <main className="content-frame">
+      <main className="content-frame" id="main-content">
         <section className="introduction" aria-labelledby="hero-title">
           <p className="eyebrow">Independent research foundation</p>
           <div className="introduction-grid">
@@ -202,7 +191,6 @@ export default function Home() {
           <small>© 2026 GENII Foundation</small>
         </div>
       </footer>
-      </div>
-    </ContactDialogProvider>
+    </div>
   );
 }

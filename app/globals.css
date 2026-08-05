@@ -1115,6 +1115,7 @@ button.text-link {
   }
 
   .atlas-site::before {
+    border-bottom: 0;
     height: 5.25rem;
   }
 
@@ -1179,6 +1180,10 @@ button.text-link {
 
   .navigation-stack {
     width: 100%;
+  }
+
+  .site-header .section-navigation {
+    border-top: 0;
   }
 
   .site-header nav {

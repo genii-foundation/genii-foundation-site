@@ -1319,26 +1319,25 @@
   text-transform: uppercase;
 }
 
-.architectureRelationship::before,
-.architectureRelationship::after {
-  background: var(--gold);
-  clip-path: polygon(
-    0 44%,
-    calc(100% - 0.45rem) 44%,
-    calc(100% - 0.45rem) 0,
-    100% 50%,
-    calc(100% - 0.45rem) 100%,
-    calc(100% - 0.45rem) 56%,
-    0 56%
-  );
-  content: "";
+.architectureArrow {
+  display: block;
+  fill: none;
+  flex: none;
   height: 0.55rem;
   margin: 1.15rem 0;
+  overflow: visible;
+  stroke: currentColor;
+  stroke-linecap: square;
+  stroke-width: 1;
   width: 100%;
 }
 
-.architectureRelationship::after {
-  transform: scaleX(-1);
+.architectureArrow path {
+  vector-effect: non-scaling-stroke;
+}
+
+.architectureArrowVertical {
+  display: none;
 }
 
 .architectureRelationship strong {
@@ -1656,24 +1655,18 @@
     min-height: 8rem;
   }
 
-  .architectureRelationship::before,
-  .architectureRelationship::after {
-    clip-path: polygon(
-      44% 0,
-      56% 0,
-      56% calc(100% - 0.45rem),
-      100% calc(100% - 0.45rem),
-      50% 100%,
-      0 calc(100% - 0.45rem),
-      44% calc(100% - 0.45rem)
-    );
+  .architectureArrow {
     height: 2.25rem;
     margin: 0.75rem 0;
     width: 0.55rem;
   }
 
-  .architectureRelationship::after {
-    transform: scaleY(-1);
+  .architectureArrowHorizontal {
+    display: none;
+  }
+
+  .architectureArrowVertical {
+    display: block;
   }
 
   .satelliteGrid {
@@ -1697,14 +1690,22 @@
     padding-right: 1rem;
   }
 
+  .header {
+    border-bottom: 0;
+  }
+
   .headerInner {
     gap: 1rem;
     grid-template-columns: 6.5rem minmax(0, 1fr);
-    min-height: 7.25rem;
+    min-height: 6rem;
   }
 
   .headerBrand {
     width: 6.5rem;
+  }
+
+  .header :global(.section-navigation) {
+    border-top: 0;
   }
 
   .header nav {

@@ -532,8 +532,28 @@ export default function InvestingPage() {
                 </ul>
               </article>
               <div className={styles.architectureRelationship} aria-label="Arm's-length licenses and services">
+                <svg
+                  aria-hidden="true"
+                  className={styles.architectureArrow}
+                  focusable="false"
+                  preserveAspectRatio="none"
+                  viewBox="0 0 100 10"
+                >
+                  <path className={styles.architectureArrowHorizontal} d="M0 5H100M100 5L97 1" />
+                  <path className={styles.architectureArrowVertical} d="M50 0V10M50 10L43 7" />
+                </svg>
                 <span>Arm&apos;s-length</span>
                 <strong>licenses and services</strong>
+                <svg
+                  aria-hidden="true"
+                  className={styles.architectureArrow}
+                  focusable="false"
+                  preserveAspectRatio="none"
+                  viewBox="0 0 100 10"
+                >
+                  <path className={styles.architectureArrowHorizontal} d="M100 5H0M0 5L3 9" />
+                  <path className={styles.architectureArrowVertical} d="M50 10V0M50 0L57 3" />
+                </svg>
               </div>
               <article>
                 <p>Mission-locked commercial company</p>

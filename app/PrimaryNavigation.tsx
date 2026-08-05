@@ -96,7 +96,7 @@ function ScrollableNavigation({
 
   return (
     <div
-      className="navigation-scroll-region"
+      className={`navigation-scroll-region ${className}-scroll-region`}
       data-overflow-end={scrollState.end ? "true" : undefined}
       data-overflow-start={scrollState.start ? "true" : undefined}
     >
@@ -226,7 +226,7 @@ export function PrimaryNavigation({
   }, [sectionItems]);
 
   return (
-    <div className="navigation-stack">
+    <div className="navigation-stack" data-section-count={sectionItems.length}>
       <ScrollableNavigation
         ariaLabel="Primary navigation"
         className="primary-navigation"

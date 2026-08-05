@@ -154,6 +154,21 @@
   width: max-content;
 }
 
+.header
+  :global(
+    .navigation-stack[data-section-count="2"] .section-navigation-scroll-region
+  ),
+.header
+  :global(.navigation-stack[data-section-count="2"] .section-navigation) {
+  justify-self: stretch;
+  width: 100%;
+}
+
+.header
+  :global(.navigation-stack[data-section-count="2"] .section-navigation) {
+  justify-content: center;
+}
+
 .header :global(.section-navigation) a {
   color: var(--muted);
   font-size: 0.52rem;
@@ -1773,6 +1788,11 @@
 
   .header :global(.section-navigation) {
     border-top: 0;
+    justify-content: flex-start;
+  }
+
+  .header
+    :global(.navigation-stack[data-section-count="2"] .section-navigation) {
     justify-content: flex-start;
   }
 

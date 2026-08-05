@@ -1,21 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 import { ContactTrigger } from "./ContactDialog";
 
 const navigationItems = [
-  { id: "work", label: "Work" },
-  { id: "mission", label: "Mission" },
-  { id: "fields", label: "Fields" },
-  { id: "principles", label: "Principles" },
-  { id: "investing", label: "Investing" },
-  { id: "contact", label: "Contact" },
+  { href: "/", label: "Foundation" },
+  { href: "/principles", label: "Principles" },
+  { href: "/investing", label: "Investing" },
 ] as const;
-
-type SectionId = (typeof navigationItems)[number]["id"];
 
 export type SectionNavigationItem = {
   href: string;
@@ -28,50 +23,49 @@ export function PrimaryNavigation({
   sectionItems?: readonly SectionNavigationItem[];
 }) {
   const pathname = usePathname();
-  const onFoundationPage = pathname === "/";
-  const [activeId, setActiveId] = useState<SectionId | null>(null);
+  const router = useRouter();
   const [activeSectionHref, setActiveSectionHref] = useState<string | null>(null);
+  const routeTransitionTimerRef = useRef<number | null>(null);
 
-  useEffect(() => {
-    if (!onFoundationPage) return;
+  useEffect(
+    () => () => {
+      if (routeTransitionTimerRef.current !== null) {
+        window.clearTimeout(routeTransitionTimerRef.current);
+      }
+    },
+    [],
+  );
 
-    const sectionTargets = navigationItems.flatMap(({ id }) => {
-      const element = document.getElementById(id);
-      return element ? [{ element, id }] : [];
-    });
-    const topTargets = [
-      document.querySelector<HTMLElement>(".header-spacer"),
-      document.querySelector<HTMLElement>(".introduction"),
-    ].flatMap((element) => (element ? [{ element, id: null }] : []));
-    const targets: Array<{
-      element: HTMLElement;
-      id: SectionId | null;
-    }> = [...topTargets, ...sectionTargets];
-    const visibleTargets = new Set<HTMLElement>();
+  const navigateFromFoundation = (
+    event: MouseEvent<HTMLAnchorElement>,
+    route: string,
+  ) => {
+    if (
+      pathname !== "/" ||
+      route === "/" ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const element = entry.target as HTMLElement;
-          if (entry.isIntersecting) visibleTargets.add(element);
-          else visibleTargets.delete(element);
-        }
+    const foundation = document.querySelector<HTMLElement>(".atlas-site");
+    if (!foundation) return;
 
-        let current: (typeof targets)[number] | undefined;
-        for (const target of targets) {
-          if (visibleTargets.has(target.element)) current = target;
-        }
-        if (current) setActiveId(current.id);
-      },
-      {
-        rootMargin: "-28% 0px -62% 0px",
-        threshold: 0,
-      },
-    );
+    event.preventDefault();
+    if (routeTransitionTimerRef.current !== null) return;
 
-    for (const { element } of targets) observer.observe(element);
-    return () => observer.disconnect();
-  }, [onFoundationPage]);
+    foundation.dataset.routeLeaving = "true";
+    document.querySelector<HTMLElement>(".site-header")?.setAttribute("aria-busy", "true");
+    routeTransitionTimerRef.current = window.setTimeout(() => {
+      routeTransitionTimerRef.current = null;
+      router.push(route);
+    }, 540);
+  };
 
   useEffect(() => {
     if (sectionItems.length === 0) return;
@@ -117,54 +111,17 @@ export function PrimaryNavigation({
   return (
     <div className="navigation-stack">
       <nav aria-label="Primary navigation" className="primary-navigation">
-        {navigationItems.map(({ id, label }) => {
-          if (id === "contact" && onFoundationPage) {
-            return (
-              <ContactTrigger current={activeId === id} key={id}>
-                {label}
-              </ContactTrigger>
-            );
-          }
-
-          const route =
-            id === "principles"
-              ? "/principles"
-              : id === "investing"
-                ? "/investing"
-                : null;
-
-          if (route) {
-            return (
-              <Link
-                aria-current={pathname === route ? "page" : undefined}
-                href={route}
-                key={id}
-              >
-                {label}
-              </Link>
-            );
-          }
-
-          const href = onFoundationPage ? `#${id}` : `/#${id}`;
-          if (!onFoundationPage) {
-            return (
-              <Link href={href} key={id}>
-                {label}
-              </Link>
-            );
-          }
-
-          return (
-            <a
-              aria-current={activeId === id ? "location" : undefined}
-              href={href}
-              key={id}
-              onClick={() => setActiveId(id)}
-            >
-              {label}
-            </a>
-          );
-        })}
+        {navigationItems.map(({ href, label }) => (
+          <Link
+            aria-current={pathname === href ? "page" : undefined}
+            href={href}
+            key={href}
+            onClick={(event) => navigateFromFoundation(event, href)}
+          >
+            {label}
+          </Link>
+        ))}
+        <ContactTrigger>Contact</ContactTrigger>
       </nav>
 
       {sectionItems.length > 0 ? (

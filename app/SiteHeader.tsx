@@ -11,7 +11,6 @@ const foundationSections = [
   { href: "#work", label: "Current work" },
   { href: "#mission", label: "Mission" },
   { href: "#fields", label: "Fields of work" },
-  { href: "#contact", label: "Contact" },
 ] as const;
 
 const investingSections = [
@@ -93,7 +92,6 @@ export function SiteHeader() {
             href={onFoundationPage ? "#top" : "/"}
           >
             <Wordmark />
-            <span>Foundation</span>
           </Link>
           <PrimaryNavigation sectionItems={sectionItems} />
         </div>

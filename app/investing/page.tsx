@@ -682,9 +682,9 @@ export default function InvestingPage() {
               </div>
               <p>
                 Robbie authored the founding manuscripts. Aubrey and Robbie are
-                the founding team building Providence and GENII together, and the
-                team controls the relevant founding intellectual property. Before
-                outside capital enters, counsel will document the chain of title,
+                the founding team building Providence and GENII together. Robbie
+                and Aubrey control all relevant founding intellectual property.
+                Before outside capital enters, counsel will document that control,
                 founder contributions, open-source and trademark policies, and the
                 licenses separating charitable and commercial use.
               </p>

@@ -36,6 +36,12 @@ export function PrimaryNavigation({
     [],
   );
 
+  useEffect(() => {
+    document
+      .querySelector<HTMLElement>('header[data-toolbar-state]')
+      ?.removeAttribute("aria-busy");
+  }, [pathname]);
+
   const navigateFromFoundation = (
     event: MouseEvent<HTMLAnchorElement>,
     route: string,

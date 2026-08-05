@@ -362,8 +362,9 @@ body:has(.atlas-site[data-route-leaving="true"]) .header-brand {
   border-top: 1px solid rgba(41, 42, 37, 0.16);
   gap: clamp(1rem, 2vw, 2rem);
   justify-content: flex-end;
+  max-width: 100%;
   min-height: 2rem;
-  width: 100%;
+  width: max-content;
 }
 
 .site-header .section-navigation a {

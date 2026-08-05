@@ -150,7 +150,8 @@
   border-top: 1px solid var(--line);
   gap: clamp(0.9rem, 2vw, 1.8rem);
   justify-content: flex-end;
-  width: 100%;
+  max-width: 100%;
+  width: max-content;
 }
 
 .header :global(.section-navigation) a {

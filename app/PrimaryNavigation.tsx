@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -126,25 +127,31 @@ export function PrimaryNavigation({
 
           if (id === "investing") {
             return (
-              <a
+              <Link
                 aria-current={pathname === "/investing" ? "page" : undefined}
                 href="/investing"
                 key={id}
               >
                 {label}
-              </a>
+              </Link>
             );
           }
 
           const href = onFoundationPage ? `#${id}` : `/#${id}`;
+          if (!onFoundationPage) {
+            return (
+              <Link href={href} key={id}>
+                {label}
+              </Link>
+            );
+          }
+
           return (
             <a
               aria-current={activeId === id ? "location" : undefined}
               href={href}
               key={id}
-              onClick={() => {
-                if (onFoundationPage) setActiveId(id);
-              }}
+              onClick={() => setActiveId(id)}
             >
               {label}
             </a>

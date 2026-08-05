@@ -196,6 +196,7 @@ img {
 
 @keyframes collapse-brand-transform {
   from {
+    --brand-label-offset: 0rem;
     align-items: flex-end;
     flex-direction: row;
     gap: 0.8rem;
@@ -203,6 +204,7 @@ img {
   }
 
   61.99% {
+    --brand-label-offset: 0rem;
     align-items: flex-end;
     flex-direction: row;
     gap: 0.8rem;
@@ -210,6 +212,7 @@ img {
   }
 
   62% {
+    --brand-label-offset: 0.58rem;
     align-items: flex-start;
     flex-direction: column;
     gap: 0.2rem;
@@ -217,6 +220,7 @@ img {
   }
 
   to {
+    --brand-label-offset: 0.38rem;
     align-items: flex-start;
     flex-direction: column;
     gap: 0.2rem;
@@ -270,6 +274,8 @@ img {
   font-weight: 700;
   letter-spacing: 0.23em;
   margin-bottom: 0.18rem;
+  /* Option two shifts the label by 4% of the stacked wordmark width. */
+  margin-inline-start: var(--brand-label-offset);
   text-transform: uppercase;
 }
 
@@ -1073,6 +1079,7 @@ button.text-link {
   }
 
   .header-brand {
+    --brand-label-offset: 0.26rem;
     animation: none;
     align-self: center;
     align-items: flex-start;
@@ -1225,6 +1232,7 @@ button.text-link {
 
 @keyframes collapse-brand-transform-tablet {
   from {
+    --brand-label-offset: 0rem;
     align-items: flex-end;
     flex-direction: row;
     gap: 0.8rem;
@@ -1232,6 +1240,7 @@ button.text-link {
   }
 
   57.99% {
+    --brand-label-offset: 0rem;
     align-items: flex-end;
     flex-direction: row;
     gap: 0.8rem;
@@ -1239,6 +1248,7 @@ button.text-link {
   }
 
   58% {
+    --brand-label-offset: 0.46rem;
     align-items: flex-start;
     flex-direction: column;
     gap: 0.2rem;
@@ -1246,6 +1256,7 @@ button.text-link {
   }
 
   to {
+    --brand-label-offset: 0.35rem;
     align-items: flex-start;
     flex-direction: column;
     gap: 0.2rem;
@@ -1272,6 +1283,7 @@ button.text-link {
   }
 
   .header-brand {
+    --brand-label-offset: 0.38rem;
     animation: none;
     align-items: flex-start;
     flex-direction: column;
@@ -1306,6 +1318,7 @@ button.text-link {
   }
 
   .header-brand {
+    --brand-label-offset: 0.26rem;
     width: 6.5rem;
   }
 }

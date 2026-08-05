@@ -672,6 +672,15 @@ export default function InvestingPage() {
             </div>
           </div>
         </section>
+
+        <aside className={styles.discussionDisclaimer} aria-label="Investment document disclaimer">
+          <div className={styles.contentFrame}>
+            <small>
+              This working discussion document is not an offer to sell securities,
+              tax advice, legal advice, or a promise of financial or charitable results.
+            </small>
+          </div>
+        </aside>
       </main>
 
       <footer className={styles.footer}>
@@ -686,10 +695,6 @@ export default function InvestingPage() {
             <a href="https://www.coherence-thesis.com/">The Coherence Thesis</a>
             <a href="mailto:hello@genii.foundation">Email</a>
           </div>
-          <small>
-            This working discussion document is not an offer to sell securities,
-            tax advice, legal advice, or a promise of financial or charitable results.
-          </small>
         </div>
       </footer>
     </div>

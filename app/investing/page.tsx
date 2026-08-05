@@ -120,7 +120,13 @@ function Wordmark({ priority = false }: { priority?: boolean }) {
 }
 
 function Arrow() {
-  return <span aria-hidden="true">&#8599;</span>;
+  return (
+    <span aria-hidden="true" className={styles.actionArrow}>
+      <svg focusable="false" viewBox="0 0 16 16">
+        <path d="M5.75 10.25 11 5M7.25 5H11v3.75" />
+      </svg>
+    </span>
+  );
 }
 
 export default function InvestingPage() {

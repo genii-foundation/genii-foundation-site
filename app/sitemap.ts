@@ -5,5 +5,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: "https://genii.foundation",
     },
+    {
+      url: "https://genii.foundation/investing",
+    },
   ];
 }

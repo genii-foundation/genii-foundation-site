@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 import { ContactTrigger } from "./ContactDialog";
 
@@ -8,15 +9,29 @@ const navigationItems = [
   { id: "work", label: "Work" },
   { id: "mission", label: "Mission" },
   { id: "fields", label: "Fields" },
+  { id: "investing", label: "Investing" },
   { id: "contact", label: "Contact" },
 ] as const;
 
 type SectionId = (typeof navigationItems)[number]["id"];
 
-export function PrimaryNavigation() {
+export type SectionNavigationItem = {
+  href: string;
+  label: string;
+};
+
+export function PrimaryNavigation({
+  sectionItems = [],
+}: {
+  sectionItems?: readonly SectionNavigationItem[];
+}) {
+  const pathname = usePathname();
+  const onFoundationPage = pathname === "/";
   const [activeId, setActiveId] = useState<SectionId | null>(null);
 
   useEffect(() => {
+    if (!onFoundationPage) return;
+
     const sectionTargets = navigationItems.flatMap(({ id }) => {
       const element = document.getElementById(id);
       return element ? [{ element, id }] : [];
@@ -53,30 +68,57 @@ export function PrimaryNavigation() {
 
     for (const { element } of targets) observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [onFoundationPage]);
 
   return (
-    <nav aria-label="Primary navigation">
-      {navigationItems.map(({ id, label }) => {
-        if (id === "contact") {
-          return (
-            <ContactTrigger current={activeId === id} key={id}>
-              {label}
-            </ContactTrigger>
-          );
-        }
+    <div className="navigation-stack">
+      <nav aria-label="Primary navigation" className="primary-navigation">
+        {navigationItems.map(({ id, label }) => {
+          if (id === "contact" && onFoundationPage) {
+            return (
+              <ContactTrigger current={activeId === id} key={id}>
+                {label}
+              </ContactTrigger>
+            );
+          }
 
-        return (
-          <a
-            aria-current={activeId === id ? "location" : undefined}
-            href={`#${id}`}
-            key={id}
-            onClick={() => setActiveId(id)}
-          >
-            {label}
-          </a>
-        );
-      })}
-    </nav>
+          if (id === "investing") {
+            return (
+              <a
+                aria-current={pathname === "/investing" ? "page" : undefined}
+                href="/investing"
+                key={id}
+              >
+                {label}
+              </a>
+            );
+          }
+
+          const href = onFoundationPage ? `#${id}` : `/#${id}`;
+          return (
+            <a
+              aria-current={activeId === id ? "location" : undefined}
+              href={href}
+              key={id}
+              onClick={() => {
+                if (onFoundationPage) setActiveId(id);
+              }}
+            >
+              {label}
+            </a>
+          );
+        })}
+      </nav>
+
+      {sectionItems.length > 0 ? (
+        <nav aria-label="On this page" className="section-navigation">
+          {sectionItems.map(({ href, label }) => (
+            <a href={href} key={href}>
+              {label}
+            </a>
+          ))}
+        </nav>
+      ) : null}
+    </div>
   );
 }

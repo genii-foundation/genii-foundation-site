@@ -10,6 +10,12 @@
   initial-value: 0rem;
 }
 
+@property --navigation-row-gap {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0rem;
+}
+
 :root {
   --ink: #11120f;
   --paper: #ded9ce;
@@ -207,11 +213,11 @@ img {
 
 @keyframes collapse-header-navigation-gap {
   from {
-    row-gap: clamp(1.5rem, 3vw, 2.5rem);
+    --navigation-row-gap: clamp(1.5rem, 3vw, 2.5rem);
   }
 
   to {
-    row-gap: 0;
+    --navigation-row-gap: 0rem;
   }
 }
 
@@ -317,6 +323,7 @@ body:has(.atlas-site[data-route-leaving="true"]) .header-brand {
 body:has(.atlas-site[data-route-leaving="true"])
   .site-header
   .navigation-stack {
+  --navigation-row-gap: 0rem;
   animation: none;
   row-gap: 0;
 }
@@ -382,7 +389,8 @@ body:has(.atlas-site[data-route-leaving="true"])
 }
 
 .site-header .navigation-stack {
-  row-gap: clamp(1.5rem, 3vw, 2.5rem);
+  --navigation-row-gap: clamp(1.5rem, 3vw, 2.5rem);
+  row-gap: var(--navigation-row-gap);
 }
 
 .navigation-scroll-region {
@@ -495,6 +503,10 @@ body:has(.atlas-site[data-route-leaving="true"])
   transform-origin: center;
   transition: height 180ms ease, opacity 180ms ease,
     transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-header .primary-navigation :is(a, button)::after {
+  bottom: calc(-1 * var(--navigation-row-gap) - 1px);
 }
 
 .site-header nav :is(a, button):hover,
@@ -1397,6 +1409,7 @@ button.text-link {
   }
 
   .site-header .navigation-stack {
+    --navigation-row-gap: 0rem;
     animation: none;
     row-gap: 0;
     width: 100%;
@@ -1424,6 +1437,10 @@ button.text-link {
 
   .site-header .primary-navigation :is(a, button) {
     min-height: 2.25rem;
+  }
+
+  .site-header .primary-navigation :is(a, button)::after {
+    bottom: 0.3rem;
   }
 
   .site-header .section-navigation a {
@@ -1628,6 +1645,7 @@ button.text-link {
   }
 
   .site-header .navigation-stack {
+    --navigation-row-gap: 0rem;
     animation: none;
     row-gap: 0;
   }

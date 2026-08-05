@@ -79,11 +79,13 @@ header nav button[aria-controls="contact-dialog"][data-current="true"]::after {
 }
 
 header
-  .primary-navigation:has([aria-current="page"])
-  :is(a, button):not([aria-current="page"]):not([data-current="true"]):is(
-    :hover,
-    :focus-visible
-  )::after {
+  .primary-navigation:has(
+    :is(a, button):not([aria-current="page"]):not([data-current="true"]):is(
+        :hover,
+        :focus-visible
+      )
+  )
+  :is(a, button)[aria-current="page"]::after {
   animation: none;
   opacity: 0;
 }

@@ -171,7 +171,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="site-footer">
+      <footer className="site-footer" aria-label="Site information">
         <div className="footer-inner">
           <a className="footer-brand" href="#top" aria-label="GENII Foundation, home">
             <Wordmark />
@@ -188,7 +188,28 @@ export default function Home() {
             </a>
             <a href="https://www.coherence-thesis.com/">The Coherence Thesis</a>
           </div>
-          <small>© 2026 GENII Foundation</small>
+          <div className="footer-provenance">
+            <p>© 2026 by GENII Foundation.</p>
+            <p>
+              Custodians:{" "}
+              <a
+                href="https://www.instagram.com/allelseis"
+                rel="author noopener noreferrer"
+                target="_blank"
+              >
+                Robert James Ryan III
+              </a>
+              {" & "}
+              <a
+                href="https://aubreyfalconer.com"
+                rel="author noopener noreferrer"
+                target="_blank"
+              >
+                Aubrey Falconer
+              </a>
+              .
+            </p>
+          </div>
         </div>
       </footer>
     </div>

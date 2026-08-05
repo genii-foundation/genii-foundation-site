@@ -180,8 +180,7 @@
 }
 
 .header :global(.section-navigation) a::after {
-  bottom: auto;
-  top: -1px;
+  display: none;
 }
 
 .header nav a:hover,
@@ -1798,6 +1797,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .header :global(.section-navigation),
+  .header :global(.section-navigation-dot),
   .header nav a[aria-current="page"]::after,
   .header nav a[aria-current="location"]::after,
   .skipLink,
@@ -1808,5 +1808,12 @@
   .actionArrowStem {
     animation: none;
     transition: none;
+  }
+
+  .header
+    :global(.section-navigation)
+    a[aria-current="location"]
+    :global(.section-navigation-dot) {
+    animation: none;
   }
 }

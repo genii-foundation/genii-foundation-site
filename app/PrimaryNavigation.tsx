@@ -168,7 +168,8 @@ export function PrimaryNavigation({
               key={href}
               onClick={() => setActiveSectionHref(href)}
             >
-              {label}
+              <span aria-hidden="true" className="section-navigation-dot" />
+              <span>{label}</span>
             </a>
           ))}
         </nav>

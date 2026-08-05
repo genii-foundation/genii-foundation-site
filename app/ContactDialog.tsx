@@ -21,7 +21,7 @@ type ContactTriggerProps = {
 
 const ContactDialogContext = createContext<ContactDialogContextValue | null>(null);
 
-function useContactDialog() {
+export function useContactDialog() {
   const context = useContext(ContactDialogContext);
 
   if (!context) {

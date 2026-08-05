@@ -78,6 +78,16 @@ header nav button[aria-controls="contact-dialog"][data-current="true"]::after {
   transform: scaleX(1);
 }
 
+header
+  .primary-navigation:has([aria-current="page"])
+  :is(a, button):not([aria-current="page"]):not([data-current="true"]):is(
+    :hover,
+    :focus-visible
+  )::after {
+  animation: none;
+  opacity: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .contact-option-action,
   .contact-option-arrow-stem {

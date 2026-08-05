@@ -11,7 +11,7 @@ import {
 } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-import { ContactTrigger } from "./ContactDialog";
+import { ContactTrigger, useContactDialog } from "./ContactDialog";
 
 const navigationItems = [
   { href: "/", label: "Foundation" },
@@ -134,6 +134,7 @@ export function PrimaryNavigation({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { isOpen: isContactOpen } = useContactDialog();
   const [activeSectionHref, setActiveSectionHref] = useState<string | null>(null);
   const routeTransitionTimerRef = useRef<number | null>(null);
 
@@ -232,7 +233,7 @@ export function PrimaryNavigation({
       >
         {navigationItems.map(({ href, label }) => (
           <Link
-            aria-current={pathname === href ? "page" : undefined}
+            aria-current={!isContactOpen && pathname === href ? "page" : undefined}
             href={href}
             key={href}
             onClick={(event) => navigateFromFoundation(event, href)}

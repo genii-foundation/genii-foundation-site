@@ -358,6 +358,16 @@ body:has(.atlas-site[data-route-leaving="true"]) .header-brand {
   min-width: 0;
 }
 
+.navigation-scroll-region {
+  justify-self: end;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.navigation-scroll-button {
+  display: none;
+}
+
 .site-header .section-navigation {
   border-top: 1px solid rgba(41, 42, 37, 0.16);
   gap: clamp(1rem, 2vw, 2rem);
@@ -431,10 +441,12 @@ body:has(.atlas-site[data-route-leaving="true"]) .header-brand {
   border: 0;
   color: inherit;
   cursor: pointer;
+  flex: 0 0 auto;
   font-family: inherit;
   padding: 0;
   position: relative;
   transition: color 180ms ease;
+  white-space: nowrap;
 }
 
 .site-header nav :is(a, button)::after {
@@ -1199,6 +1211,83 @@ button.text-link {
   body:has(.atlas-site[data-route-leaving="true"]) .header-brand {
     width: 6.5rem;
   }
+
+  .navigation-scroll-region {
+    --navigation-scroll-surface: rgb(226 221 210 / 0.98);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+
+  .navigation-scroll-region::before,
+  .navigation-scroll-region::after {
+    bottom: 0;
+    content: "";
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transition: opacity 180ms ease;
+    width: 2.5rem;
+    z-index: 1;
+  }
+
+  .navigation-scroll-region::before {
+    background: linear-gradient(
+      to right,
+      var(--navigation-scroll-surface) 18%,
+      transparent
+    );
+    left: 0;
+  }
+
+  .navigation-scroll-region::after {
+    background: linear-gradient(
+      to left,
+      var(--navigation-scroll-surface) 18%,
+      transparent
+    );
+    right: 0;
+  }
+
+  .navigation-scroll-region[data-overflow-start="true"]::before,
+  .navigation-scroll-region[data-overflow-end="true"]::after {
+    opacity: 1;
+  }
+
+  .navigation-scroll-button {
+    align-items: center;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 1.75rem;
+    z-index: 2;
+  }
+
+  .navigation-scroll-button-start {
+    left: 0;
+  }
+
+  .navigation-scroll-button-end {
+    right: 0;
+  }
+
+  .navigation-scroll-button svg {
+    fill: none;
+    height: 0.72rem;
+    stroke: currentColor;
+    stroke-linecap: square;
+    stroke-width: 1.5;
+    width: 0.72rem;
+  }
 }
 
 @media (max-width: 620px) {
@@ -1277,9 +1366,11 @@ button.text-link {
 
   .site-header .section-navigation {
     border-top: 0;
+    justify-content: flex-start;
   }
 
   .site-header nav {
+    justify-content: flex-start;
     max-width: 100%;
     overflow-x: auto;
     scrollbar-width: none;
@@ -1291,6 +1382,14 @@ button.text-link {
 
   .site-header nav :is(a, button) {
     letter-spacing: 0.1em;
+  }
+
+  .site-header .primary-navigation :is(a, button) {
+    min-height: 2.25rem;
+  }
+
+  .site-header .section-navigation a {
+    min-height: 1.75rem;
   }
 
   .contact-dialog {

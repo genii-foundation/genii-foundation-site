@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type MouseEvent,
+  type ReactNode,
+} from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { ContactTrigger } from "./ContactDialog";
@@ -16,6 +23,109 @@ export type SectionNavigationItem = {
   href: string;
   label: string;
 };
+
+function ScrollArrow({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 16 16">
+      <path d={direction === "left" ? "M10.5 3.5 6 8l4.5 4.5" : "m5.5 3.5 4.5 4.5-4.5 4.5"} />
+    </svg>
+  );
+}
+
+function ScrollableNavigation({
+  ariaLabel,
+  children,
+  className,
+}: {
+  ariaLabel: string;
+  children: ReactNode;
+  className: string;
+}) {
+  const navigationRef = useRef<HTMLElement>(null);
+  const [scrollState, setScrollState] = useState({ start: false, end: false });
+
+  const updateScrollState = useCallback(() => {
+    const navigation = navigationRef.current;
+    if (!navigation) return;
+
+    const maximumScroll = Math.max(0, navigation.scrollWidth - navigation.clientWidth);
+    const nextState = {
+      start: navigation.scrollLeft > 2,
+      end: navigation.scrollLeft < maximumScroll - 2,
+    };
+
+    setScrollState((currentState) =>
+      currentState.start === nextState.start && currentState.end === nextState.end
+        ? currentState
+        : nextState,
+    );
+  }, []);
+
+  useEffect(() => {
+    const navigation = navigationRef.current;
+    if (!navigation) return;
+
+    const resizeObserver = new ResizeObserver(updateScrollState);
+    const mutationObserver = new MutationObserver(updateScrollState);
+    resizeObserver.observe(navigation);
+    mutationObserver.observe(navigation, { childList: true, subtree: true });
+    navigation.addEventListener("scroll", updateScrollState, { passive: true });
+    const animationFrame = window.requestAnimationFrame(updateScrollState);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      resizeObserver.disconnect();
+      mutationObserver.disconnect();
+      navigation.removeEventListener("scroll", updateScrollState);
+    };
+  }, [updateScrollState]);
+
+  const scroll = (direction: "left" | "right") => {
+    const navigation = navigationRef.current;
+    if (!navigation) return;
+
+    navigation.scrollBy({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      left:
+        (direction === "left" ? -1 : 1) *
+        Math.max(96, navigation.clientWidth * 0.72),
+    });
+  };
+
+  return (
+    <div
+      className="navigation-scroll-region"
+      data-overflow-end={scrollState.end ? "true" : undefined}
+      data-overflow-start={scrollState.start ? "true" : undefined}
+    >
+      <nav aria-label={ariaLabel} className={className} ref={navigationRef}>
+        {children}
+      </nav>
+      {scrollState.start ? (
+        <button
+          aria-label={`Scroll ${ariaLabel.toLowerCase()} left`}
+          className="navigation-scroll-button navigation-scroll-button-start"
+          onClick={() => scroll("left")}
+          type="button"
+        >
+          <ScrollArrow direction="left" />
+        </button>
+      ) : null}
+      {scrollState.end ? (
+        <button
+          aria-label={`Scroll ${ariaLabel.toLowerCase()} right`}
+          className="navigation-scroll-button navigation-scroll-button-end"
+          onClick={() => scroll("right")}
+          type="button"
+        >
+          <ScrollArrow direction="right" />
+        </button>
+      ) : null}
+    </div>
+  );
+}
 
 export function PrimaryNavigation({
   sectionItems = [],
@@ -116,7 +226,10 @@ export function PrimaryNavigation({
 
   return (
     <div className="navigation-stack">
-      <nav aria-label="Primary navigation" className="primary-navigation">
+      <ScrollableNavigation
+        ariaLabel="Primary navigation"
+        className="primary-navigation"
+      >
         {navigationItems.map(({ href, label }) => (
           <Link
             aria-current={pathname === href ? "page" : undefined}
@@ -128,10 +241,13 @@ export function PrimaryNavigation({
           </Link>
         ))}
         <ContactTrigger>Contact</ContactTrigger>
-      </nav>
+      </ScrollableNavigation>
 
       {sectionItems.length > 0 ? (
-        <nav aria-label="On this page" className="section-navigation">
+        <ScrollableNavigation
+          ariaLabel="On this page"
+          className="section-navigation"
+        >
           {sectionItems.map(({ href, label }) => (
             <a
               aria-current={activeSectionHref === href ? "location" : undefined}
@@ -143,7 +259,7 @@ export function PrimaryNavigation({
               <span>{label}</span>
             </a>
           ))}
-        </nav>
+        </ScrollableNavigation>
       ) : null}
     </div>
   );

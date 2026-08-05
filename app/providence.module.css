@@ -177,10 +177,12 @@
   border: 0;
   color: inherit;
   cursor: pointer;
+  flex: 0 0 auto;
   font-family: inherit;
   padding: 0;
   position: relative;
   transition: color 180ms ease;
+  white-space: nowrap;
 }
 
 .header nav :is(a, button)::after {
@@ -1756,13 +1758,13 @@
   .headerInner {
     gap: 1rem;
     grid-template-columns: 6.5rem minmax(0, 1fr);
-    height: 6rem;
+    height: 5.25rem;
     min-height: 0;
   }
 
   .header,
   .headerSpacer {
-    height: 6rem;
+    height: 5.25rem;
   }
 
   .headerBrand {
@@ -1771,9 +1773,11 @@
 
   .header :global(.section-navigation) {
     border-top: 0;
+    justify-content: flex-start;
   }
 
   .header nav {
+    justify-content: flex-start;
     max-width: 100%;
     overflow-x: auto;
     scrollbar-width: none;
@@ -1785,6 +1789,18 @@
 
   .header nav :is(a, button) {
     text-align: center;
+  }
+
+  .header :global(.primary-navigation) :is(a, button) {
+    min-height: 2.25rem;
+  }
+
+  .header :global(.primary-navigation) :is(a, button)::after {
+    bottom: 0.3rem;
+  }
+
+  .header :global(.section-navigation) a {
+    min-height: 1.75rem;
   }
 
   .hero {

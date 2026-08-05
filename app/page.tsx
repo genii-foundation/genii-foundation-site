@@ -55,7 +55,6 @@ export default function Home() {
 
       <main className="content-frame" id="main-content">
         <section className="introduction" aria-labelledby="hero-title">
-          <p className="eyebrow">Independent research foundation</p>
           <div className="introduction-grid">
             <h1 id="hero-title">A framework for futures worth inhabiting.</h1>
             <div className="introduction-copy">

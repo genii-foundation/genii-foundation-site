@@ -1,4 +1,4 @@
-import styles from "./investing.module.css";
+import styles from "../providence.module.css";
 
 type Projection = {
   contribution: number;

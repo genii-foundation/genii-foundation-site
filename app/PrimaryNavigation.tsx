@@ -10,6 +10,7 @@ const navigationItems = [
   { id: "work", label: "Work" },
   { id: "mission", label: "Mission" },
   { id: "fields", label: "Fields" },
+  { id: "principles", label: "Principles" },
   { id: "investing", label: "Investing" },
   { id: "contact", label: "Contact" },
 ] as const;
@@ -125,11 +126,18 @@ export function PrimaryNavigation({
             );
           }
 
-          if (id === "investing") {
+          const route =
+            id === "principles"
+              ? "/principles"
+              : id === "investing"
+                ? "/investing"
+                : null;
+
+          if (route) {
             return (
               <Link
-                aria-current={pathname === "/investing" ? "page" : undefined}
-                href="/investing"
+                aria-current={pathname === route ? "page" : undefined}
+                href={route}
                 key={id}
               >
                 {label}

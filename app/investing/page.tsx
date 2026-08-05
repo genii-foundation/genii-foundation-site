@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
-import { PrimaryNavigation } from "../PrimaryNavigation";
+import {
+  ProvidenceArrow,
+  ProvidenceFooter,
+  ProvidenceHeader,
+} from "../ProvidencePageChrome";
 import { FinancialModel } from "./FinancialModel";
-import styles from "./investing.module.css";
+import styles from "../providence.module.css";
 
 export const metadata: Metadata = {
   title: "Invest in Providence | GENII Foundation",
@@ -93,59 +96,13 @@ const developmentSequence = [
   },
 ];
 
-const principles = [
-  "Participants retain authority over every use of their intimate data",
-  "Consent is explicit, renewable, and governed by every person whose data is involved",
-  "Revenue comes from products and services chosen by participants and partners",
-  "Product decisions protect human agency ahead of engagement metrics",
-  "Coherence is contextual, plural, and unsuitable for ranking people",
-  "Clinical and spiritual claims remain within the evidence and scope that support them",
-  "Providence remains independent of employment screening and workplace evaluation",
-  "Mission stewards retain exclusive authority over any sale, merger, or change of control",
-  "Independent review governs material scientific, safety, and consent risks",
-  "Core software and reference protocols remain open and auditable",
-];
-
-function Wordmark({ priority = false }: { priority?: boolean }) {
-  return (
-    <Image
-      alt="GENII"
-      height={238}
-      loading={priority ? "eager" : undefined}
-      priority={priority}
-      src="/brand/genii-wordmark-black.png"
-      width={1135}
-    />
-  );
-}
-
-function Arrow() {
-  return (
-    <span aria-hidden="true" className={styles.actionArrow}>
-      <svg focusable="false" viewBox="0 0 16 16">
-        <path className={styles.actionArrowStem} d="M4 12 11 5" />
-        <path d="M7.25 5H11v3.75" />
-      </svg>
-    </span>
-  );
-}
-
 export default function InvestingPage() {
   return (
     <div className={styles.site} id="top">
-      <a className={styles.skipLink} href="#main-content">
-        Skip to the investment case
-      </a>
-
-      <header className={styles.header}>
-        <div className={styles.headerInner}>
-          <Link className={styles.headerBrand} href="/" aria-label="GENII Foundation, home">
-            <Wordmark priority />
-            <span>Foundation</span>
-          </Link>
-          <PrimaryNavigation sectionItems={investingSections} />
-        </div>
-      </header>
+      <ProvidenceHeader
+        sectionItems={investingSections}
+        skipLabel="Skip to the investment case"
+      />
 
       <main id="main-content">
         <section className={styles.hero} aria-labelledby="investing-title">
@@ -161,7 +118,9 @@ export default function InvestingPage() {
                   protects the research, standards, and public-interest
                   infrastructure on which that system depends.
                 </p>
-                <a href="#paths">Review the capital strategy <Arrow /></a>
+                <a href="#paths">
+                  Review the capital strategy <ProvidenceArrow />
+                </a>
               </div>
             </div>
 
@@ -265,7 +224,7 @@ export default function InvestingPage() {
                   className={styles.pathAction}
                   href="mailto:hello@genii.foundation?subject=Patient%20capital%20for%20Providence"
                 >
-                  Discuss patient capital <Arrow />
+                  Discuss patient capital <ProvidenceArrow />
                 </a>
               </article>
 
@@ -313,7 +272,7 @@ export default function InvestingPage() {
                   className={styles.pathAction}
                   href="mailto:hello@genii.foundation?subject=Philanthropic%20partnership%20with%20GENII"
                 >
-                  Discuss philanthropic support <Arrow />
+                  Discuss philanthropic support <ProvidenceArrow />
                 </a>
               </article>
             </div>
@@ -629,19 +588,23 @@ export default function InvestingPage() {
         <section className={styles.guardrails} aria-labelledby="guardrails-title">
           <div className={styles.contentFrame}>
             <div className={styles.guardrailIntro}>
-              <p className={styles.eyebrow}>Inviolable principles</p>
-              <h2 id="guardrails-title">
-                These terms govern every product, partnership, and financing.
-              </h2>
+              <p className={styles.eyebrow}>Providence principles</p>
+              <div>
+                <h2 id="guardrails-title">
+                  These principles govern every product, partnership, and financing.
+                </h2>
+                <div className={styles.principleSummaryCopy}>
+                  <p>
+                    Ten inviolable commitments define Providence&apos;s boundaries for
+                    participant authority, consent, evidence, mission control,
+                    independent review, and open infrastructure.
+                  </p>
+                  <Link className={styles.principleAction} href="/principles">
+                    Read all ten principles <ProvidenceArrow />
+                  </Link>
+                </div>
+              </div>
             </div>
-            <ul className={styles.principleGrid}>
-              {principles.map((principle, index) => (
-                <li key={principle}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  {principle}
-                </li>
-              ))}
-            </ul>
           </div>
         </section>
 
@@ -666,7 +629,7 @@ export default function InvestingPage() {
                   className={styles.invitationAction}
                   href="mailto:hello@genii.foundation?subject=Providence%20investor%20diligence"
                 >
-                  Start a diligence conversation <Arrow />
+                  Start a diligence conversation <ProvidenceArrow />
                 </a>
               </div>
             </div>
@@ -683,20 +646,7 @@ export default function InvestingPage() {
         </aside>
       </main>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerInner}>
-          <Link className={styles.footerBrand} href="/" aria-label="GENII Foundation, home">
-            <Wordmark />
-            <span>Foundation</span>
-          </Link>
-          <p>For futures worth inhabiting.</p>
-          <div className={styles.footerLinks}>
-            <Link href="/">Foundation</Link>
-            <a href="https://www.coherence-thesis.com/">The Coherence Thesis</a>
-            <a href="mailto:hello@genii.foundation">Email</a>
-          </div>
-        </div>
-      </footer>
+      <ProvidenceFooter />
     </div>
   );
 }

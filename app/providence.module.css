@@ -282,7 +282,8 @@
 
 .heroCopy a,
 .pathAction,
-.invitationAction {
+.invitationAction,
+.principleAction {
   align-items: center;
   border: 1px solid var(--gold);
   color: var(--gold);
@@ -331,7 +332,9 @@
 .pathAction:hover,
 .pathAction:focus-visible,
 .invitationAction:hover,
-.invitationAction:focus-visible {
+.invitationAction:focus-visible,
+.principleAction:hover,
+.principleAction:focus-visible {
   background: var(--gold);
   color: var(--night);
 }
@@ -341,7 +344,9 @@
 .pathAction:hover .actionArrowStem,
 .pathAction:focus-visible .actionArrowStem,
 .invitationAction:hover .actionArrowStem,
-.invitationAction:focus-visible .actionArrowStem {
+.invitationAction:focus-visible .actionArrowStem,
+.principleAction:hover .actionArrowStem,
+.principleAction:focus-visible .actionArrowStem {
   transform: scale(1);
 }
 
@@ -373,7 +378,8 @@
 .premise,
 .venture,
 .architecture,
-.invitation {
+.invitation,
+.principleApplication {
   background: var(--paper-light);
 }
 
@@ -1413,6 +1419,22 @@
   max-width: 12ch;
 }
 
+.principleSummaryCopy {
+  margin-top: 2rem;
+  max-width: 44rem;
+}
+
+.principleSummaryCopy p {
+  color: #c9c5bc;
+  font-size: 0.88rem;
+  line-height: 1.75;
+  margin-bottom: 0;
+}
+
+.principleAction {
+  margin-top: 2rem;
+}
+
 .principleGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1440,6 +1462,65 @@
   font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.12em;
+}
+
+.principleGrid li div {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.principleGrid li small {
+  color: var(--gold-bright);
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.principleApplication {
+  padding: clamp(6rem, 12vw, 11rem) 0;
+}
+
+.principleApplication .sectionHeading > p {
+  color: var(--muted);
+}
+
+.applicationGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: clamp(4rem, 8vw, 7rem);
+}
+
+.applicationGrid article {
+  border: 1px solid var(--line);
+  min-height: 24rem;
+  padding: clamp(2rem, 4vw, 3.5rem);
+}
+
+.applicationGrid article > span {
+  color: var(--gold);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.applicationGrid h3 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.5rem, 3.5vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+  margin: 4rem 0 1.5rem;
+}
+
+.applicationGrid p {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.75;
+  margin-bottom: 0;
 }
 
 .invitation {
@@ -1557,11 +1638,13 @@
   }
 
   .returnGrid,
-  .returnBoundary {
+  .returnBoundary,
+  .applicationGrid {
     grid-template-columns: 1fr;
   }
 
-  .returnGrid article {
+  .returnGrid article,
+  .applicationGrid article {
     min-height: 0;
   }
 
@@ -1805,6 +1888,7 @@
   .heroCopy a,
   .pathAction,
   .invitationAction,
+  .principleAction,
   .actionArrowStem {
     animation: none;
     transition: none;

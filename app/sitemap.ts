@@ -8,5 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: "https://genii.foundation/investing",
     },
+    {
+      url: "https://genii.foundation/principles",
+    },
   ];
 }

@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { ContactDialogProvider } from "./ContactDialog";
 import { SiteHeader } from "./SiteHeader";
 import "./globals.css";
+import "./footer.css";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],

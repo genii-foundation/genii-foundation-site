@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { ContactDialogProvider } from "./ContactDialog";
+import { SiteHeader } from "./SiteHeader";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -66,7 +68,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       data-scroll-behavior="smooth"
       lang="en"
     >
-      <body>{children}</body>
+      <body>
+        <ContactDialogProvider>
+          <SiteHeader />
+          {children}
+        </ContactDialogProvider>
+      </body>
     </html>
   );
 }

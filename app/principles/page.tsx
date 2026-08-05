@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import {
   ProvidenceArrow,
   ProvidenceFooter,
-  ProvidenceHeader,
 } from "../ProvidencePageChrome";
 import styles from "../providence.module.css";
 
@@ -31,11 +30,6 @@ export const metadata: Metadata = {
   },
 };
 
-const principleSections = [
-  { href: "#commitments", label: "Ten commitments" },
-  { href: "#status", label: "Legal status" },
-] as const;
-
 const principles = [
   "Participants retain authority over every use of their intimate data",
   "Consent is explicit, renewable, and governed by every person whose data is involved",
@@ -52,10 +46,7 @@ const principles = [
 export default function PrinciplesPage() {
   return (
     <div className={styles.site} id="top">
-      <ProvidenceHeader
-        sectionItems={principleSections}
-        skipLabel="Skip to the Providence Principles"
-      />
+      <div className={styles.headerSpacer} aria-hidden="true" />
 
       <main id="main-content">
         <section className={styles.hero} aria-labelledby="principles-title">

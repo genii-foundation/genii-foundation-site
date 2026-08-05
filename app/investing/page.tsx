@@ -4,7 +4,6 @@ import Link from "next/link";
 import {
   ProvidenceArrow,
   ProvidenceFooter,
-  ProvidenceHeader,
 } from "../ProvidencePageChrome";
 import { FinancialModel } from "./FinancialModel";
 import styles from "../providence.module.css";
@@ -32,13 +31,6 @@ export const metadata: Metadata = {
     ],
   },
 };
-
-const investingSections = [
-  { href: "#paths", label: "Capital paths" },
-  { href: "#commercial", label: "Commercial model" },
-  { href: "#architecture", label: "Architecture" },
-  { href: "#invitation", label: "Diligence" },
-] as const;
 
 const commercialPathways = [
   {
@@ -99,10 +91,7 @@ const developmentSequence = [
 export default function InvestingPage() {
   return (
     <div className={styles.site} id="top">
-      <ProvidenceHeader
-        sectionItems={investingSections}
-        skipLabel="Skip to the investment case"
-      />
+      <div className={styles.headerSpacer} aria-hidden="true" />
 
       <main id="main-content">
         <section className={styles.hero} aria-labelledby="investing-title">

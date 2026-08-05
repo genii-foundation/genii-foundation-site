@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { PrimaryNavigation, type SectionNavigationItem } from "./PrimaryNavigation";
 import styles from "./providence.module.css";
 
 function Wordmark({ priority = false }: { priority?: boolean }) {
@@ -25,31 +24,6 @@ export function ProvidenceArrow() {
         <path d="M7.25 5H11v3.75" />
       </svg>
     </span>
-  );
-}
-
-export function ProvidenceHeader({
-  sectionItems,
-  skipLabel,
-}: {
-  sectionItems: readonly SectionNavigationItem[];
-  skipLabel: string;
-}) {
-  return (
-    <>
-      <a className={styles.skipLink} href="#main-content">
-        {skipLabel}
-      </a>
-      <header className={styles.header}>
-        <div className={styles.headerInner}>
-          <Link className={styles.headerBrand} href="/" aria-label="GENII Foundation, home">
-            <Wordmark priority />
-            <span>Foundation</span>
-          </Link>
-          <PrimaryNavigation sectionItems={sectionItems} />
-        </div>
-      </header>
-    </>
   );
 }
 

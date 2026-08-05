@@ -90,7 +90,7 @@ export function ContactDialogProvider({ children }: { children: ReactNode }) {
         <div className="contact-dialog-shell">
           <div className="contact-dialog-header">
             <h2 id="contact-dialog-title" ref={headingRef} tabIndex={-1}>
-              Contact
+              Contact GENII
             </h2>
             <form method="dialog">
               <button

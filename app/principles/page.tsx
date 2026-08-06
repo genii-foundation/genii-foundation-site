@@ -88,29 +88,6 @@ export default function PrinciplesPage() {
           </div>
         </section>
 
-        <section
-          className={styles.premise}
-          id="status"
-          aria-labelledby="status-title"
-        >
-          <div className={styles.contentFrame}>
-            <p className={styles.eyebrow}>Legal status</p>
-            <div className={styles.premiseGrid}>
-              <h2 id="status-title">No legal constitution has been ratified.</h2>
-              <div>
-                <p>
-                  These commitments govern Providence&apos;s current design and are
-                  intended for adoption in the relevant governance and operating
-                  documents.
-                </p>
-                <p>
-                  This page is not legally binding. Legal force depends on the terms
-                  adopted in the applicable charters, agreements, and policies.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
 
       <ProvidenceFooter />

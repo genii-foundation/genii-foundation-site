@@ -94,34 +94,32 @@ export default function InvestingPage() {
       <div className={styles.headerSpacer} aria-hidden="true" />
 
       <main id="main-content">
-        <section className={styles.hero} aria-labelledby="investing-title">
+        <section
+          className={`${styles.hero} ${styles.investingHero}`}
+          aria-labelledby="investing-title"
+        >
           <div className={styles.contentFrame}>
-            <p className={styles.eyebrow}>Patient capital for Providence</p>
-            <div className={styles.heroGrid}>
-              <h1 id="investing-title">Back the infrastructure of human coherence.</h1>
-              <div className={styles.heroCopy}>
-                <p>
-                  Providence is building a consent-bound commercial system around
-                  a private companion, revenue-positive retreats, partner
-                  implementations, and an independent practitioner network. GENII
-                  protects the research, standards, and public-interest
-                  infrastructure on which that system depends.
-                </p>
-                <a href="#paths">
-                  Review the capital strategy <ProvidenceArrow />
-                </a>
-              </div>
+            <h1 id="investing-title">Invest in Providence.</h1>
+            <div className={styles.investingHeroCopy}>
+              <p className={styles.investingHeroLead}>
+                Providence is raising patient capital to build a private companion,
+                revenue-positive retreats, partner systems, and a practitioner network.
+              </p>
+              <p>
+                GENII Foundation protects the research, standards, and public-interest
+                infrastructure behind the commercial company.
+              </p>
+              <a className={styles.investingHeroAction} href="#paths">
+                See the capital strategy <ProvidenceArrow />
+              </a>
             </div>
 
-            <aside className={styles.formationNote} aria-label="Formation status">
-              <strong>Working architecture</strong>
+            <aside className={styles.investingStatus} aria-label="Formation status">
+              <strong>Formation status</strong>
               <p>
-                GENII Foundation is in formation. Fiscal sponsorship, an
-                independent public charity, and a separate mission-locked
-                commercial company are under legal design. Counsel will recommend
-                entity form and domicile based on governance, financing, tax, and
-                operating requirements. This page describes the intended structure,
-                not completed entities or definitive offering terms.
+                GENII Foundation and Providence&apos;s separate mission-locked company
+                are under legal design. This page describes the intended structure,
+                not completed entities or offering terms.
               </p>
             </aside>
           </div>

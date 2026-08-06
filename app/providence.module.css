@@ -308,6 +308,98 @@
   text-wrap: balance;
 }
 
+.investingHero {
+  min-height: 0;
+  padding-bottom: clamp(4.5rem, 8vw, 7rem);
+}
+
+.investingHero h1 {
+  font-size: clamp(5rem, 11vw, 10rem);
+  max-width: 8ch;
+}
+
+.investingHeroCopy {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  max-width: 50rem;
+}
+
+.investingHeroCopy p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.75;
+  max-width: 44rem;
+}
+
+.investingHeroCopy .investingHeroLead {
+  color: var(--ink);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  line-height: 1.35;
+  margin-bottom: 1.5rem;
+  max-width: 38rem;
+}
+
+.investingHeroAction {
+  align-items: center;
+  color: var(--gold);
+  display: inline-flex;
+  font-size: 0.68rem;
+  font-weight: 700;
+  gap: 0.65rem;
+  letter-spacing: 0.14em;
+  margin-top: 1.25rem;
+  padding-bottom: 0.35rem;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.investingHeroAction::after {
+  background: currentColor;
+  bottom: 0;
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  transform-origin: left;
+  transition: transform 180ms ease;
+  width: 100%;
+}
+
+.investingHeroAction:hover::after,
+.investingHeroAction:focus-visible::after {
+  transform: scaleX(0.45);
+}
+
+.investingHeroAction:hover .actionArrowStem,
+.investingHeroAction:focus-visible .actionArrowStem {
+  transform: scale(1);
+}
+
+.investingStatus {
+  align-items: start;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(10rem, 0.35fr) 1fr;
+  margin-top: clamp(4rem, 7vw, 6rem);
+  padding-top: 1.5rem;
+}
+
+.investingStatus strong {
+  color: var(--gold);
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.investingStatus p {
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+  max-width: 48rem;
+}
+
 .heroCopy {
   border-left: 1px solid var(--line);
   padding-left: clamp(1.5rem, 3vw, 3rem);
@@ -1833,6 +1925,7 @@
   }
 
   .formationNote,
+  .investingStatus,
   .contributorSignal,
   .twoChecks,
   .guardrailIntro,
@@ -1993,6 +2086,8 @@
   .skipLink,
   .header nav :is(a, button)::after,
   .heroCopy a,
+  .investingHeroAction,
+  .investingHeroAction::after,
   .pathAction,
   .invitationAction,
   .principleAction,

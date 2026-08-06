@@ -48,7 +48,7 @@
 .contact-option:hover .contact-option-action,
 .contact-option:focus-visible .contact-option-action {
   background: var(--gold);
-  color: var(--ink);
+  color: var(--paper-light);
 }
 
 .contact-option:hover .contact-option-arrow-stem,

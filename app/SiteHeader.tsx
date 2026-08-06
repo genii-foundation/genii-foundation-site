@@ -20,11 +20,6 @@ const investingSections = [
   { href: "#invitation", label: "Diligence" },
 ] as const;
 
-const principleSections = [
-  { href: "#commitments", label: "Ten commitments" },
-  { href: "#status", label: "Legal status" },
-] as const;
-
 function Wordmark() {
   return (
     <Image
@@ -57,7 +52,7 @@ function getRouteChrome(pathname: string): {
 
   if (pathname === "/principles") {
     return {
-      sectionItems: principleSections,
+      sectionItems: [],
       skipLabel: "Skip to the Providence Principles",
     };
   }

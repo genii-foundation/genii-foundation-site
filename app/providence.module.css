@@ -10,10 +10,9 @@
   --gold-bright: #ad8b4f;
   --sage: #6e8277;
   --line: rgba(35, 36, 31, 0.2);
-  background:
-    radial-gradient(circle at 10% 2%, rgba(255, 253, 247, 0.98), transparent 27rem),
-    radial-gradient(circle at 93% 16%, rgba(183, 153, 91, 0.27), transparent 32rem),
-    linear-gradient(135deg, #cbc6bb 0%, var(--paper) 47%, #c8c0b0 100%);
+  /* The painting moved to .route-backdrop-providence in globals.css so it can
+     survive a route change and cross-fade. Keep the tones here in step. */
+  background: transparent;
   color: var(--ink);
   min-height: 100vh;
 }
@@ -143,6 +142,19 @@
   display: grid;
   justify-items: end;
   min-width: 0;
+}
+
+/* Same nav width rule as the foundation header: the primary row spans the whole
+   stack so a longer section list widens the nav rather than reaching past it.
+   See the note in globals.css. */
+.header :global(.primary-navigation-scroll-region) {
+  justify-self: stretch;
+  width: 100%;
+}
+
+.header :global(.primary-navigation) {
+  justify-content: space-between;
+  width: 100%;
 }
 
 .header :global(.section-navigation) {
@@ -308,35 +320,96 @@
   text-wrap: balance;
 }
 
+/* The principles page is a list people came to read, so the opening states the
+   claim and gets out of the way. It drops the viewport-height floor and the
+   display-scale headline that together pushed the commitments off screen. */
+.principlesHero {
+  min-height: 0;
+  padding: clamp(2.5rem, 4.5vw, 4rem) 0 clamp(2rem, 3.5vw, 3rem);
+}
+
+.principlesHero h1 {
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  line-height: 0.92;
+  max-width: 16ch;
+}
+
+.principlesHero .heroGrid {
+  gap: clamp(1.75rem, 4vw, 4rem);
+  margin-top: 1.15rem;
+}
+
+.principlesHero .heroCopy p {
+  font-size: clamp(1.02rem, 1.3vw, 1.24rem);
+  margin-bottom: 0;
+}
+
+/* The commitments read as one continuous document with the opening above them,
+   so this section drops the night panel and sits on the page palette. Scoped
+   through .site because the base .guardrails background is declared later in
+   this file and would otherwise win on source order. */
+.site .principlesGuardrails {
+  background: none;
+  color: var(--ink);
+  padding-top: clamp(2rem, 3.5vw, 3.25rem);
+}
+
+.principlesGuardrails .principleGrid {
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.principlesGuardrails .principleGrid li {
+  border-top-color: var(--line);
+}
+
+.principlesGuardrails .principleGrid li span {
+  color: var(--gold);
+}
+
+.principlesGuardrails .principleGrid li small {
+  color: var(--muted);
+}
+
 .investingHero {
   min-height: 0;
-  padding-bottom: clamp(4.5rem, 8vw, 7rem);
+  padding: clamp(2.25rem, 4vw, 3.5rem) 0 clamp(3.5rem, 6vw, 5.5rem);
+}
+
+/* Headline and copy share the opening rather than stacking, which fills the
+   right of the hero and takes a screen's worth of height out of the page. */
+.investingHeroGrid {
+  /* Top aligned, not bottom. The copy column is the taller of the two here, so
+     bottom alignment pushed the headline down and opened a gap under the
+     header. */
+  align-items: start;
+  display: grid;
+  gap: clamp(2rem, 4.5vw, 4.5rem);
+  grid-template-columns: minmax(0, 1.1fr) minmax(19rem, 0.9fr);
 }
 
 .investingHero h1 {
-  font-size: clamp(5rem, 11vw, 10rem);
-  max-width: 8ch;
+  font-size: clamp(3.4rem, 7vw, 6.6rem);
+  max-width: 9ch;
 }
 
 .investingHeroCopy {
-  margin-top: clamp(3rem, 6vw, 5rem);
-  max-width: 50rem;
+  max-width: none;
 }
 
 .investingHeroCopy p {
   color: var(--muted);
   font-size: 0.9rem;
   line-height: 1.75;
-  max-width: 44rem;
+  max-width: none;
 }
 
 .investingHeroCopy .investingHeroLead {
   color: var(--ink);
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
-  line-height: 1.35;
-  margin-bottom: 1.5rem;
-  max-width: 38rem;
+  font-size: clamp(1.35rem, 1.9vw, 1.75rem);
+  line-height: 1.4;
+  margin-bottom: 1.25rem;
+  max-width: none;
 }
 
 .investingHeroAction {
@@ -560,7 +633,7 @@
   align-items: end;
   display: grid;
   gap: clamp(3rem, 8vw, 8rem);
-  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+  grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.6fr);
   margin-top: 3rem;
 }
 
@@ -569,7 +642,10 @@
   letter-spacing: -0.055em;
   line-height: 0.88;
   margin-bottom: 0;
-  max-width: 10ch;
+  /* The measure, not the grid track, is what sets the heading's width here.
+     At 10ch it stopped less than two thirds of the way across its own column
+     and opened a gap between the two blocks. */
+  max-width: 16ch;
   text-wrap: balance;
 }
 
@@ -1488,6 +1564,9 @@
 }
 
 .architectureArrow {
+  /* Held clear of the boxes on either side so the connector reads as spanning
+     the gap rather than as a rule welded to both borders. */
+  --architecture-arrow-clearance: 1rem;
   display: block;
   fill: none;
   flex: none;
@@ -1497,7 +1576,7 @@
   stroke: currentColor;
   stroke-linecap: square;
   stroke-width: 1;
-  width: 100%;
+  width: calc(100% - var(--architecture-arrow-clearance) * 2);
 }
 
 .architectureArrow path {
@@ -1762,6 +1841,7 @@
 
 @media (max-width: 900px) {
   .heroGrid,
+  .investingHeroGrid,
   .premiseGrid,
   .sectionHeading,
   .retreatStatement,
@@ -1824,8 +1904,10 @@
   }
 
   .architectureArrow {
-    height: 2.25rem;
-    margin: 0.75rem 0;
+    /* Stacked layout turns the connector vertical, so the clearance moves to
+       the block axis. */
+    height: calc(2.25rem - var(--architecture-arrow-clearance) * 2);
+    margin: var(--architecture-arrow-clearance) 0;
     width: 0.55rem;
   }
 

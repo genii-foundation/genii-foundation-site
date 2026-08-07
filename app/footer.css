@@ -89,8 +89,11 @@
   width: 1.05rem;
 }
 
+/* Rests in the same neutral as its neighbours and only warms on hover. The
+   arrow sits tighter than the icon links because it reads as part of the word
+   rather than as a separate mark. */
 .unified-footer-contact {
-  color: #ad8b4f !important;
+  gap: 0.25rem;
 }
 
 .unified-footer-arrow {

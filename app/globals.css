@@ -16,6 +16,12 @@
   initial-value: 0rem;
 }
 
+@property --header-nav-font-size {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.66rem;
+}
+
 :root {
   --ink: #11120f;
   --paper: #ded9ce;
@@ -54,6 +60,8 @@ body {
   font-family: var(--font-sans), Arial, sans-serif;
   margin: 0;
   overflow-x: hidden;
+  /* Gives the route backdrop a containing block the height of the document. */
+  position: relative;
 }
 
 body:has(.contact-dialog[open]) {
@@ -79,6 +87,34 @@ img {
 .atlas-site {
   --header-frost-blur: 10px;
   --header-frost-opacity: 0.8;
+  background: transparent;
+  min-height: 100vh;
+}
+
+/* The backdrop spans the body rather than the route element, so both palettes
+   stay mounted across a navigation and can cross-fade. It is sized to the
+   document, not the viewport, which is what the route elements did before, so
+   the gradients keep scrolling with the page instead of pinning to the frame. */
+.route-backdrop {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+.route-backdrop-layer {
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.route-backdrop[data-palette="foundation"] .route-backdrop-foundation,
+.route-backdrop[data-palette="providence"] .route-backdrop-providence {
+  opacity: 1;
+}
+
+.route-backdrop-foundation {
   --grid-row-offset: 4.5rem;
   background:
     radial-gradient(circle at 1px 1px, rgba(48, 48, 42, 0.09) 1px, transparent 1.35px) 0 0 / 1.5rem 1.5rem,
@@ -89,7 +125,16 @@ img {
     radial-gradient(circle at 88% 18%, rgba(183, 153, 91, 0.32), transparent 34%),
     radial-gradient(circle at 58% 88%, rgba(127, 154, 145, 0.24), transparent 40%),
     linear-gradient(135deg, #c8c3b8 0%, #eeeae0 48%, #c5bdac 100%);
-  min-height: 100vh;
+}
+
+/* Mirrors the Providence palette. The tones are repeated here rather than
+   shared with providence.module.css because the backdrop lives outside the
+   scope that defines them. */
+.route-backdrop-providence {
+  background:
+    radial-gradient(circle at 10% 2%, rgba(255, 253, 247, 0.98), transparent 27rem),
+    radial-gradient(circle at 93% 16%, rgba(183, 153, 91, 0.27), transparent 32rem),
+    linear-gradient(135deg, #cbc6bb 0%, #e4dfd4 47%, #c8c0b0 100%);
 }
 
 .atlas-site::before {
@@ -155,7 +200,8 @@ img {
   }
 
   .site-header .navigation-stack {
-    animation: collapse-header-navigation-gap linear both;
+    animation: collapse-header-navigation-gap linear both,
+      collapse-header-navigation-size linear both;
     animation-range: 0 272px;
     animation-timeline: scroll(root block);
   }
@@ -213,11 +259,21 @@ img {
 
 @keyframes collapse-header-navigation-gap {
   from {
-    --navigation-row-gap: clamp(1.5rem, 3vw, 2.5rem);
+    --navigation-row-gap: var(--navigation-row-gap-open);
   }
 
   to {
     --navigation-row-gap: 0rem;
+  }
+}
+
+@keyframes collapse-header-navigation-size {
+  from {
+    --header-nav-font-size: var(--header-nav-font-size-open);
+  }
+
+  to {
+    --header-nav-font-size: 0.66rem;
   }
 }
 
@@ -324,6 +380,7 @@ body:has(.atlas-site[data-route-leaving="true"])
   .site-header
   .navigation-stack {
   --navigation-row-gap: 0rem;
+  --header-nav-font-size: 0.66rem;
   animation: none;
   row-gap: 0;
 }
@@ -389,14 +446,46 @@ body:has(.atlas-site[data-route-leaving="true"])
 }
 
 .site-header .navigation-stack {
-  --navigation-row-gap: clamp(1.5rem, 3vw, 2.5rem);
-  row-gap: var(--navigation-row-gap);
+  --navigation-row-gap-open: clamp(0.4rem, 0.85vw, 0.65rem);
+  --navigation-row-gap: var(--navigation-row-gap-open);
+  /* The labels carry the open header and shrink back to the compact size as it
+     collapses, on the same scroll timeline as the gap. */
+  --header-nav-font-size-open: 0.82rem;
+  --header-nav-font-size: var(--header-nav-font-size-open);
+  /* The rows sit flush and each one pads out half the gap on the side facing
+     the divider. That keeps the divider and the active indicator on the
+     centreline while making the space between the rows tappable, rather than
+     leaving it as dead grid gutter. */
+  row-gap: 0;
 }
 
 .navigation-scroll-region {
   justify-self: end;
   max-width: 100%;
   min-width: 0;
+}
+
+/*
+ * Nav width rule, to hold as the menu evolves:
+ *
+ *   The primary row always spans the full width of the stack, so no section row
+ *   can ever reach past it.
+ *
+ * The stack is a grid track sized by whichever row is naturally wider. Letting
+ * the primary row stretch into that track means adding, renaming, or removing
+ * section links can change how wide the nav is, but can never push the divider
+ * or a section label out beyond the primary row. Do not give either row a fixed
+ * width or return the primary row to end alignment; that reintroduces the
+ * overhang this prevents.
+ */
+.site-header .primary-navigation-scroll-region {
+  justify-self: stretch;
+  width: 100%;
+}
+
+.site-header .primary-navigation {
+  justify-content: space-between;
+  width: 100%;
 }
 
 .navigation-scroll-button {
@@ -419,8 +508,11 @@ body:has(.atlas-site[data-route-leaving="true"])
 
 .site-header .section-navigation a {
   color: var(--muted);
-  font-size: calc(var(--header-label-font-size) * 0.86);
-  min-height: 2rem;
+  font-size: calc(var(--header-nav-font-size) * 0.86);
+  /* The padding reaches up to the divider, so the label keeps its position
+     and the half gap above it becomes part of the target. */
+  min-height: calc(2rem + var(--navigation-row-gap) / 2);
+  padding-top: calc(var(--navigation-row-gap) / 2);
 }
 
 .section-navigation a {
@@ -468,7 +560,7 @@ body:has(.atlas-site[data-route-leaving="true"])
 
 .site-header nav a,
 .site-header nav button {
-  font-size: var(--header-label-font-size);
+  font-size: var(--header-nav-font-size);
 }
 
 .footer-links a {
@@ -505,8 +597,14 @@ body:has(.atlas-site[data-route-leaving="true"])
     transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.site-header .primary-navigation :is(a, button) {
+  /* Mirror of the section row: the padding reaches down to the divider. */
+  min-height: calc(2.75rem + var(--navigation-row-gap) / 2);
+  padding-bottom: calc(var(--navigation-row-gap) / 2);
+}
+
 .site-header .primary-navigation :is(a, button)::after {
-  bottom: calc(-1 * var(--navigation-row-gap) - 1px);
+  bottom: -1px;
 }
 
 .site-header nav :is(a, button):hover,
@@ -573,7 +671,7 @@ body:has(.atlas-site[data-route-leaving="true"])
 }
 
 .introduction {
-  padding: clamp(5rem, 9vw, 8.5rem) 0 clamp(4.5rem, 8vw, 7rem);
+  padding: clamp(3.25rem, 6vw, 5.5rem) 0 clamp(3rem, 5.5vw, 4.5rem);
 }
 
 .eyebrow {
@@ -588,9 +686,9 @@ body:has(.atlas-site[data-route-leaving="true"])
 .introduction-grid {
   align-items: end;
   display: grid;
-  gap: clamp(3rem, 8vw, 8rem);
+  gap: clamp(2.25rem, 6vw, 6rem);
   grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
-  margin-top: 2rem;
+  margin-top: 1.25rem;
 }
 
 .introduction h1,
@@ -603,11 +701,13 @@ body:has(.atlas-site[data-route-leaving="true"])
 }
 
 .introduction h1 {
-  font-size: clamp(4.2rem, 8.4vw, 8.1rem);
-  letter-spacing: -0.06em;
-  line-height: 0.86;
+  /* Was four lines at display scale, which pushed the opening copy off the
+     first screen. Wider measure and smaller type bring it down to three. */
+  font-size: clamp(3.2rem, 6vw, 6rem);
+  letter-spacing: -0.055em;
+  line-height: 0.88;
   margin: 0;
-  max-width: 9.5ch;
+  max-width: 16ch;
   text-wrap: balance;
 }
 
@@ -1157,7 +1257,7 @@ button.text-link {
 }
 
 @media (max-width: 900px) {
-  .atlas-site {
+  .route-backdrop-foundation {
     --grid-row-offset: 5rem;
   }
 
@@ -1339,7 +1439,7 @@ button.text-link {
 }
 
 @media (max-width: 620px) {
-  .atlas-site {
+  .route-backdrop-foundation {
     --grid-row-offset: 5.25rem;
   }
 
@@ -1410,6 +1510,9 @@ button.text-link {
 
   .site-header .navigation-stack {
     --navigation-row-gap: 0rem;
+    /* The compact header never opens here, so the labels stay at the size the
+       narrow layout was tuned for. */
+    --header-nav-font-size: 0.5rem;
     animation: none;
     row-gap: 0;
     width: 100%;
@@ -1646,6 +1749,7 @@ button.text-link {
 
   .site-header .navigation-stack {
     --navigation-row-gap: 0rem;
+    --header-nav-font-size: 0.66rem;
     animation: none;
     row-gap: 0;
   }
@@ -1660,7 +1764,8 @@ button.text-link {
   .section-navigation-dot,
   .contact-dialog-close,
   .contact-option,
-  .contact-option::before {
+  .contact-option::before,
+  .route-backdrop-layer {
     transition: none;
   }
 

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 
-import {
-  ProvidenceArrow,
-  ProvidenceFooter,
-} from "../ProvidencePageChrome";
+import { ProvidenceFooter } from "../ProvidencePageChrome";
 import styles from "../providence.module.css";
 
 export const metadata: Metadata = {
@@ -49,7 +46,10 @@ export default function PrinciplesPage() {
       <div className={styles.headerSpacer} aria-hidden="true" />
 
       <main id="main-content">
-        <section className={styles.hero} aria-labelledby="principles-title">
+        <section
+          className={`${styles.hero} ${styles.principlesHero}`}
+          aria-labelledby="principles-title"
+        >
           <div className={styles.contentFrame}>
             <p className={styles.eyebrow}>Providence constitutional commitments</p>
             <div className={styles.heroGrid}>
@@ -59,24 +59,18 @@ export default function PrinciplesPage() {
                   Every product, partnership, and financing must remain consistent
                   with all ten.
                 </p>
-                <a href="#commitments">
-                  Read the commitments <ProvidenceArrow />
-                </a>
               </div>
             </div>
           </div>
         </section>
 
         <section
-          className={styles.guardrails}
+          className={`${styles.guardrails} ${styles.principlesGuardrails}`}
           id="commitments"
-          aria-labelledby="commitments-title"
+          aria-label="The ten commitments"
         >
           <div className={styles.contentFrame}>
-            <div className={styles.guardrailIntro}>
-              <p className={styles.eyebrow}>Inviolable principles</p>
-              <h2 id="commitments-title">The terms Providence will not trade away.</h2>
-            </div>
+            <p className={styles.eyebrow}>Inviolable principles</p>
             <ol className={styles.principleGrid}>
               {principles.map((principle, index) => (
                 <li key={principle}>

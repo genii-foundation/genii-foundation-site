@@ -99,19 +99,21 @@ export default function InvestingPage() {
           aria-labelledby="investing-title"
         >
           <div className={styles.contentFrame}>
-            <h1 id="investing-title">Invest in Providence.</h1>
-            <div className={styles.investingHeroCopy}>
-              <p className={styles.investingHeroLead}>
-                Providence is raising patient capital to build a private companion,
-                revenue-positive retreats, partner systems, and a practitioner network.
-              </p>
-              <p>
-                GENII Foundation protects the research, standards, and public-interest
-                infrastructure behind the commercial company.
-              </p>
-              <a className={styles.investingHeroAction} href="#paths">
-                See the capital strategy <ProvidenceArrow />
-              </a>
+            <div className={styles.investingHeroGrid}>
+              <h1 id="investing-title">Invest in Providence.</h1>
+              <div className={styles.investingHeroCopy}>
+                <p className={styles.investingHeroLead}>
+                  Providence is raising patient capital to build a private companion,
+                  revenue-positive retreats, partner systems, and a practitioner network.
+                </p>
+                <p>
+                  GENII Foundation protects the research, standards, and public-interest
+                  infrastructure behind the commercial company.
+                </p>
+                <a className={styles.investingHeroAction} href="#paths">
+                  See the capital strategy <ProvidenceArrow />
+                </a>
+              </div>
             </div>
 
             <aside className={styles.investingStatus} aria-label="Formation status">
@@ -130,7 +132,7 @@ export default function InvestingPage() {
             <p className={styles.eyebrow}>Investment premise</p>
             <div className={styles.premiseGrid}>
               <h2 id="premise-title">
-                Human presence can become a trainable capacity, supported by
+                Human presence is quantifiable, can be learned, and supported by
                 rigorous science and humane technology.
               </h2>
               <div>
@@ -159,7 +161,8 @@ export default function InvestingPage() {
               <p>
                 Patient investment finances the commercial system and seeks a
                 return. Philanthropy finances research, access, standards, and
-                infrastructure held for public benefit.
+                infrastructure held for public benefit. Both represent
+                high-leverage cultural vitalization opportunities.
               </p>
             </div>
 

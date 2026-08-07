@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { ContactDialogProvider } from "./ContactDialog";
+import { RouteBackdrop } from "./RouteBackdrop";
 import { SiteHeader } from "./SiteHeader";
 import "./globals.css";
 import "./footer.css";
@@ -71,6 +72,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       lang="en"
     >
       <body>
+        <RouteBackdrop />
         <ContactDialogProvider>
           <SiteHeader />
           {children}

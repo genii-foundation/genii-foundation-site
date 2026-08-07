@@ -7,10 +7,11 @@ import { usePathname } from "next/navigation";
 import { PrimaryNavigation, type SectionNavigationItem } from "./PrimaryNavigation";
 import styles from "./providence.module.css";
 
+// Fields of work sits under Mission on the page, so it is reached by reading
+// rather than by its own top-of-page link.
 const foundationSections = [
   { href: "#work", label: "Current work" },
   { href: "#mission", label: "Mission" },
-  { href: "#fields", label: "Fields of work" },
 ] as const;
 
 const investingSections = [

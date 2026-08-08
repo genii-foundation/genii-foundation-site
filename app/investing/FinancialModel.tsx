@@ -26,7 +26,7 @@ const revenueSurfaces: RevenueSurface[] = [
     id: "companion-model",
     index: "01",
     type: "Recurring individual revenue",
-    title: "Providence Companion",
+    title: "Providence App",
     description:
       "An optional subscription for post-retreat integration and sustained coherence practice. The open-source core remains available. Customers pay for the official product, supported experiences, integrations, and premium functions.",
     unitModel: "$24 blended monthly revenue per paying participant",
@@ -114,7 +114,7 @@ const revenueSurfaces: RevenueSurface[] = [
     id: "powered-model",
     index: "03",
     type: "Partner implementation and license",
-    title: "Powered by Providence",
+    title: "Powered By Providence",
     description:
       "A licensed technical and practice system for established retreat operators and intentional communities. Partners pay for discovery, implementation, training, instrumentation, coaching, and ongoing support.",
     unitModel: "$55,000 first-year partner value and $30,000 renewal value",
@@ -369,7 +369,7 @@ export function FinancialModel() {
       <div className={styles.financialModelHeading}>
         <div>
           <p className={styles.eyebrow}>Illustrative commercial model</p>
-          <h3 id="financial-model-title">Four revenue surfaces share one distribution system.</h3>
+          <h3 id="financial-model-title">Complementary Revenue Surfaces</h3>
         </div>
         <p>
           Each surface is a testable economic hypothesis. Expand a row to inspect

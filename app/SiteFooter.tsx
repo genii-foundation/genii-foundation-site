@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { ActionArrow } from "./ActionArrow";
 import { ContactTrigger } from "./ContactDialog";
 
 function GitHubMark() {
@@ -18,17 +19,6 @@ function GitHubMark() {
         fill="currentColor"
       />
     </svg>
-  );
-}
-
-function FooterArrow() {
-  return (
-    <span aria-hidden="true" className="unified-footer-arrow">
-      <svg focusable="false" viewBox="0 0 16 16">
-        <path className="unified-footer-arrow-stem" d="M4 12 11 5" />
-        <path d="M7.25 5H11v3.75" />
-      </svg>
-    </span>
   );
 }
 
@@ -64,7 +54,7 @@ export function SiteFooter() {
             <a href="https://www.coherence-thesis.com/">The Coherence Thesis</a>
             <ContactTrigger className="unified-footer-contact">
               <span>Contact</span>
-              <FooterArrow />
+              <ActionArrow />
             </ContactTrigger>
           </nav>
         </div>

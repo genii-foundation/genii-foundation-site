@@ -32,7 +32,7 @@ const principles = [
   "Consent is explicit, renewable, and governed by every person whose data is involved",
   "Revenue comes from products and services chosen by participants and partners",
   "Product decisions protect human agency ahead of engagement metrics",
-  "Coherence is contextual, plural, and unsuitable for ranking people",
+  "Coherence is a unique experience for every human. No single measurement provides the full story. No collection of metrics will ever rank one person above another.",
   "Clinical and spiritual claims remain within the evidence and scope that support them",
   "Providence remains independent of employment screening and workplace evaluation",
   "Mission stewards retain exclusive authority over any sale, merger, or change of control",
@@ -51,16 +51,7 @@ export default function PrinciplesPage() {
           aria-labelledby="principles-title"
         >
           <div className={styles.contentFrame}>
-            <p className={styles.eyebrow}>Providence constitutional commitments</p>
-            <div className={styles.heroGrid}>
-              <h1 id="principles-title">Ten commitments govern Providence.</h1>
-              <div className={styles.heroCopy}>
-                <p>
-                  Every product, partnership, and financing must remain consistent
-                  with all ten.
-                </p>
-              </div>
-            </div>
+            <h1 id="principles-title">Ten commitments govern Providence.</h1>
           </div>
         </section>
 
@@ -70,7 +61,6 @@ export default function PrinciplesPage() {
           aria-label="The ten commitments"
         >
           <div className={styles.contentFrame}>
-            <p className={styles.eyebrow}>Inviolable principles</p>
             <ol className={styles.principleGrid}>
               {principles.map((principle, index) => (
                 <li key={principle}>

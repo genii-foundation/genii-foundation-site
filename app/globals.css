@@ -40,6 +40,10 @@
 html {
   background-attachment: fixed;
   background-color: var(--footer);
+  /* No rubber-banding past either end. The gradient below is pinned to the
+     viewport, so anything scrolled beyond it exposes the bare canvas colour as
+     a dark stripe above the page. */
+  overscroll-behavior-y: none;
   background-image: linear-gradient(
     to bottom,
     var(--paper) 0%,
@@ -51,7 +55,19 @@ html {
   background-size: 100% 100%;
   color-scheme: light;
   scroll-behavior: smooth;
-  scroll-padding-top: 7rem;
+  /*
+   * Anchor landing rule.
+   *
+   * This is the single place that clears the sticky header for in-page links:
+   * the collapsed header plus a small breathing gap. Do not also put
+   * scroll-margin-top on the targets, because the two offsets add and the
+   * anchor lands roughly a header lower than intended.
+   *
+   * The one legitimate use of scroll-margin-top is a NEGATIVE value on a target
+   * whose own top padding would otherwise push its content below the fold of
+   * this offset. See .mission-fields and .fields-block.
+   */
+  scroll-padding-top: 6.5rem;
 }
 
 body {
@@ -110,7 +126,8 @@ img {
 }
 
 .route-backdrop[data-palette="foundation"] .route-backdrop-foundation,
-.route-backdrop[data-palette="providence"] .route-backdrop-providence {
+.route-backdrop[data-palette="providence"] .route-backdrop-providence,
+.route-backdrop[data-palette="principles"] .route-backdrop-principles {
   opacity: 1;
 }
 
@@ -135,6 +152,12 @@ img {
     radial-gradient(circle at 10% 2%, rgba(255, 253, 247, 0.98), transparent 27rem),
     radial-gradient(circle at 93% 16%, rgba(183, 153, 91, 0.27), transparent 32rem),
     linear-gradient(135deg, #cbc6bb 0%, #e4dfd4 47%, #c8c0b0 100%);
+}
+
+/* Flat paper, matching the premise section of the investing page. A long list
+   is easier to read against an even ground than against the gradient. */
+.route-backdrop-principles {
+  background: #f4f0e7;
 }
 
 .atlas-site::before {
@@ -434,7 +457,8 @@ body:has(.atlas-site[data-route-leaving="true"])
   align-self: center;
   display: flex;
   flex: 0 0 auto;
-  gap: clamp(1.2rem, 2.8vw, 2.8rem);
+  --nav-column-gap: clamp(1.2rem, 2.8vw, 2.8rem);
+  gap: var(--nav-column-gap);
   min-height: 2.75rem;
 }
 
@@ -563,6 +587,102 @@ body:has(.atlas-site[data-route-leaving="true"])
   font-size: var(--header-nav-font-size);
 }
 
+/*
+ * Call to action contract, shared by every action on the site.
+ *
+ * Arrow: on hover it extends toward its own point, up and to the right. The
+ * stem grows from its tail and the head rides out to meet it. Anchoring the
+ * stem at the head instead grows the tail down and to the left, which reads as
+ * the arrow retreating rather than advancing.
+ *
+ * Underline: a resting hairline marks the action, and the full-strength rule
+ * wipes in from the left edge across to the right.
+ *
+ * To add a new action: put <ActionArrow /> inside the anchor or button, and add
+ * `action-link` if it should carry the underline. Nothing else is needed, and
+ * anything that reimplements either behaviour locally will drift out of step.
+ */
+.action-arrow {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 0.9rem;
+  justify-content: center;
+  width: 0.9rem;
+}
+
+.action-arrow svg {
+  fill: none;
+  height: 100%;
+  overflow: visible;
+  stroke: currentColor;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  stroke-width: 1.25;
+  width: 100%;
+}
+
+.action-arrow-stem,
+.action-arrow-head {
+  transform-box: view-box;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Anchored at the tail, so the stem lengthens toward the point. */
+.action-arrow-stem {
+  transform: scale(0.72);
+  transform-origin: 4px 12px;
+}
+
+/* Parked where the shortened stem ends, then travels out with it. */
+.action-arrow-head {
+  transform: translate(-1.96px, 1.96px);
+}
+
+:is(a, button):hover .action-arrow-stem,
+:is(a, button):focus-visible .action-arrow-stem,
+:is(a, button)[data-current="true"] .action-arrow-stem {
+  transform: scale(1);
+}
+
+:is(a, button):hover .action-arrow-head,
+:is(a, button):focus-visible .action-arrow-head,
+:is(a, button)[data-current="true"] .action-arrow-head {
+  transform: translate(0, 0);
+}
+
+.action-link {
+  position: relative;
+  transition: color 180ms ease;
+}
+
+.action-link::before,
+.action-link::after {
+  background: currentColor;
+  bottom: 0;
+  content: "";
+  height: 1px;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+
+.action-link::before {
+  opacity: 0.32;
+}
+
+.action-link::after {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.action-link:hover::after,
+.action-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
 .footer-links a {
   font-size: 0.66rem;
 }
@@ -605,6 +725,19 @@ body:has(.atlas-site[data-route-leaving="true"])
 
 .site-header .primary-navigation :is(a, button)::after {
   bottom: -1px;
+}
+
+/* Each item reaches half the gap toward its neighbours, so adjacent targets meet
+   at the midpoint and the row has no dead space. Moving along it always leaves
+   one item hovered and enters the next in the same motion. Sized off the gap
+   itself, so it stays exact if the gap changes. */
+.site-header .primary-navigation :is(a, button)::before {
+  bottom: 0;
+  content: "";
+  left: calc(var(--nav-column-gap) / -2);
+  position: absolute;
+  right: calc(var(--nav-column-gap) / -2);
+  top: 0;
 }
 
 .site-header nav :is(a, button):hover,
@@ -676,7 +809,7 @@ body:has(.atlas-site[data-route-leaving="true"])
 
 .eyebrow {
   color: var(--gold);
-  font-size: 0.68rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   margin: 0;
@@ -735,8 +868,10 @@ body:has(.atlas-site[data-route-leaving="true"])
   text-transform: uppercase;
 }
 
+/* No scroll-margin-top: this target has no top padding of its own, so the
+   global scroll-padding-top lands it correctly. */
 .featured-work {
-  scroll-margin-top: 7rem;
+  scroll-margin-top: 0;
 }
 
 .section-heading {
@@ -899,12 +1034,15 @@ button.text-link {
 }
 
 .section-panel {
+  --section-panel-padding: clamp(3rem, 7vw, 6.5rem);
   background: rgba(248, 245, 237, 0.78);
   border-radius: 0.3rem;
   box-shadow: 0 2.5rem 6rem rgba(51, 47, 38, 0.08);
   margin-top: clamp(6rem, 12vw, 11rem);
-  padding: clamp(3rem, 7vw, 6.5rem);
-  scroll-margin-top: 7rem;
+  padding: var(--section-panel-padding);
+  /* Cancels the card's own top padding so an anchor lands on the heading rather
+     than on the empty top edge of the card. */
+  scroll-margin-top: calc(-1 * var(--section-panel-padding));
 }
 
 .mission-fields-intro {
@@ -930,10 +1068,11 @@ button.text-link {
 }
 
 .fields-block {
+  --fields-block-padding-top: clamp(2.5rem, 5vw, 4rem);
   border-top: 1px solid rgba(41, 42, 37, 0.18);
   margin-top: clamp(4rem, 8vw, 7rem);
-  padding-top: clamp(2.5rem, 5vw, 4rem);
-  scroll-margin-top: 7rem;
+  padding-top: var(--fields-block-padding-top);
+  scroll-margin-top: calc(-1 * var(--fields-block-padding-top));
 }
 
 .fields-grid {
@@ -1257,6 +1396,16 @@ button.text-link {
 }
 
 @media (max-width: 900px) {
+  /* The ch measures on headings exist to hold them clear of the column beside
+     them. Below this breakpoint the grids are single column, so the measure has
+     nothing left to protect against and only keeps type off the full width. */
+  .introduction h1,
+  .section-heading h2,
+  .mission-fields .section-heading h2,
+  .contact h2 {
+    max-width: none;
+  }
+
   .route-backdrop-foundation {
     --grid-row-offset: 5rem;
   }
@@ -1323,9 +1472,6 @@ button.text-link {
     grid-template-columns: minmax(8rem, 0.3fr) 1fr;
   }
 
-  .mission-fields .section-heading h2 {
-    max-width: 12ch;
-  }
 
   .mission-statement {
     max-width: 42rem;
@@ -1505,7 +1651,7 @@ button.text-link {
   }
 
   .site-header nav {
-    gap: 0.55rem;
+    --nav-column-gap: 0.55rem;
   }
 
   .site-header .navigation-stack {
@@ -1765,7 +1911,11 @@ button.text-link {
   .contact-dialog-close,
   .contact-option,
   .contact-option::before,
-  .route-backdrop-layer {
+  .route-backdrop-layer,
+  .action-arrow-stem,
+  .action-arrow-head,
+  .action-link,
+  .action-link::after {
     transition: none;
   }
 

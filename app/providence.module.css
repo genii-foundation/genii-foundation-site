@@ -67,7 +67,7 @@
 .ventureGrid article > p,
 .architectureGrid article > p {
   color: var(--gold);
-  font-size: 0.68rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   margin-bottom: 0;
@@ -135,7 +135,8 @@
 .header nav {
   align-items: center;
   display: flex;
-  gap: clamp(1rem, 2.8vw, 2.8rem);
+  --nav-column-gap: clamp(1rem, 2.8vw, 2.8rem);
+  gap: var(--nav-column-gap);
 }
 
 .header :global(.navigation-stack) {
@@ -157,28 +158,22 @@
   width: 100%;
 }
 
-.header :global(.section-navigation) {
-  animation: sectionNavigationEnter 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  border-top: 1px solid var(--line);
-  gap: clamp(0.9rem, 2vw, 1.8rem);
-  justify-content: flex-end;
-  max-width: 100%;
-  width: max-content;
-}
-
-.header
-  :global(
-    .navigation-stack[data-section-count="2"] .section-navigation-scroll-region
-  ),
-.header
-  :global(.navigation-stack[data-section-count="2"] .section-navigation) {
+/* Second-level rows span the whole stack, which the primary row also spans, so
+   the rule above them always runs the full width of the top row and the labels
+   centre within it. This holds for any number of section links, so it needs no
+   per-count special cases. */
+.header :global(.section-navigation-scroll-region) {
   justify-self: stretch;
   width: 100%;
 }
 
-.header
-  :global(.navigation-stack[data-section-count="2"] .section-navigation) {
+.header :global(.section-navigation) {
+  animation: sectionNavigationEnter 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  border-top: 1px solid var(--line);
+  gap: clamp(0.9rem, 2vw, 1.8rem);
   justify-content: center;
+  max-width: 100%;
+  width: 100%;
 }
 
 .header :global(.section-navigation) a {
@@ -229,6 +224,17 @@
 
 .header :global(.primary-navigation) :is(a, button)::after {
   bottom: -1px;
+}
+
+/* Adjacent targets meet at the midpoint of the gap, so the row has no dead
+   space between items. See the matching note in globals.css. */
+.header :global(.primary-navigation) :is(a, button)::before {
+  bottom: 0;
+  content: "";
+  left: calc(var(--nav-column-gap) / -2);
+  position: absolute;
+  right: calc(var(--nav-column-gap) / -2);
+  top: 0;
 }
 
 .header :global(.section-navigation) a::after {
@@ -324,14 +330,27 @@
    claim and gets out of the way. It drops the viewport-height floor and the
    display-scale headline that together pushed the commitments off screen. */
 .principlesHero {
+  /* The opening is a single line of type, so the space around it is expressed
+     once and mirrored. The hero carries all of it above; the commitments
+     section carries the identical value below, and nothing else contributes.
+     Splitting the lower half across three rules is what let it drift to more
+     than twice the upper half. */
   min-height: 0;
-  padding: clamp(2.5rem, 4.5vw, 4rem) 0 clamp(2rem, 3.5vw, 3rem);
+  padding: var(--principles-opening-space) 0 0;
+}
+
+/* Declared on both users because they are sibling sections: a custom property
+   inherits down the tree, not across. */
+.principlesHero,
+.site .principlesGuardrails {
+  --principles-opening-space: clamp(3.75rem, 7vw, 6.25rem);
 }
 
 .principlesHero h1 {
   font-size: clamp(2.6rem, 5vw, 4.4rem);
   line-height: 0.92;
-  max-width: 16ch;
+  /* Runs the full content width rather than sitting in a narrow measure. */
+  max-width: none;
 }
 
 .principlesHero .heroGrid {
@@ -351,11 +370,13 @@
 .site .principlesGuardrails {
   background: none;
   color: var(--ink);
-  padding-top: clamp(2rem, 3.5vw, 3.25rem);
+  padding-top: var(--principles-opening-space);
 }
 
+/* No eyebrow above the list any more, so this margin would only unbalance the
+   mirrored spacing. */
 .principlesGuardrails .principleGrid {
-  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+  margin-top: 0;
 }
 
 .principlesGuardrails .principleGrid li {
@@ -372,7 +393,7 @@
 
 .investingHero {
   min-height: 0;
-  padding: clamp(2.25rem, 4vw, 3.5rem) 0 clamp(3.5rem, 6vw, 5.5rem);
+  padding: clamp(4rem, 7vw, 6.5rem) 0 clamp(3.5rem, 6vw, 5.5rem);
 }
 
 /* Headline and copy share the opening rather than stacking, which fills the
@@ -424,28 +445,13 @@
   padding-bottom: 0.35rem;
   position: relative;
   text-transform: uppercase;
+  transition: color 180ms ease;
 }
 
-.investingHeroAction::after {
-  background: currentColor;
-  bottom: 0;
-  content: "";
-  height: 1px;
-  left: 0;
-  position: absolute;
-  transform-origin: left;
-  transition: transform 180ms ease;
-  width: 100%;
-}
-
-.investingHeroAction:hover::after,
-.investingHeroAction:focus-visible::after {
-  transform: scaleX(0.45);
-}
-
-.investingHeroAction:hover .actionArrowStem,
-.investingHeroAction:focus-visible .actionArrowStem {
-  transform: scale(1);
+/* Underline and arrow motion come from .action-link in globals.css. */
+.investingHeroAction:hover,
+.investingHeroAction:focus-visible {
+  color: var(--gold-bright);
 }
 
 .investingStatus {
@@ -505,32 +511,8 @@
     color 180ms ease, transform 180ms ease;
 }
 
-.actionArrow {
-  align-items: center;
-  display: inline-flex;
-  flex: 0 0 auto;
-  height: 0.9rem;
-  justify-content: center;
-  width: 0.9rem;
-}
-
-.actionArrow svg {
-  fill: none;
-  height: 100%;
-  overflow: visible;
-  stroke: currentColor;
-  stroke-linecap: square;
-  stroke-linejoin: miter;
-  stroke-width: 1.25;
-  width: 100%;
-}
-
-.actionArrowStem {
-  transform: scale(0.75);
-  transform-box: view-box;
-  transform-origin: 11px 5px;
-  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
-}
+/* The arrow lives in globals.css as .action-arrow, shared with every other
+   call to action. */
 
 .heroCopy a:hover,
 .heroCopy a:focus-visible,
@@ -542,17 +524,6 @@
 .principleAction:focus-visible {
   background: var(--gold);
   color: var(--night);
-}
-
-.heroCopy a:hover .actionArrowStem,
-.heroCopy a:focus-visible .actionArrowStem,
-.pathAction:hover .actionArrowStem,
-.pathAction:focus-visible .actionArrowStem,
-.invitationAction:hover .actionArrowStem,
-.invitationAction:focus-visible .actionArrowStem,
-.principleAction:hover .actionArrowStem,
-.principleAction:focus-visible .actionArrowStem {
-  transform: scale(1);
 }
 
 .formationNote {
@@ -594,8 +565,8 @@
 
 .premiseGrid {
   display: grid;
-  gap: clamp(4rem, 9vw, 9rem);
-  grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 1fr) minmax(21rem, 1fr);
   margin-top: 3rem;
 }
 
@@ -632,15 +603,19 @@
 .sectionHeading {
   align-items: end;
   display: grid;
-  gap: clamp(3rem, 8vw, 8rem);
-  grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.6fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.85fr);
   margin-top: 3rem;
 }
 
 .sectionHeading h2 {
   font-size: clamp(3rem, 5vw, 5rem);
   letter-spacing: -0.055em;
-  line-height: 0.88;
+  /* The display face needs 1.006em to fit a descender above an ascender, so at
+     0.88 a "p" on one line landed inside the letters on the next. This is the
+     measured floor plus a hair of clearance; going tighter reintroduces the
+     collision on any line that breaks after a descender. */
+  line-height: 1.02;
   margin-bottom: 0;
   /* The measure, not the grid track, is what sets the heading's width here.
      At 10ch it stopped less than two thirds of the way across its own column
@@ -715,6 +690,12 @@
   border-top: 1px solid rgba(244, 240, 231, 0.18);
   display: grid;
   gap: 2.2rem;
+  /* Floor for the space above the card's action. The action uses margin-top:
+     auto to sit on the card's base, which collapses to nothing in whichever
+     card has the longer body. This margin is honoured before the auto absorbs
+     the remainder, so the taller card gains room and the shorter one is
+     unchanged. */
+  margin-bottom: 2.5rem;
   padding-top: 2.5rem;
 }
 
@@ -785,7 +766,6 @@
 
 .twoChecks {
   align-items: start;
-  border-top: 1px solid rgba(244, 240, 231, 0.2);
   display: grid;
   gap: clamp(3rem, 8vw, 8rem);
   grid-template-columns: minmax(12rem, 0.4fr) 1fr;
@@ -813,21 +793,40 @@
   padding: clamp(6rem, 12vw, 11rem) 0;
 }
 
+/*
+ * Anchor landing for the Providence sections.
+ *
+ * Each is an anchor target with a tall top padding, and this header is a fixed
+ * 7.25rem, taller than the collapsed foundation header that globals.css sizes
+ * scroll-padding-top for. This cancels the section's own padding and adds the
+ * difference, so a section link lands on its eyebrow rather than a screen and a
+ * half above it. Any new section given an anchor id belongs in this list.
+ */
+.capitalPaths,
+.venture,
+.architecture,
+.invitation {
+  --section-padding-top: clamp(6rem, 12vw, 11rem);
+  scroll-margin-top: calc(1.75rem - var(--section-padding-top));
+}
+
 .venture .sectionHeading > p,
 .architecture .sectionHeading > p {
   color: var(--muted);
 }
 
+/* Four discrete cards. The 1px gap and negative margins collapsed the borders
+   into a single grid, which read as one table rather than four offers. */
 .ventureGrid {
   display: grid;
-  gap: 1px;
+  gap: 1.25rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: clamp(4rem, 8vw, 7rem);
 }
 
 .ventureGrid article {
+  background: rgba(255, 253, 247, 0.4);
   border: 1px solid var(--line);
-  margin: 0 -1px -1px 0;
   min-height: 19rem;
   padding: clamp(2rem, 4vw, 3.5rem);
 }
@@ -1204,20 +1203,27 @@
   margin-bottom: 0;
 }
 
-.financialDisclaimer {
+/* Scoped through .site so it outranks the `.site p { margin-top: 0 }` reset,
+   which was silently flattening the top margin declared here. */
+.site .financialDisclaimer {
   color: var(--muted);
   font-size: 0.62rem;
   line-height: 1.7;
-  margin: 1.5rem 0 0;
+  margin: clamp(2.5rem, 4vw, 3.5rem) 0 0;
 }
 
+/* A full-bleed band, matching .capitalPaths and .sequence. It holds its own
+   content frame rather than sitting inside the one above it. */
 .poweredSystem {
   background:
     radial-gradient(circle at 92% 8%, rgba(110, 130, 119, 0.26), transparent 28rem),
     var(--night-soft);
   color: var(--paper-light);
-  margin-top: 1.25rem;
-  padding: clamp(3rem, 7vw, 6rem);
+  padding: clamp(4rem, 9vw, 8rem) 0;
+}
+
+.returnCase {
+  padding-bottom: clamp(4rem, 8vw, 7rem);
 }
 
 .poweredHeader {
@@ -1245,17 +1251,32 @@
   margin-bottom: 0;
 }
 
+/* Two discrete cards, matching .pathGrid in the capital strategy section. The
+   pair previously shared a collapsed border, which read as one box split by a
+   line rather than as two partner offers. */
 .poweredGrid {
   display: grid;
+  gap: 1.25rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: clamp(4rem, 8vw, 7rem);
 }
 
 .poweredGrid article {
-  border: 1px solid rgba(244, 240, 231, 0.2);
-  margin-right: -1px;
+  border: 1px solid rgba(244, 240, 231, 0.18);
   min-height: 42rem;
   padding: clamp(2rem, 4vw, 3.5rem);
+}
+
+.poweredGrid article:first-child {
+  background:
+    radial-gradient(circle at 88% 3%, rgba(173, 139, 79, 0.22), transparent 21rem),
+    rgba(20, 21, 18, 0.35);
+}
+
+.poweredGrid article:last-child {
+  background:
+    radial-gradient(circle at 88% 3%, rgba(110, 130, 119, 0.26), transparent 21rem),
+    rgba(20, 21, 18, 0.35);
 }
 
 .poweredType {
@@ -1383,9 +1404,10 @@
   margin-bottom: 0;
 }
 
+/* Now a section in its own right rather than a block inside the frame above,
+   so the rule that used to divide it from the band is no longer needed. A
+   border here would run the full width of the viewport. */
 .returnCase {
-  border-top: 1px solid var(--line);
-  margin-top: clamp(5rem, 10vw, 9rem);
   padding-top: clamp(4rem, 8vw, 7rem);
 }
 
@@ -1594,13 +1616,11 @@
 
 .ipStewardship {
   align-items: start;
-  border-bottom: 1px solid var(--line);
-  border-top: 1px solid var(--line);
   display: grid;
   gap: clamp(2rem, 5vw, 5rem);
   grid-template-columns: minmax(12rem, 0.35fr) 1fr;
-  margin-top: 1rem;
-  padding: 2rem 0;
+  /* Space rather than rules separates this from its neighbours. */
+  margin: clamp(4.5rem, 9vw, 8rem) 0;
 }
 
 .ipStewardship strong {
@@ -1694,12 +1714,19 @@
   border-top: 1px solid rgba(244, 240, 231, 0.2);
   display: grid;
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  font-size: clamp(1.15rem, 1.65vw, 1.55rem);
   gap: 1.5rem;
   grid-template-columns: 2rem 1fr;
-  line-height: 1.15;
+  line-height: 1.2;
   margin-right: 2rem;
-  padding: 1.7rem 0;
+  padding: 1.45rem 0;
+}
+
+/* The list runs straight on from the heading, so the first row carries no rule
+   above it. Two cells sit in that row here and one below 700px, where the grid
+   drops to a single column, so the count is restored in that breakpoint. */
+.principleGrid li:nth-child(-n + 2) {
+  border-top-width: 0;
 }
 
 .principleGrid li span {
@@ -1776,8 +1803,11 @@
 .invitationGrid {
   align-items: end;
   display: grid;
-  gap: clamp(4rem, 9vw, 9rem);
-  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+  /* Even split. The old 1.25/0.75 gave the wider track to a short heading and
+     squeezed the column carrying two paragraphs and the action, which left a
+     void between them. */
+  gap: clamp(3rem, 6vw, 6rem);
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 1fr);
   margin-top: 3rem;
 }
 
@@ -1786,7 +1816,7 @@
   letter-spacing: -0.06em;
   line-height: 0.86;
   margin-bottom: 0;
-  max-width: 9ch;
+  max-width: 12ch;
 }
 
 .invitationAction {
@@ -1795,7 +1825,7 @@
 
 .discussionDisclaimer {
   background: var(--paper-light);
-  padding-bottom: 2rem;
+  padding-bottom: clamp(3rem, 5vw, 4.5rem);
 }
 
 .discussionDisclaimer small {
@@ -1805,7 +1835,7 @@
   font-size: 0.58rem;
   letter-spacing: 0.08em;
   line-height: 1.7;
-  padding-top: 1.5rem;
+  padding-top: clamp(2rem, 3.5vw, 3rem);
   text-transform: uppercase;
 }
 
@@ -1840,6 +1870,26 @@
 }
 
 @media (max-width: 900px) {
+  /* Released with the grids below. Each of these carries a ch measure that
+     exists to keep the heading clear of the column beside it; once the layout
+     is single column that measure only holds type back from the full width. */
+  .hero h1,
+  .principlesHero h1,
+  .investingHero h1,
+  .premise h2,
+  .sectionHeading h2,
+  .pathCard h3,
+  .contributorSignal h3,
+  .retreatStatement h3,
+  .financialModelHeading h3,
+  .poweredHeader h3,
+  .poweredGrid h4,
+  .returnHeading h3,
+  .guardrailIntro h2,
+  .invitation h2 {
+    max-width: none;
+  }
+
   .heroGrid,
   .investingHeroGrid,
   .premiseGrid,
@@ -1965,11 +2015,6 @@
     justify-content: flex-start;
   }
 
-  .header
-    :global(.navigation-stack[data-section-count="2"] .section-navigation) {
-    justify-content: flex-start;
-  }
-
   .header nav {
     justify-content: flex-start;
     max-width: 100%;
@@ -2033,6 +2078,11 @@
   .ventureGrid,
   .principleGrid {
     grid-template-columns: 1fr;
+  }
+
+  /* Single column, so only the first cell is in the top row. */
+  .principleGrid li:nth-child(2) {
+    border-top-width: 1px;
   }
 
   .ventureGrid article {
@@ -2147,7 +2197,7 @@
 
 @media (max-width: 620px) {
   .header nav {
-    gap: 0.55rem;
+    --nav-column-gap: 0.55rem;
   }
 
   .header nav :is(a, button) {
@@ -2172,8 +2222,7 @@
   .investingHeroAction::after,
   .pathAction,
   .invitationAction,
-  .principleAction,
-  .actionArrowStem {
+  .principleAction {
     animation: none;
     transition: none;
   }

@@ -35,12 +35,12 @@ export const metadata: Metadata = {
 const commercialPathways = [
   {
     horizon: "First product",
-    title: "Providence Companion",
-    text: "A private, on-device application for individual reflection, post-retreat integration, and sustained coherence practice.",
+    title: "Providence App",
+    text: "A private, on-device application using biofeedback and neurofeedback to support personal and interpersonal flourishing, from post-retreat integration to sustained practice.",
   },
   {
     horizon: "Partner distribution",
-    title: "Powered by Providence",
+    title: "Powered By Providence",
     text: "A licensed system of telemetry, consent, training, and support for retreat centers and intentional communities.",
   },
   {
@@ -79,7 +79,7 @@ const developmentSequence = [
   {
     number: "05",
     title: "License the partner system",
-    text: "Powered by Providence packages the shared technical and ethical core for retreat centers and intentional communities.",
+    text: "Powered By Providence packages the shared technical and ethical core for retreat centers and intentional communities.",
   },
   {
     number: "06",
@@ -110,7 +110,10 @@ export default function InvestingPage() {
                   GENII Foundation protects the research, standards, and public-interest
                   infrastructure behind the commercial company.
                 </p>
-                <a className={styles.investingHeroAction} href="#paths">
+                <a
+                  className={`${styles.investingHeroAction} action-link`}
+                  href="#paths"
+                >
                   See the capital strategy <ProvidenceArrow />
                 </a>
               </div>
@@ -119,7 +122,7 @@ export default function InvestingPage() {
             <aside className={styles.investingStatus} aria-label="Formation status">
               <strong>Formation status</strong>
               <p>
-                GENII Foundation and Providence&apos;s separate mission-locked company
+                GENII Foundation and Providence&apos;s separate mission-aligned company
                 are under legal design. This page describes the intended structure,
                 not completed entities or offering terms.
               </p>
@@ -132,8 +135,7 @@ export default function InvestingPage() {
             <p className={styles.eyebrow}>Investment premise</p>
             <div className={styles.premiseGrid}>
               <h2 id="premise-title">
-                Human presence is quantifiable, can be learned, and supported by
-                rigorous science and humane technology.
+                What can be measured can be cultivated. Human presence is both.
               </h2>
               <div>
                 <p>
@@ -157,12 +159,11 @@ export default function InvestingPage() {
           <div className={styles.contentFrame}>
             <p className={styles.eyebrow}>Capital strategy</p>
             <div className={styles.sectionHeading}>
-              <h2 id="paths-title">One mission requires distinct capital mandates.</h2>
+              <h2 id="paths-title">One Mission. Two Paths</h2>
               <p>
                 Patient investment finances the commercial system and seeks a
                 return. Philanthropy finances research, access, standards, and
-                infrastructure held for public benefit. Both represent
-                high-leverage cultural vitalization opportunities.
+                infrastructure held for public benefit.
               </p>
             </div>
 
@@ -182,7 +183,7 @@ export default function InvestingPage() {
                   <section>
                     <h4>Initial product</h4>
                     <p>
-                      The Providence Companion is the leading first product: a
+                      The Providence App is the leading first product: a
                       private, on-device application for post-retreat integration
                       and sustained coherence practice. Retreats, partner systems,
                       and practitioner tools define the commercial scope.
@@ -193,14 +194,14 @@ export default function InvestingPage() {
                     <ul>
                       <li>Companion subscriptions</li>
                       <li>Providence-produced retreats</li>
-                      <li>Powered by Providence implementation and licensing</li>
+                      <li>Powered By Providence implementation and licensing</li>
                       <li>Practitioner training, software, and renewals</li>
                     </ul>
                   </section>
                   <section>
                     <h4>Intended capital structure</h4>
                     <p>
-                      A mission-locked commercial company in the jurisdiction best
+                      A mission-aligned commercial company in the jurisdiction best
                       suited to its governance and financing. The intended terms
                       combine patient return mechanics with permanent founder and
                       mission-steward authority over any sale, merger, or change of
@@ -357,151 +358,155 @@ export default function InvestingPage() {
             </div>
 
             <FinancialModel />
+          </div>
+        </section>
 
-            <section className={styles.poweredSystem} aria-labelledby="powered-title">
-              <div className={styles.poweredHeader}>
-                <div>
-                  <p className={styles.eyebrow}>Place-based partnership</p>
-                  <h3 id="powered-title">Powered by Providence</h3>
-                </div>
-                <p>
-                  Providence does not merely measure an individual&apos;s regulated
-                  state. It creates consent-bound experiences in which people can
-                  perceive, practice, and carry forward the quality of presence
-                  they build together.
-                </p>
+        <section className={styles.poweredSystem} aria-labelledby="powered-title">
+          <div className={styles.contentFrame}>
+            <div className={styles.poweredHeader}>
+              <div>
+                <p className={styles.eyebrow}>Place-based partnership</p>
+                <h3 id="powered-title">Powered By Providence</h3>
               </div>
+              <p>
+                Providence does not merely measure an individual&apos;s regulated
+                state. It creates consent-bound experiences in which people can
+                perceive, practice, and carry forward the quality of presence
+                they build together.
+              </p>
+            </div>
 
-              <div className={styles.poweredGrid}>
-                <article>
-                  <p className={styles.poweredType}>Peak-experience retreat centers</p>
-                  <h4>Perceive what happens in the room.</h4>
-                  <p>
-                    Local signal processing, wearable pairing, multi-person consent,
-                    a guide console, shared reflection, and private post-retreat
-                    integration extend an existing program without displacing its
-                    practitioners.
-                  </p>
-                  <dl>
-                    <div>
-                      <dt>Partner value</dt>
-                      <dd>Structured reflection, program learning, and continuity after participants leave.</dd>
-                    </div>
-                    <div>
-                      <dt>Proposed revenue</dt>
-                      <dd>Implementation fees, annual licenses, training, instrumentation, and support.</dd>
-                    </div>
-                  </dl>
-                </article>
-
-                <article>
-                  <p className={styles.poweredType}>Long-term intentional communities</p>
-                  <h4>Build coherence into the culture.</h4>
-                  <p>
-                    Voluntary check-ins, group practice, conflict-repair support,
-                    shared reflection, and institutional memory give a community
-                    better visibility into the culture it creates over time.
-                  </p>
-                  <dl>
-                    <div>
-                      <dt>Partner value</dt>
-                      <dd>A voluntary practice layer for governance, belonging, repair, and cultural learning.</dd>
-                    </div>
-                    <div>
-                      <dt>Proposed revenue</dt>
-                      <dd>Paid discovery, implementation, annual licenses, support, and optional research partnerships.</dd>
-                    </div>
-                  </dl>
-                </article>
-              </div>
-
-              <div className={styles.poweredCore}>
-                <p>Shared core</p>
-                <ul>
-                  <li>Local-first telemetry</li>
-                  <li>Multi-person consent</li>
-                  <li>Participant-controlled records</li>
-                  <li>Practitioner support</li>
-                  <li>Federated research</li>
-                </ul>
-              </div>
-
-              <aside className={styles.communityBoundary}>
-                <strong>Community operating boundary</strong>
+            <div className={styles.poweredGrid}>
+              <article>
+                <p className={styles.poweredType}>Peak-experience retreat centers</p>
+                <h4>Perceive what happens in the room.</h4>
                 <p>
-                  Physiological measures have no role in decisions about housing,
-                  employment, leadership, membership, or access to community life.
-                  Community leaders cannot inspect individual coherence records.
-                  Participation is voluntary, contestable, and reversible.
+                  Local signal processing, wearable pairing, multi-person consent,
+                  a guide console, shared reflection, and private post-retreat
+                  integration extend an existing program without displacing its
+                  practitioners.
                 </p>
-              </aside>
+                <dl>
+                  <div>
+                    <dt>Partner value</dt>
+                    <dd>Structured reflection, program learning, and continuity after participants leave.</dd>
+                  </div>
+                  <div>
+                    <dt>Proposed revenue</dt>
+                    <dd>Implementation fees, annual licenses, training, instrumentation, and support.</dd>
+                  </div>
+                </dl>
+              </article>
 
-              <aside className={styles.sensingBoundary}>
-                <strong>Ambient sensing frontier</strong>
+              <article>
+                <p className={styles.poweredType}>Long-term intentional communities</p>
+                <h4>Build coherence into the culture.</h4>
                 <p>
-                  Continuous ambient sensing may eventually extend the companion,
-                  but it also captures bystanders. Product development must first
-                  establish multi-person consent, visible session boundaries,
-                  bystander protection, redaction, and reliable withdrawal.
+                  Voluntary check-ins, group practice, conflict-repair support,
+                  shared reflection, and institutional memory give a community
+                  better visibility into the culture it creates over time.
                 </p>
-              </aside>
-            </section>
+                <dl>
+                  <div>
+                    <dt>Partner value</dt>
+                    <dd>A voluntary practice layer for governance, belonging, repair, and cultural learning.</dd>
+                  </div>
+                  <div>
+                    <dt>Proposed revenue</dt>
+                    <dd>Paid discovery, implementation, annual licenses, support, and optional research partnerships.</dd>
+                  </div>
+                </dl>
+              </article>
+            </div>
 
-            <section className={styles.returnCase} aria-labelledby="return-title">
-              <div className={styles.returnHeading}>
-                <div>
-                  <p className={styles.eyebrow}>Distribution and retention</p>
-                  <h3 id="return-title">High-trust acquisition can produce recurring voluntary use.</h3>
-                </div>
-                <p>
-                  The venture case depends on a repeatable path from a high-value
-                  experience to sustained individual use. Retention, partner renewal,
-                  and practitioner productivity must prove that path.
-                </p>
+            <div className={styles.poweredCore}>
+              <p>Shared core</p>
+              <ul>
+                <li>Local-first telemetry</li>
+                <li>Multi-person consent</li>
+                <li>Participant-controlled records</li>
+                <li>Practitioner support</li>
+                <li>Federated research</li>
+              </ul>
+            </div>
+
+            <aside className={styles.communityBoundary}>
+              <strong>Community operating boundary</strong>
+              <p>
+                Physiological measures have no role in decisions about housing,
+                employment, leadership, membership, or access to community life.
+                Community leaders cannot inspect individual coherence records.
+                Participation is voluntary, contestable, and reversible.
+              </p>
+            </aside>
+
+            <aside className={styles.sensingBoundary}>
+              <strong>Ambient sensing frontier</strong>
+              <p>
+                Continuous ambient sensing may eventually extend the companion,
+                but it also captures bystanders. Product development must first
+                establish multi-person consent, visible session boundaries,
+                bystander protection, redaction, and reliable withdrawal.
+              </p>
+            </aside>
+          </div>
+        </section>
+
+        <section className={styles.returnCase} aria-labelledby="return-title">
+          <div className={styles.contentFrame}>
+            <div className={styles.returnHeading}>
+              <div>
+                <p className={styles.eyebrow}>Distribution and retention</p>
+                <h3 id="return-title">High-trust acquisition can produce recurring voluntary use.</h3>
               </div>
+              <p>
+                The venture case depends on a repeatable path from a high-value
+                experience to sustained individual use. Retention, partner renewal,
+                and practitioner productivity must prove that path.
+              </p>
+            </div>
 
-              <div className={styles.returnGrid}>
-                <article>
-                  <span>Revenue positive</span>
-                  <h4>Providence retreats</h4>
-                  <p>
-                    Providence prices each program to cover full delivery costs and
-                    contribute cash to product development.
-                  </p>
-                </article>
-                <article>
-                  <span>Recurring partner revenue</span>
-                  <h4>Powered retreats and communities</h4>
-                  <p>
-                    Operators pay for implementation, licenses, training,
-                    instrumentation, coaching, and ongoing support.
-                  </p>
-                </article>
-                <article>
-                  <span>Recurring individual revenue</span>
-                  <h4>Providence Companion</h4>
-                  <p>
-                    Participants may subscribe to supported companion functions for
-                    continued practice after a retreat or practitioner engagement.
-                  </p>
-                </article>
-              </div>
+            <div className={styles.returnGrid}>
+              <article>
+                <span>Revenue positive</span>
+                <h4>Providence retreats</h4>
+                <p>
+                  Providence prices each program to cover full delivery costs and
+                  contribute cash to product development.
+                </p>
+              </article>
+              <article>
+                <span>Recurring partner revenue</span>
+                <h4>Powered retreats and communities</h4>
+                <p>
+                  Operators pay for implementation, licenses, training,
+                  instrumentation, coaching, and ongoing support.
+                </p>
+              </article>
+              <article>
+                <span>Recurring individual revenue</span>
+                <h4>Providence App</h4>
+                <p>
+                  Participants may subscribe to supported companion functions for
+                  continued practice after a retreat or practitioner engagement.
+                </p>
+              </article>
+            </div>
 
-              <div className={styles.returnBoundary}>
-                <h4>Patient impact capital is the first fit.</h4>
-                <p>
-                  Providence is raising first from values-aligned angels and family
-                  offices. Large companion adoption and repeatable partner licensing
-                  can create substantial enterprise value. Mission stewards retain
-                  exclusive authority over any sale, merger, or change of control.
-                </p>
-                <p>
-                  The software core remains open source. The commercial company earns
-                  revenue from the official product, trusted marks, hosted services,
-                  integrations, training, and accountable implementation.
-                </p>
-              </div>
-            </section>
+            <div className={styles.returnBoundary}>
+              <h4>Patient impact capital is the first fit.</h4>
+              <p>
+                Providence is raising first from values-aligned angels and family
+                offices. Large companion adoption and repeatable partner licensing
+                can create substantial enterprise value. Mission stewards retain
+                exclusive authority over any sale, merger, or change of control.
+              </p>
+              <p>
+                The software core remains open source. The commercial company earns
+                revenue from the official product, trusted marks, hosted services,
+                integrations, training, and accountable implementation.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -577,7 +582,7 @@ export default function InvestingPage() {
                 </svg>
               </div>
               <article>
-                <p>Mission-locked commercial company</p>
+                <p>Mission-aligned commercial company</p>
                 <h3>Providence venture</h3>
                 <ul>
                   <li>Commercial application</li>

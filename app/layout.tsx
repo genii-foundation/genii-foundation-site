@@ -26,7 +26,9 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   colorScheme: "light",
-  themeColor: "#ded9ce",
+  // Matches the opaque mobile header surface exactly, so the browser title bar
+  // and the header read as one continuous band.
+  themeColor: "#e4dfd4",
 };
 
 export const metadata: Metadata = {

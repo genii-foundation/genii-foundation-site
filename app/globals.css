@@ -22,6 +22,45 @@
   initial-value: 0.66rem;
 }
 
+/*
+ * Unified header model.
+ *
+ * One persistent <header> serves every route. Its height is a plain calc of
+ * three inputs, which is what lets scrolling and navigating share a mechanism
+ * instead of fighting:
+ *
+ *   --header-collapse     0 at the top of the page, 1 once scrolled past the
+ *                         range. Driven by the scroll timeline on :root so it
+ *                         inherits to the header and its spacer alike.
+ *   --header-open-height  the resting height for the current route.
+ *   --header-shut-height  the collapsed height, identical on every route, so
+ *                         navigating while scrolled changes nothing.
+ *
+ * The keyframe animates only --header-collapse, and holds no var() of its own.
+ * The route-dependent heights are ordinary transitioned properties. An animated
+ * property cannot also transition, so keeping the two jobs on separate
+ * properties is what makes a route change animate rather than snap. If the
+ * scroll timeline never runs, --header-collapse stays 0 and the header simply
+ * rests open, which is a safe fallback rather than a broken one.
+ */
+@property --header-collapse {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --header-open-height {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 7.25rem;
+}
+
+@property --header-shut-height {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 5.5rem;
+}
+
 :root {
   --ink: #11120f;
   --paper: #ded9ce;
@@ -160,58 +199,106 @@ img {
   background: #f4f0e7;
 }
 
+/*
+ * Retired. The header surface used to live here, on a pseudo-element of the
+ * page root, which meant it unmounted the instant a navigation swapped the
+ * page. That was half of why route transitions read as broken. The surface now
+ * lives on the header itself, which persists.
+ */
 .atlas-site::before {
-  -webkit-backdrop-filter: blur(var(--header-frost-blur)) saturate(120%);
-  backdrop-filter: blur(var(--header-frost-blur)) saturate(120%);
-  background-color: rgb(226 221 210 / 1);
-  border-bottom: 1px solid rgba(41, 42, 37, 0.2);
-  box-shadow: 0 0 0 rgba(17, 18, 15, 0);
-  content: "";
-  height: 22.5rem;
-  left: 0;
-  pointer-events: none;
-  position: fixed;
-  right: 0;
-  top: 0;
-  transition: background-color 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    height 520ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: background-color, box-shadow, height;
-  z-index: 39;
+  content: none;
 }
 
 .site-header {
   --header-label-font-size: 0.66rem;
-  background: transparent;
+}
+
+/*
+ * The one header. Element plus class so it outranks the per-route classes that
+ * still carry each route's typography, whichever order the stylesheets land in.
+ */
+/*
+ * Declared on the root, not the header, because the spacer that reserves the
+ * header's space lives elsewhere in the tree and has to read the same numbers.
+ * The transition lives here too, so a route change interpolates the height for
+ * the header and its spacer together and the page never jumps.
+ */
+:root {
+  --header-open-height: 7.25rem;
+  --header-shut-height: 5.5rem;
+  transition:
+    --header-open-height 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    --header-shut-height 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root[data-route="foundation"] {
+  --header-open-height: 22.5rem;
+}
+
+header.unified-header {
+  --header-surface: rgb(226 221 210 / 0.86);
+  background: var(--header-surface);
+  -webkit-backdrop-filter: blur(14px) saturate(115%);
+  backdrop-filter: blur(14px) saturate(115%);
   border: 0;
-  height: 22.5rem;
+  border-bottom: 1px solid rgba(41, 42, 37, 0.14);
+  height: calc(
+    var(--header-open-height) +
+      (var(--header-shut-height) - var(--header-open-height)) *
+      var(--header-collapse)
+  );
   left: 0;
   overflow: hidden;
   position: fixed;
   right: 0;
   top: 0;
-  transform: translate3d(0, 0, 0);
-  transition: height 520ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
+  transform: none;
+  transition:
+    height 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-bottom-color 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 620ms cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 40;
 }
 
+/* Both rows sit in the same grid on every route, so the nav occupies the same
+   position and never slides sideways on navigation. */
+header.unified-header .unified-header-inner {
+  align-items: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  height: 100%;
+  margin: 0 auto;
+  max-width: var(--navigation-width);
+  min-height: 0;
+  padding: 0 1.5rem;
+  position: relative;
+  top: 0;
+  width: 100%;
+}
+
+/* The spacer tracks the header exactly, using the same three inputs. */
+.header-spacer,
+.unified-header-spacer {
+  transition: height 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  height: calc(
+    var(--header-open-height, 7.25rem) +
+      (var(--header-shut-height, 5.5rem) - var(--header-open-height, 7.25rem)) *
+      var(--header-collapse)
+  );
+}
+
 @supports (animation-timeline: scroll()) {
-  .atlas-site::before {
-    animation: collapse-header-surface linear both;
+  /* Driven on the root so the header and its spacer both inherit the same
+     progress and stay exactly the same height. */
+  :root {
+    animation: collapse-header-progress linear both;
     animation-range: 0 272px;
     animation-timeline: scroll(root block);
   }
 
-  .site-header {
-    animation: collapse-header-transform linear both;
-    animation-range: 0 272px;
-    animation-timeline: scroll(root block);
-  }
-
-  .header-inner {
-    animation: collapse-header-content-offset linear both;
+  header.unified-header {
+    animation: settle-header-surface linear both;
     animation-range: 0 272px;
     animation-timeline: scroll(root block);
   }
@@ -227,6 +314,32 @@ img {
       collapse-header-navigation-size linear both;
     animation-range: 0 272px;
     animation-timeline: scroll(root block);
+  }
+}
+
+/* Holds no var() of its own. Everything route-dependent stays on transitioned
+   properties, which is what lets a navigation animate instead of snap. */
+@keyframes collapse-header-progress {
+  from {
+    --header-collapse: 0;
+  }
+
+  to {
+    --header-collapse: 1;
+  }
+}
+
+@keyframes settle-header-surface {
+  from {
+    background-color: rgb(226 221 210 / 1);
+    border-bottom-color: rgba(41, 42, 37, 0.2);
+    box-shadow: 0 0 0 rgba(17, 18, 15, 0);
+  }
+
+  to {
+    background-color: rgb(226 221 210 / var(--header-frost-opacity, 0.86));
+    border-bottom-color: rgba(41, 42, 37, 0.14);
+    box-shadow: 0 0.75rem 2rem rgba(17, 18, 15, 0.07);
   }
 }
 
@@ -525,9 +638,29 @@ body:has(.atlas-site[data-route-leaving="true"])
   width: 100%;
 }
 
+/*
+ * The section row must not size the stack.
+ *
+ * The primary row is identical on every route, so it alone decides how wide the
+ * nav is, and its labels then sit at the same x on every page. A zero width
+ * keeps this row out of the track's intrinsic sizing while min-width fills the
+ * track it is given. Sizing the track to whichever row was wider, as this did
+ * before, made the whole nav jump sideways whenever a route carried a longer
+ * section list.
+ */
 .site-header .section-navigation-scroll-region {
   justify-self: stretch;
-  width: 100%;
+  min-width: 100%;
+  width: 0;
+}
+
+.site-header .section-navigation {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.site-header .section-navigation::-webkit-scrollbar {
+  display: none;
 }
 
 .site-header .section-navigation a {
@@ -1598,27 +1731,54 @@ button.text-link {
     scroll-padding-top: 5.8rem;
   }
 
+  :root {
+    --header-open-height: 4.5rem;
+    --header-shut-height: 4.5rem;
+  }
+
+  :root[data-route="foundation"] {
+    --header-open-height: 4.5rem;
+  }
+
+  header.unified-header {
+    --header-surface: #e4dfd4;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--header-surface);
+  }
+
   .site-header {
     --header-label-font-size: 0.5rem;
+    /* Opaque here rather than frosted. A translucent surface leaves the arrow
+       gradients blending against whatever scrolls beneath, so their end colour
+       is unpredictable. */
+    --header-frost-opacity: 1;
     animation: none;
     contain: none;
-    height: 5.25rem;
+    height: 4.5rem;
     overflow: visible;
     position: fixed;
     transform: none;
     will-change: auto;
   }
 
-  @supports (animation-timeline: scroll()) {
-    .atlas-site::before {
-      animation: frost-header-surface-mobile linear both;
-      animation-range: 0 160px;
-      animation-timeline: scroll(root block);
-    }
+  /* Fully opaque and the same tone as the theme colour, so the header and the
+     browser title bar read as one band. The frost animation is dropped here
+     because any translucency would let the page tint show through and break
+     that match. */
+  .atlas-site::before {
+    -webkit-backdrop-filter: none;
+    animation: none;
+    backdrop-filter: none;
+    background-color: #e4dfd4;
   }
 
   .header-spacer {
-    height: 5.25rem;
+    height: 4.5rem;
+  }
+
+  .atlas-site::before {
+    height: 4.5rem;
   }
 
   .header-inner,
@@ -1651,7 +1811,18 @@ button.text-link {
   }
 
   .site-header nav {
-    --nav-column-gap: 0.55rem;
+    --nav-column-gap: 0.3rem;
+  }
+
+  .site-header .section-navigation {
+    gap: 0.55rem;
+  }
+
+  /* The rows scroll horizontally at this width, so the primary row packs to the
+     start instead of spreading across the full width. Spreading it kept the
+     labels far apart no matter how small the gap was set. */
+  .site-header .primary-navigation {
+    justify-content: flex-start;
   }
 
   .site-header .navigation-stack {
@@ -1664,8 +1835,10 @@ button.text-link {
     width: 100%;
   }
 
+  /* The rule between the two rows is kept here too, so the narrow header reads
+     as the same two-tier structure as the wide one. */
   .site-header .section-navigation {
-    border-top: 0;
+    border-top: 1px solid rgba(41, 42, 37, 0.16);
     justify-content: flex-start;
   }
 
@@ -1684,8 +1857,11 @@ button.text-link {
     letter-spacing: 0.1em;
   }
 
+  /* Tight to the rule below it. The slack inside this box is what separates the
+     label from the divider, and the active underline sits on that divider, so a
+     tall box breaks the visual tie between the two. */
   .site-header .primary-navigation :is(a, button) {
-    min-height: 2.25rem;
+    min-height: 1.85rem;
   }
 
   .site-header .primary-navigation :is(a, button)::after {
@@ -1927,6 +2103,31 @@ button.text-link {
 
   .section-navigation a[aria-current="location"] .section-navigation-dot {
     animation: none;
+  }
+}
+
+/*
+ * Below this width the nav needs the horizontal room more than the wordmark
+ * does, so the brand shows its initial only.
+ *
+ * There is no separate mark asset, so the full wordmark is windowed. Its glyphs
+ * were measured off the source file: the G occupies px 0 to 245 of 1135 and the
+ * next glyph begins at 324, so the midpoint of that gap is 25.07% of the width.
+ * The image keeps the width it would have had and the link crops to that
+ * fraction, which shows the G at exactly its usual size rather than a scaled
+ * copy. If the wordmark art is ever replaced, remeasure the fraction.
+ */
+@media (max-width: 480px) {
+  .site-header .header-brand {
+    --brand-wordmark-width: 6.5rem;
+    --brand-mark-fraction: 0.2507;
+    overflow: hidden;
+    width: calc(var(--brand-wordmark-width) * var(--brand-mark-fraction));
+  }
+
+  .site-header .header-brand img {
+    max-width: none;
+    width: var(--brand-wordmark-width);
   }
 }
 

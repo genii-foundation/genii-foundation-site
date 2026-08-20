@@ -1717,6 +1717,83 @@ button.text-link {
   }
 }
 
+@media (max-width: 700px) {
+  header.unified-header {
+    --header-surface: #e4dfd4;
+    -webkit-backdrop-filter: none;
+    animation: none;
+    backdrop-filter: none;
+    background: #e4dfd4;
+  }
+
+  header.unified-header .unified-header-inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Equal row boxes keep the divider equidistant from both label baselines. */
+  header.unified-header
+    .primary-navigation
+    :is(a, button) {
+    min-height: 2rem;
+  }
+
+  /* A three-pixel active bar straddles the one-pixel divider on its centre. */
+  header.unified-header
+    .primary-navigation
+    :is(a, button)::after {
+    bottom: -2px;
+  }
+
+  header.unified-header .section-navigation a {
+    min-height: 2rem;
+  }
+
+  header.unified-header .section-navigation {
+    justify-content: space-between;
+  }
+
+  header.unified-header .section-navigation-dot {
+    display: none;
+  }
+
+  header.unified-header
+    .section-navigation
+    a[aria-current="location"]
+    > span:last-child {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.3em;
+  }
+}
+
+/* Keep the persistent header in its mobile geometry through the same 700px
+   breakpoint used by the route-specific chrome. Without this bridge, 621px to
+   700px fell back to the desktop auto column and squeezed the nav against the
+   right edge while leaving dead space beside the wordmark. */
+@media (min-width: 621px) and (max-width: 700px) {
+  :root,
+  :root[data-route="foundation"] {
+    --header-open-height: 5rem;
+    --header-shut-height: 5rem;
+  }
+
+  header.unified-header {
+    --header-surface: #e4dfd4;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: #e4dfd4;
+  }
+
+  header.unified-header .unified-header-inner {
+    column-gap: 1.25rem;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    height: 5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
 @media (max-width: 620px) {
   .route-backdrop-foundation {
     --grid-row-offset: 5.25rem;
@@ -1732,19 +1809,19 @@ button.text-link {
   }
 
   :root {
-    --header-open-height: 4.5rem;
-    --header-shut-height: 4.5rem;
+    --header-open-height: 5rem;
+    --header-shut-height: 5rem;
   }
 
   :root[data-route="foundation"] {
-    --header-open-height: 4.5rem;
+    --header-open-height: 5rem;
   }
 
   header.unified-header {
     --header-surface: #e4dfd4;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
-    background: var(--header-surface);
+    background: #e4dfd4;
   }
 
   .site-header {
@@ -1755,7 +1832,7 @@ button.text-link {
     --header-frost-opacity: 1;
     animation: none;
     contain: none;
-    height: 4.5rem;
+    height: 5rem;
     overflow: visible;
     position: fixed;
     transform: none;
@@ -1774,11 +1851,11 @@ button.text-link {
   }
 
   .header-spacer {
-    height: 4.5rem;
+    height: 5rem;
   }
 
   .atlas-site::before {
-    height: 4.5rem;
+    height: 5rem;
   }
 
   .header-inner,
@@ -1800,10 +1877,15 @@ button.text-link {
 
   .header-inner {
     animation: none;
-    column-gap: 1rem;
     position: relative;
     transform: none;
     z-index: 1;
+  }
+
+  header.unified-header .unified-header-inner {
+    column-gap: 1.25rem;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    height: 5rem;
   }
 
   .header-brand span {
@@ -1818,18 +1900,17 @@ button.text-link {
     gap: 0.55rem;
   }
 
-  /* The rows scroll horizontally at this width, so the primary row packs to the
-     start instead of spreading across the full width. Spreading it kept the
-     labels far apart no matter how small the gap was set. */
+  /* Use the entire track when the labels fit. If they overflow, flexbox falls
+     back to start alignment and the existing horizontal scroller takes over. */
   .site-header .primary-navigation {
-    justify-content: flex-start;
+    justify-content: space-between;
   }
 
   .site-header .navigation-stack {
     --navigation-row-gap: 0rem;
     /* The compact header never opens here, so the labels stay at the size the
        narrow layout was tuned for. */
-    --header-nav-font-size: 0.5rem;
+    --header-nav-font-size: 0.58rem;
     animation: none;
     row-gap: 0;
     width: 100%;
@@ -1857,19 +1938,23 @@ button.text-link {
     letter-spacing: 0.1em;
   }
 
+  header.unified-header .section-navigation a {
+    font-size: 0.54rem;
+  }
+
   /* Tight to the rule below it. The slack inside this box is what separates the
      label from the divider, and the active underline sits on that divider, so a
      tall box breaks the visual tie between the two. */
   .site-header .primary-navigation :is(a, button) {
-    min-height: 1.85rem;
+    min-height: 2rem;
   }
 
   .site-header .primary-navigation :is(a, button)::after {
-    bottom: 0.3rem;
+    bottom: -2px;
   }
 
   .site-header .section-navigation a {
-    min-height: 1.75rem;
+    min-height: 2rem;
   }
 
   .contact-dialog {
@@ -2118,6 +2203,13 @@ button.text-link {
  * copy. If the wordmark art is ever replaced, remeasure the fraction.
  */
 @media (max-width: 480px) {
+  header.unified-header .unified-header-inner {
+    column-gap: 1.15rem;
+    grid-template-columns:
+      calc(6.5rem * 0.2507)
+      minmax(0, 1fr);
+  }
+
   .site-header .header-brand {
     --brand-wordmark-width: 6.5rem;
     --brand-mark-fraction: 0.2507;

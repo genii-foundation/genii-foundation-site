@@ -2002,15 +2002,15 @@
   }
 
   .headerInner {
-    gap: 1rem;
+    gap: 1.25rem;
     grid-template-columns: 6.5rem minmax(0, 1fr);
-    height: 4.5rem;
+    height: 5rem;
     min-height: 0;
   }
 
   .header,
   .headerSpacer {
-    height: 4.5rem;
+    height: 5rem;
   }
 
   .headerBrand {
@@ -2046,19 +2046,19 @@
   /* Tight to the rule below it, so the active underline stays visually tied to
      the divider. See the matching note in globals.css. */
   .header :global(.primary-navigation) :is(a, button) {
-    min-height: 1.85rem;
+    min-height: 2rem;
   }
 
   .header :global(.section-navigation) a {
-    min-height: 1.5rem;
+    min-height: 2rem;
   }
 
   .header :global(.primary-navigation) :is(a, button)::after {
-    bottom: 0.3rem;
+    bottom: -2px;
   }
 
   .header :global(.section-navigation) a {
-    min-height: 1.75rem;
+    min-height: 2rem;
   }
 
   .hero {
@@ -2070,6 +2070,13 @@
      brand shows its initial only. The 25.07% is the measured midpoint of the
      gap after the G in the wordmark art. See the note in globals.css. */
   @media (max-width: 480px) {
+    .headerInner {
+      gap: 1.15rem;
+      grid-template-columns:
+        calc(6.5rem * 0.2507)
+        minmax(0, 1fr);
+    }
+
     .headerBrand {
       --brand-wordmark-width: 6.5rem;
       --brand-mark-fraction: 0.2507;
@@ -2237,16 +2244,19 @@
     --nav-column-gap: 0.3rem;
   }
 
-  /* The rows scroll horizontally at this width, so the primary row packs to the
-     start instead of spreading across the full width. Spreading it kept the
-     labels far apart no matter how small the gap was set. */
+  /* Use the whole track while the labels fit. Overflow still falls back to the
+     existing horizontal scroller. */
   .header :global(.primary-navigation) {
-    justify-content: flex-start;
+    justify-content: space-between;
   }
 
   .header nav :is(a, button) {
-    font-size: 0.5rem;
+    font-size: 0.58rem;
     letter-spacing: 0.1em;
+  }
+
+  .header :global(.section-navigation) a {
+    font-size: 0.54rem;
   }
 }
 

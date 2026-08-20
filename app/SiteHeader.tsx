@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -69,6 +70,17 @@ export function SiteHeader() {
   const onFoundationPage = pathname === "/";
   const { sectionItems, skipLabel } = getRouteChrome(pathname);
 
+  // The header's resting height is declared on the root, because the spacer that
+  // reserves its space is elsewhere in the tree and must read the same value.
+  // Flagging the route on the root directly, rather than matching it with :has(),
+  // means the change is an ordinary restyle of the element that owns the
+  // transition, so the height interpolates instead of snapping.
+  useEffect(() => {
+    document.documentElement.dataset.route = onFoundationPage
+      ? "foundation"
+      : "providence";
+  }, [onFoundationPage]);
+
   return (
     <>
       <a
@@ -78,10 +90,15 @@ export function SiteHeader() {
         {skipLabel}
       </a>
       <header
-        className={onFoundationPage ? "site-header" : styles.header}
+        className={`unified-header ${onFoundationPage ? "site-header" : styles.header}`}
+        data-route={onFoundationPage ? "foundation" : "providence"}
         data-toolbar-state={onFoundationPage ? "expanded" : "compact"}
       >
-        <div className={onFoundationPage ? "header-inner" : styles.headerInner}>
+        <div
+          className={`unified-header-inner ${
+            onFoundationPage ? "header-inner" : styles.headerInner
+          }`}
+        >
           <Link
             aria-label="GENII Foundation, home"
             className={onFoundationPage ? "header-brand" : styles.headerBrand}

@@ -6,10 +6,9 @@ import {
   useEffect,
   useRef,
   useState,
-  type MouseEvent,
   type ReactNode,
 } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { ContactTrigger, useContactDialog } from "./ContactDialog";
 
@@ -133,56 +132,13 @@ export function PrimaryNavigation({
   sectionItems?: readonly SectionNavigationItem[];
 }) {
   const pathname = usePathname();
-  const router = useRouter();
   const { isOpen: isContactOpen } = useContactDialog();
   const [activeSectionHref, setActiveSectionHref] = useState<string | null>(null);
-  const routeTransitionTimerRef = useRef<number | null>(null);
-
-  useEffect(
-    () => () => {
-      if (routeTransitionTimerRef.current !== null) {
-        window.clearTimeout(routeTransitionTimerRef.current);
-      }
-    },
-    [],
-  );
-
   useEffect(() => {
     document
       .querySelector<HTMLElement>('header[data-toolbar-state]')
       ?.removeAttribute("aria-busy");
   }, [pathname]);
-
-  const navigateFromFoundation = (
-    event: MouseEvent<HTMLAnchorElement>,
-    route: string,
-  ) => {
-    if (
-      pathname !== "/" ||
-      route === "/" ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      return;
-    }
-
-    const foundation = document.querySelector<HTMLElement>(".atlas-site");
-    if (!foundation) return;
-
-    event.preventDefault();
-    if (routeTransitionTimerRef.current !== null) return;
-
-    foundation.dataset.routeLeaving = "true";
-    document.querySelector<HTMLElement>(".site-header")?.setAttribute("aria-busy", "true");
-    routeTransitionTimerRef.current = window.setTimeout(() => {
-      routeTransitionTimerRef.current = null;
-      router.push(route);
-    }, 540);
-  };
 
   useEffect(() => {
     if (sectionItems.length === 0) return;
@@ -236,7 +192,6 @@ export function PrimaryNavigation({
             aria-current={!isContactOpen && pathname === href ? "page" : undefined}
             href={href}
             key={href}
-            onClick={(event) => navigateFromFoundation(event, href)}
           >
             {label}
           </Link>

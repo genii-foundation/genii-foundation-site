@@ -74,35 +74,24 @@
   text-transform: uppercase;
 }
 
+/* Position, height, and surface belong to header.unified-header in globals.css.
+   Only the palette tokens stay here. */
 .header {
   --line: rgba(35, 36, 31, 0.2);
   --muted: #655f53;
-  -webkit-backdrop-filter: blur(14px) saturate(115%);
-  backdrop-filter: blur(14px) saturate(115%);
-  background: rgba(228, 223, 212, 0.86);
-  border-bottom: 1px solid rgba(35, 36, 31, 0.14);
-  height: 7.25rem;
-  left: 0;
-  overflow: hidden;
-  position: fixed;
-  right: 0;
-  top: 0;
-  transition: height 520ms cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: 40;
 }
 
 .headerSpacer {
-  height: 7.25rem;
+  transition: height 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  height: calc(
+    var(--header-open-height, 7.25rem) +
+      (var(--header-shut-height, 5.5rem) - var(--header-open-height, 7.25rem)) *
+      var(--header-collapse)
+  );
 }
 
 .headerInner {
-  align-items: center;
-  display: grid;
   gap: 3rem;
-  grid-template-columns: minmax(0, 1fr) auto;
-  height: 7.25rem;
-  min-height: 0;
-  transition: height 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .headerBrand,
@@ -162,9 +151,22 @@
    the rule above them always runs the full width of the top row and the labels
    centre within it. This holds for any number of section links, so it needs no
    per-count special cases. */
+/* Same rule as the foundation header: the section row is kept out of the
+   track's intrinsic sizing so the primary row's labels hold the same position on
+   every route. See the note in globals.css. */
 .header :global(.section-navigation-scroll-region) {
   justify-self: stretch;
-  width: 100%;
+  min-width: 100%;
+  width: 0;
+}
+
+.header :global(.section-navigation) {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.header :global(.section-navigation)::-webkit-scrollbar {
+  display: none;
 }
 
 .header :global(.section-navigation) {
@@ -1991,27 +1993,38 @@
   }
 
   .header {
+    /* Opaque here rather than frosted, so the arrow gradients have a known
+       colour to blend against instead of whatever scrolls beneath. */
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: #e4dfd4;
     border-bottom: 0;
   }
 
   .headerInner {
     gap: 1rem;
     grid-template-columns: 6.5rem minmax(0, 1fr);
-    height: 5.25rem;
+    height: 4.5rem;
     min-height: 0;
   }
 
   .header,
   .headerSpacer {
-    height: 5.25rem;
+    height: 4.5rem;
   }
 
   .headerBrand {
     width: 6.5rem;
   }
 
+  .header nav {
+    --nav-column-gap: 0.3rem;
+  }
+
+  /* Same two-tier rule as the wide header. */
   .header :global(.section-navigation) {
-    border-top: 0;
+    border-top: 1px solid var(--line);
+    gap: 0.55rem;
     justify-content: flex-start;
   }
 
@@ -2030,8 +2043,14 @@
     text-align: center;
   }
 
+  /* Tight to the rule below it, so the active underline stays visually tied to
+     the divider. See the matching note in globals.css. */
   .header :global(.primary-navigation) :is(a, button) {
-    min-height: 2.25rem;
+    min-height: 1.85rem;
+  }
+
+  .header :global(.section-navigation) a {
+    min-height: 1.5rem;
   }
 
   .header :global(.primary-navigation) :is(a, button)::after {
@@ -2045,6 +2064,24 @@
   .hero {
     min-height: 0;
     padding-top: 5rem;
+  }
+
+  /* Below 480px the nav needs the room more than the wordmark does, so the
+     brand shows its initial only. The 25.07% is the measured midpoint of the
+     gap after the G in the wordmark art. See the note in globals.css. */
+  @media (max-width: 480px) {
+    .headerBrand {
+      --brand-wordmark-width: 6.5rem;
+      --brand-mark-fraction: 0.2507;
+      overflow: hidden;
+      width: calc(var(--brand-wordmark-width) * var(--brand-mark-fraction));
+    }
+
+    .headerBrand img {
+      max-width: none;
+      width: var(--brand-wordmark-width);
+    }
+
   }
 
   .hero h1 {
@@ -2197,7 +2234,14 @@
 
 @media (max-width: 620px) {
   .header nav {
-    --nav-column-gap: 0.55rem;
+    --nav-column-gap: 0.3rem;
+  }
+
+  /* The rows scroll horizontally at this width, so the primary row packs to the
+     start instead of spreading across the full width. Spreading it kept the
+     labels far apart no matter how small the gap was set. */
+  .header :global(.primary-navigation) {
+    justify-content: flex-start;
   }
 
   .header nav :is(a, button) {

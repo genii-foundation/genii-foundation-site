@@ -6,6 +6,7 @@ import {
   ProvidenceFooter,
 } from "../ProvidencePageChrome";
 import { FinancialModel } from "./FinancialModel";
+import { InvestingComparison } from "./InvestingComparison";
 import styles from "../providence.module.css";
 
 export const metadata: Metadata = {
@@ -92,6 +93,8 @@ export default function InvestingPage() {
   return (
     <div className={styles.site} id="top">
       <div className="unified-header-spacer" aria-hidden="true" />
+
+      <InvestingComparison active="current" reviewGate />
 
       <main id="main-content">
         <section

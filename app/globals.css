@@ -1867,8 +1867,8 @@ button.text-link {
   }
 
   header.unified-header .section-navigation {
-    justify-content: space-between;
-    padding-inline: clamp(0.75rem, 3vw, 1rem);
+    gap: 0;
+    justify-content: space-evenly;
   }
 
   header.unified-header .section-navigation-dot {
@@ -2015,7 +2015,7 @@ button.text-link {
   }
 
   .site-header .section-navigation {
-    gap: 0.55rem;
+    gap: 0;
   }
 
   /* Use the entire track when the labels fit. If they overflow, flexbox falls
@@ -2038,7 +2038,7 @@ button.text-link {
      as the same two-tier structure as the wide one. */
   .site-header .section-navigation {
     border-top: 1px solid rgba(41, 42, 37, 0.16);
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
 
   .site-header nav {

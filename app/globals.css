@@ -576,6 +576,7 @@ body:has(.atlas-site[data-route-leaving="true"])
 }
 
 .navigation-stack {
+  --section-navigation-slide: 1.075rem;
   align-self: center;
   display: grid;
   justify-items: end;
@@ -600,6 +601,100 @@ body:has(.atlas-site[data-route-leaving="true"])
   justify-self: end;
   max-width: 100%;
   min-width: 0;
+}
+
+/* The second row remains mounted between routes. Its reserved height keeps the
+   stack stable while the first row translates by half that height, producing a
+   reliable slide in both directions even when route content changes in one
+   React commit. */
+.primary-navigation-scroll-region {
+  transform: translateY(0);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-navigation-scroll-region {
+  min-height: 2.15rem;
+  opacity: 1;
+  overflow: hidden;
+  transform: translateY(0);
+  transition:
+    opacity 220ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navigation-stack[data-section-count="0"]
+  .primary-navigation-scroll-region {
+  animation: primary-navigation-slide-down 420ms cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+  transform: translateY(var(--section-navigation-slide));
+}
+
+.navigation-stack:not([data-section-count="0"])
+  .primary-navigation-scroll-region {
+  animation: primary-navigation-slide-up 420ms cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+.section-navigation-scroll-region[data-empty="true"] {
+  animation: section-navigation-leave 260ms ease both;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-0.35rem);
+}
+
+.section-navigation-scroll-region:not([data-empty="true"]) {
+  animation: section-navigation-arrive 320ms cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+.section-navigation-scroll-region[data-empty="true"]
+  > .section-navigation {
+  border-top-color: transparent;
+  min-height: 2.15rem;
+}
+
+@keyframes primary-navigation-slide-down {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(var(--section-navigation-slide));
+  }
+}
+
+@keyframes primary-navigation-slide-up {
+  from {
+    transform: translateY(var(--section-navigation-slide));
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes section-navigation-leave {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-0.35rem);
+  }
+}
+
+@keyframes section-navigation-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(-0.35rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /*
@@ -1731,6 +1826,10 @@ button.text-link {
     padding-right: 1rem;
   }
 
+  header.unified-header .navigation-stack {
+    --section-navigation-slide: 1rem;
+  }
+
   /* Equal row boxes keep the divider equidistant from both label baselines. */
   header.unified-header
     .primary-navigation
@@ -1746,6 +1845,16 @@ button.text-link {
   }
 
   header.unified-header .section-navigation a {
+    min-height: 2rem;
+  }
+
+  header.unified-header .section-navigation-scroll-region {
+    min-height: 2rem;
+  }
+
+  header.unified-header
+    .section-navigation-scroll-region[data-empty="true"]
+    > .section-navigation {
     min-height: 2rem;
   }
 
@@ -1976,6 +2085,11 @@ button.text-link {
     gap: 1rem;
   }
 
+  .contact-dialog-header h2 {
+    font-size: clamp(3.2rem, 16vw, 3.8rem);
+    max-width: calc(100% - 4rem);
+  }
+
   .contact-options {
     grid-template-columns: 1fr;
     margin-top: 2.5rem;
@@ -2177,6 +2291,12 @@ button.text-link {
   .action-arrow-head,
   .action-link,
   .action-link::after {
+    transition: none;
+  }
+
+  .primary-navigation-scroll-region,
+  .section-navigation-scroll-region {
+    animation: none;
     transition: none;
   }
 

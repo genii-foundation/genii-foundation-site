@@ -35,10 +35,12 @@ function ScrollableNavigation({
   ariaLabel,
   children,
   className,
+  isEmpty = false,
 }: {
   ariaLabel: string;
   children: ReactNode;
   className: string;
+  isEmpty?: boolean;
 }) {
   const navigationRef = useRef<HTMLElement>(null);
   const [scrollState, setScrollState] = useState({ start: false, end: false });
@@ -96,10 +98,16 @@ function ScrollableNavigation({
   return (
     <div
       className={`navigation-scroll-region ${className}-scroll-region`}
+      data-empty={isEmpty ? "true" : undefined}
       data-overflow-end={scrollState.end ? "true" : undefined}
       data-overflow-start={scrollState.start ? "true" : undefined}
     >
-      <nav aria-label={ariaLabel} className={className} ref={navigationRef}>
+      <nav
+        aria-hidden={isEmpty ? "true" : undefined}
+        aria-label={ariaLabel}
+        className={className}
+        ref={navigationRef}
+      >
         {children}
       </nav>
       {scrollState.start ? (
@@ -199,24 +207,23 @@ export function PrimaryNavigation({
         <ContactTrigger>Contact</ContactTrigger>
       </ScrollableNavigation>
 
-      {sectionItems.length > 0 ? (
-        <ScrollableNavigation
-          ariaLabel="On this page"
-          className="section-navigation"
-        >
-          {sectionItems.map(({ href, label }) => (
-            <a
-              aria-current={activeSectionHref === href ? "location" : undefined}
-              href={href}
-              key={href}
-              onClick={() => setActiveSectionHref(href)}
-            >
-              <span aria-hidden="true" className="section-navigation-dot" />
-              <span>{label}</span>
-            </a>
-          ))}
-        </ScrollableNavigation>
-      ) : null}
+      <ScrollableNavigation
+        ariaLabel="On this page"
+        className="section-navigation"
+        isEmpty={sectionItems.length === 0}
+      >
+        {sectionItems.map(({ href, label }) => (
+          <a
+            aria-current={activeSectionHref === href ? "location" : undefined}
+            href={href}
+            key={href}
+            onClick={() => setActiveSectionHref(href)}
+          >
+            <span aria-hidden="true" className="section-navigation-dot" />
+            <span>{label}</span>
+          </a>
+        ))}
+      </ScrollableNavigation>
     </div>
   );
 }

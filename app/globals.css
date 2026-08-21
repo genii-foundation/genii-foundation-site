@@ -2072,6 +2072,7 @@ button.text-link {
     justify-content: flex-start;
     max-width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
     scrollbar-width: none;
   }
 
@@ -2385,7 +2386,7 @@ button.text-link {
 @media (min-width: 340px) and (max-width: 380px) {
   header.unified-header .primary-navigation {
     gap: clamp(0.75rem, 4vw, 1rem);
-    justify-content: center;
+    justify-content: safe center;
   }
 }
 

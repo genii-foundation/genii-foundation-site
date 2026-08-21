@@ -69,15 +69,23 @@ function ScrollableNavigation({
     const resizeObserver = new ResizeObserver(updateScrollState);
     const mutationObserver = new MutationObserver(updateScrollState);
     resizeObserver.observe(navigation);
+    for (const item of navigation.children) resizeObserver.observe(item);
     mutationObserver.observe(navigation, { childList: true, subtree: true });
     navigation.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState, { passive: true });
     const animationFrame = window.requestAnimationFrame(updateScrollState);
+    let isActive = true;
+    void document.fonts.ready.then(() => {
+      if (isActive) updateScrollState();
+    });
 
     return () => {
+      isActive = false;
       window.cancelAnimationFrame(animationFrame);
       resizeObserver.disconnect();
       mutationObserver.disconnect();
       navigation.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
     };
   }, [updateScrollState]);
 

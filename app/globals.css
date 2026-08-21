@@ -1750,14 +1750,14 @@ button.text-link {
     position: absolute;
     top: 0;
     transition: opacity 180ms ease;
-    width: 2.5rem;
+    width: 3rem;
     z-index: 1;
   }
 
   .navigation-scroll-region::before {
     background: linear-gradient(
       to right,
-      var(--navigation-scroll-surface) 18%,
+      var(--navigation-scroll-surface) 32%,
       transparent
     );
     left: 0;
@@ -1766,7 +1766,7 @@ button.text-link {
   .navigation-scroll-region::after {
     background: linear-gradient(
       to left,
-      var(--navigation-scroll-surface) 18%,
+      var(--navigation-scroll-surface) 32%,
       transparent
     );
     right: 0;
@@ -1812,11 +1812,11 @@ button.text-link {
   }
 
   .navigation-scroll-button-start svg {
-    transform: translateX(-0.35rem);
+    transform: translateX(-0.48rem);
   }
 
   .navigation-scroll-button-end svg {
-    transform: translateX(0.35rem);
+    transform: translateX(0.48rem);
   }
 }
 

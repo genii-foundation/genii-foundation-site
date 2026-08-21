@@ -1810,6 +1810,14 @@ button.text-link {
     stroke-width: 1.5;
     width: 0.72rem;
   }
+
+  .navigation-scroll-button-start svg {
+    transform: translateX(-0.35rem);
+  }
+
+  .navigation-scroll-button-end svg {
+    transform: translateX(0.35rem);
+  }
 }
 
 @media (max-width: 700px) {

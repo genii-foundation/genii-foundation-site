@@ -43,7 +43,7 @@ const principles = [
 export default function PrinciplesPage() {
   return (
     <div className={styles.site} id="top">
-      <div className={styles.headerSpacer} aria-hidden="true" />
+      <div className="unified-header-spacer" aria-hidden="true" />
 
       <main id="main-content">
         <section

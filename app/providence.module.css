@@ -42,7 +42,6 @@
 }
 
 .contentFrame,
-.headerInner,
 .footerInner {
   margin: 0 auto;
   padding-left: 1.5rem;
@@ -52,10 +51,6 @@
 
 .contentFrame {
   max-width: 70rem;
-}
-
-.headerInner {
-  max-width: var(--navigation-width);
 }
 
 .footerInner {
@@ -74,27 +69,6 @@
   text-transform: uppercase;
 }
 
-/* Position, height, and surface belong to header.unified-header in globals.css.
-   Only the palette tokens stay here. */
-.header {
-  --line: rgba(35, 36, 31, 0.2);
-  --muted: #655f53;
-}
-
-.headerSpacer {
-  transition: height 620ms cubic-bezier(0.22, 1, 0.36, 1);
-  height: calc(
-    var(--header-open-height, 7.25rem) +
-      (var(--header-shut-height, 5.5rem) - var(--header-open-height, 7.25rem)) *
-      var(--header-collapse)
-  );
-}
-
-.headerInner {
-  gap: 3rem;
-}
-
-.headerBrand,
 .footerBrand {
   align-items: flex-start;
   display: inline-flex;
@@ -103,16 +77,10 @@
   width: 9.5rem;
 }
 
-.headerBrand {
-  transition: width 520ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.headerBrand img,
 .footerBrand img {
   width: 100%;
 }
 
-.headerBrand span,
 .footerBrand span {
   color: var(--gold);
   font-size: 0.52rem;
@@ -121,70 +89,6 @@
   text-transform: uppercase;
 }
 
-.header nav {
-  align-items: center;
-  display: flex;
-  --nav-column-gap: clamp(1rem, 2.8vw, 2.8rem);
-  gap: var(--nav-column-gap);
-}
-
-.header :global(.navigation-stack) {
-  display: grid;
-  justify-items: end;
-  min-width: 0;
-}
-
-/* Same nav width rule as the foundation header: the primary row spans the whole
-   stack so a longer section list widens the nav rather than reaching past it.
-   See the note in globals.css. */
-.header :global(.primary-navigation-scroll-region) {
-  justify-self: stretch;
-  width: 100%;
-}
-
-.header :global(.primary-navigation) {
-  justify-content: space-between;
-  width: 100%;
-}
-
-/* Second-level rows span the whole stack, which the primary row also spans, so
-   the rule above them always runs the full width of the top row and the labels
-   centre within it. This holds for any number of section links, so it needs no
-   per-count special cases. */
-/* Same rule as the foundation header: the section row is kept out of the
-   track's intrinsic sizing so the primary row's labels hold the same position on
-   every route. See the note in globals.css. */
-.header :global(.section-navigation-scroll-region) {
-  justify-self: stretch;
-  min-width: 100%;
-  width: 0;
-}
-
-.header :global(.section-navigation) {
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.header :global(.section-navigation)::-webkit-scrollbar {
-  display: none;
-}
-
-.header :global(.section-navigation) {
-  animation: sectionNavigationEnter 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  border-top: 1px solid var(--line);
-  gap: clamp(0.9rem, 2vw, 1.8rem);
-  justify-content: center;
-  max-width: 100%;
-  width: 100%;
-}
-
-.header :global(.section-navigation) a {
-  color: var(--muted);
-  font-size: 0.52rem;
-  min-height: 2.15rem;
-}
-
-.header nav :is(a, button),
 .footerLinks a {
   align-items: center;
   display: inline-flex;
@@ -195,103 +99,9 @@
   text-transform: uppercase;
 }
 
-.header nav :is(a, button) {
-  appearance: none;
-  background: none;
-  border: 0;
-  color: inherit;
-  cursor: pointer;
-  flex: 0 0 auto;
-  font-family: inherit;
-  padding: 0;
-  position: relative;
-  transition: color 180ms ease;
-  white-space: nowrap;
-}
-
-.header nav :is(a, button)::after {
-  background: currentColor;
-  bottom: 0.3rem;
-  content: "";
-  height: 1px;
-  left: 0;
-  opacity: 0;
-  position: absolute;
-  right: 0;
-  transform: scaleX(0.75);
-  transform-origin: center;
-  transition: height 180ms ease, opacity 180ms ease,
-    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.header :global(.primary-navigation) :is(a, button)::after {
-  bottom: -1px;
-}
-
-/* Adjacent targets meet at the midpoint of the gap, so the row has no dead
-   space between items. See the matching note in globals.css. */
-.header :global(.primary-navigation) :is(a, button)::before {
-  bottom: 0;
-  content: "";
-  left: calc(var(--nav-column-gap) / -2);
-  position: absolute;
-  right: calc(var(--nav-column-gap) / -2);
-  top: 0;
-}
-
-.header :global(.section-navigation) a::after {
-  display: none;
-}
-
-.header nav :is(a, button):hover,
-.header nav :is(a, button):focus-visible,
 .footerLinks a:hover,
 .footerLinks a:focus-visible {
   color: var(--gold);
-}
-
-.header nav :is(a, button):hover::after,
-.header nav :is(a, button):focus-visible::after {
-  opacity: 1;
-  transform: scaleX(1);
-}
-
-.header nav :is(a, button)[aria-current="page"],
-.header nav :is(a, button)[aria-current="location"] {
-  color: var(--gold);
-}
-
-.header nav :is(a, button)[aria-current="page"]::after,
-.header nav :is(a, button)[aria-current="location"]::after {
-  animation: navigationIndicatorEnter 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  height: 3px;
-  opacity: 1;
-  transform: scaleX(1);
-  z-index: 1;
-}
-
-@keyframes navigationIndicatorEnter {
-  from {
-    opacity: 0;
-    transform: scaleX(0.35);
-  }
-
-  to {
-    opacity: 1;
-    transform: scaleX(1);
-  }
-}
-
-@keyframes sectionNavigationEnter {
-  from {
-    opacity: 0;
-    transform: translateY(-0.4rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .hero {
@@ -1986,109 +1796,14 @@
 
 @media (max-width: 700px) {
   .contentFrame,
-  .headerInner,
   .footerInner {
     padding-left: 1rem;
     padding-right: 1rem;
   }
 
-  .header {
-    /* Opaque here rather than frosted, so the arrow gradients have a known
-       colour to blend against instead of whatever scrolls beneath. */
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: #e4dfd4;
-    border-bottom: 0;
-  }
-
-  .headerInner {
-    gap: 1.25rem;
-    grid-template-columns: 6.5rem minmax(0, 1fr);
-    height: 5rem;
-    min-height: 0;
-  }
-
-  .header,
-  .headerSpacer {
-    height: 5rem;
-  }
-
-  .headerBrand {
-    width: 6.5rem;
-  }
-
-  .header nav {
-    --nav-column-gap: 0.3rem;
-  }
-
-  /* Same two-tier rule as the wide header. */
-  .header :global(.section-navigation) {
-    border-top: 1px solid var(--line);
-    gap: 0.55rem;
-    justify-content: flex-start;
-  }
-
-  .header nav {
-    justify-content: flex-start;
-    max-width: 100%;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .header nav::-webkit-scrollbar {
-    display: none;
-  }
-
-  .header nav :is(a, button) {
-    text-align: center;
-  }
-
-  /* Tight to the rule below it, so the active underline stays visually tied to
-     the divider. See the matching note in globals.css. */
-  .header :global(.primary-navigation) :is(a, button) {
-    min-height: 2rem;
-  }
-
-  .header :global(.section-navigation) a {
-    min-height: 2rem;
-  }
-
-  .header :global(.primary-navigation) :is(a, button)::after {
-    bottom: -2px;
-  }
-
-  .header :global(.section-navigation) a {
-    min-height: 2rem;
-  }
-
   .hero {
     min-height: 0;
     padding-top: 5rem;
-  }
-
-  /* Below 480px the nav needs the room more than the wordmark does, so the
-     brand shows its initial only. The 25.07% is the measured midpoint of the
-     gap after the G in the wordmark art. See the note in globals.css. */
-  @media (max-width: 480px) {
-    .headerInner {
-      gap: 1.15rem;
-      grid-template-columns:
-        calc(6.5rem * 0.2507)
-        minmax(0, 1fr);
-    }
-
-    .headerBrand {
-      --brand-wordmark-width: 6.5rem;
-      --brand-mark-fraction: 0.2507;
-      overflow: hidden;
-      width: calc(var(--brand-wordmark-width) * var(--brand-mark-fraction));
-    }
-
-    .headerBrand img {
-      max-width: none;
-      width: var(--brand-wordmark-width);
-    }
-
   }
 
   .hero h1 {
@@ -2239,38 +1954,8 @@
   }
 }
 
-@media (max-width: 620px) {
-  .header nav {
-    --nav-column-gap: 0.3rem;
-  }
-
-  /* Use the whole track while the labels fit. Overflow still falls back to the
-     existing horizontal scroller. */
-  .header :global(.primary-navigation) {
-    justify-content: space-between;
-  }
-
-  .header nav :is(a, button) {
-    font-size: 0.58rem;
-    letter-spacing: 0.1em;
-  }
-
-  .header :global(.section-navigation) a {
-    font-size: 0.54rem;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .header,
-  .headerInner,
-  .headerBrand,
-  .headerSpacer,
-  .header :global(.section-navigation),
-  .header :global(.section-navigation-dot),
-  .header nav :is(a, button)[aria-current="page"]::after,
-  .header nav :is(a, button)[aria-current="location"]::after,
   .skipLink,
-  .header nav :is(a, button)::after,
   .heroCopy a,
   .investingHeroAction,
   .investingHeroAction::after,
@@ -2279,12 +1964,5 @@
   .principleAction {
     animation: none;
     transition: none;
-  }
-
-  .header
-    :global(.section-navigation)
-    a[aria-current="location"]
-    :global(.section-navigation-dot) {
-    animation: none;
   }
 }

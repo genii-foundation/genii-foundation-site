@@ -575,6 +575,29 @@ body:has(.atlas-site[data-route-leaving="true"])
   min-height: 2.75rem;
 }
 
+/* Every route uses this one header geometry. The compact state changes scale,
+   not class families, so route transitions cannot drift into parallel CSS. */
+@media (min-width: 701px) {
+  header.unified-header[data-toolbar-state="compact"] .header-inner {
+    column-gap: 3rem;
+  }
+
+  header.unified-header[data-toolbar-state="compact"] .header-brand {
+    animation: none;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.12rem;
+    width: 9.5rem;
+    will-change: auto;
+  }
+
+  header.unified-header[data-toolbar-state="compact"] .navigation-stack {
+    --navigation-row-gap: 0rem;
+    --header-nav-font-size: 0.66rem;
+    animation: none;
+  }
+}
+
 .navigation-stack {
   --section-navigation-slide: 1.075rem;
   align-self: center;
@@ -1836,6 +1859,10 @@ button.text-link {
 
   header.unified-header .navigation-stack {
     --section-navigation-slide: 1rem;
+  }
+
+  header.unified-header nav {
+    min-height: 2rem;
   }
 
   /* Equal row boxes keep the divider equidistant from both label baselines. */

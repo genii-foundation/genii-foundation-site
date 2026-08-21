@@ -6,7 +6,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { PrimaryNavigation, type SectionNavigationItem } from "./PrimaryNavigation";
-import styles from "./providence.module.css";
 
 // Fields of work sits under Mission on the page, so it is reached by reading
 // rather than by its own top-of-page link.
@@ -84,24 +83,20 @@ export function SiteHeader() {
   return (
     <>
       <a
-        className={onFoundationPage ? "site-skip-link" : styles.skipLink}
+        className="site-skip-link"
         href="#main-content"
       >
         {skipLabel}
       </a>
       <header
-        className={`unified-header ${onFoundationPage ? "site-header" : styles.header}`}
+        className="unified-header site-header"
         data-route={onFoundationPage ? "foundation" : "providence"}
         data-toolbar-state={onFoundationPage ? "expanded" : "compact"}
       >
-        <div
-          className={`unified-header-inner ${
-            onFoundationPage ? "header-inner" : styles.headerInner
-          }`}
-        >
+        <div className="unified-header-inner header-inner">
           <Link
             aria-label="GENII Foundation, home"
-            className={onFoundationPage ? "header-brand" : styles.headerBrand}
+            className="header-brand"
             href={onFoundationPage ? "#top" : "/"}
           >
             <Wordmark />

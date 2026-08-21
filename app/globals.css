@@ -2361,10 +2361,24 @@ button.text-link {
  */
 @media (max-width: 480px) {
   header.unified-header .unified-header-inner {
-    column-gap: 1.15rem;
+    /* At this font size the G, the four labels, their trailing letter-spacing,
+       and the header's inline padding occupy 18.5rem. The remaining width is
+       divided across the four equal spaces: G to Foundation, then the three
+       inter-label gaps. */
+    --mobile-primary-gap: clamp(
+      0.25rem,
+      calc((100vw - 18.5rem) / 4),
+      3rem
+    );
+    column-gap: var(--mobile-primary-gap);
     grid-template-columns:
       calc(6.5rem * 0.2507)
       minmax(0, 1fr);
+  }
+
+  header.unified-header .primary-navigation {
+    gap: var(--mobile-primary-gap);
+    justify-content: flex-start;
   }
 
   .site-header .header-brand {
@@ -2377,16 +2391,6 @@ button.text-link {
   .site-header .header-brand img {
     max-width: none;
     width: var(--brand-wordmark-width);
-  }
-}
-
-/* At common narrow-phone widths the primary labels miss fitting by only a few
-   pixels. Use a modest fixed gap instead of stretching that tiny surplus into
-   a scroll state. Truly narrower screens retain the horizontal scroller. */
-@media (min-width: 340px) and (max-width: 380px) {
-  header.unified-header .primary-navigation {
-    gap: clamp(0.75rem, 4vw, 1rem);
-    justify-content: safe center;
   }
 }
 

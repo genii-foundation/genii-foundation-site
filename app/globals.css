@@ -1915,10 +1915,10 @@ button.text-link {
   }
 }
 
-/* Keep the persistent header in its mobile geometry through the same 700px
-   breakpoint used by the route-specific chrome. Without this bridge, 621px to
-   700px fell back to the desktop auto column and squeezed the nav against the
-   right edge while leaving dead space beside the wordmark. */
+/* Keep the persistent header in its compact geometry through the same 700px
+   breakpoint used by the route-specific chrome. In this intermediate band the
+   nav uses its intrinsic width and sits on the right, instead of stretching
+   larger desktop labels across the space beside the wordmark. */
 @media (min-width: 621px) and (max-width: 700px) {
   :root,
   :root[data-route="foundation"] {
@@ -1939,6 +1939,40 @@ button.text-link {
     height: 5rem;
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  header.unified-header .navigation-stack {
+    --header-nav-font-size: 0.58rem;
+    --navigation-row-gap: 0rem;
+    animation: none;
+    justify-self: end;
+    max-width: 100%;
+    width: max-content;
+  }
+
+  header.unified-header nav {
+    --nav-column-gap: clamp(0.75rem, 2vw, 1rem);
+  }
+
+  header.unified-header .primary-navigation-scroll-region,
+  header.unified-header .primary-navigation {
+    justify-self: end;
+    width: max-content;
+  }
+
+  header.unified-header .primary-navigation {
+    justify-content: flex-start;
+    /* Preserve the final label's ink inside the scroll box. Without this small
+       inset, trailing letter-spacing can create a false overflow arrow. */
+    padding-right: 0.5rem;
+  }
+
+  header.unified-header nav :is(a, button) {
+    letter-spacing: 0.1em;
+  }
+
+  header.unified-header .section-navigation a {
+    font-size: 0.54rem;
   }
 }
 

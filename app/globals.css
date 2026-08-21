@@ -2352,6 +2352,16 @@ button.text-link {
   }
 }
 
+/* At common narrow-phone widths the primary labels miss fitting by only a few
+   pixels. Use a modest fixed gap instead of stretching that tiny surplus into
+   a scroll state. Truly narrower screens retain the horizontal scroller. */
+@media (min-width: 340px) and (max-width: 380px) {
+  header.unified-header .primary-navigation {
+    gap: clamp(0.75rem, 4vw, 1rem);
+    justify-content: center;
+  }
+}
+
 @media (max-width: 620px) and (prefers-reduced-motion: reduce) {
   .atlas-site::before,
   .site-header,

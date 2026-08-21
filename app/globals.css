@@ -522,9 +522,12 @@ body:has(.atlas-site[data-route-leaving="true"])
 }
 
 .header-brand img {
-  flex: 1 1 auto;
+  aspect-ratio: 1135 / 238;
+  flex: 0 0 auto;
+  height: auto;
   min-width: 0;
-  width: auto;
+  object-fit: contain;
+  width: 100%;
 }
 
 .header-brand span,

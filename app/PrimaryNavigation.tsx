@@ -142,7 +142,9 @@ export function PrimaryNavigation({
   const pathname = usePathname();
   const { isOpen: isContactOpen } = useContactDialog();
   const [activeSectionHref, setActiveSectionHref] = useState<string | null>(null);
+  const pendingSectionHrefRef = useRef<string | null>(null);
   useEffect(() => {
+    pendingSectionHrefRef.current = null;
     document
       .querySelector<HTMLElement>('header[data-toolbar-state]')
       ?.removeAttribute("aria-busy");
@@ -171,6 +173,19 @@ export function PrimaryNavigation({
           const element = entry.target as HTMLElement;
           if (entry.isIntersecting) visibleTargets.add(element);
           else visibleTargets.delete(element);
+        }
+
+        const pendingHref = pendingSectionHrefRef.current;
+        if (pendingHref) {
+          const pendingTarget = targets.find(({ href }) => href === pendingHref);
+          if (
+            pendingTarget &&
+            visibleTargets.has(pendingTarget.element)
+          ) {
+            pendingSectionHrefRef.current = null;
+            setActiveSectionHref(pendingHref);
+          }
+          return;
         }
 
         let current: (typeof targets)[number] | undefined;
@@ -217,7 +232,10 @@ export function PrimaryNavigation({
             aria-current={activeSectionHref === href ? "location" : undefined}
             href={href}
             key={href}
-            onClick={() => setActiveSectionHref(href)}
+            onClick={() => {
+              pendingSectionHrefRef.current = href;
+              setActiveSectionHref(href);
+            }}
           >
             <span aria-hidden="true" className="section-navigation-dot" />
             <span>{label}</span>

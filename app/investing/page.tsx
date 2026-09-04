@@ -7,6 +7,7 @@ import {
 } from "../ProvidencePageChrome";
 import { FinancialModel } from "./FinancialModel";
 import { InvestingComparison } from "./InvestingComparison";
+import { InvestingTimeline } from "./InvestingTimeline";
 import styles from "../providence.module.css";
 
 export const metadata: Metadata = {
@@ -132,6 +133,8 @@ export default function InvestingPage() {
             </aside>
           </div>
         </section>
+
+        <InvestingTimeline />
 
         <section className={styles.premise} aria-labelledby="premise-title">
           <div className={styles.contentFrame}>

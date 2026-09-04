@@ -30,14 +30,14 @@ export const metadata: Metadata = {
 const principles = [
   "Participants retain authority over every use of their intimate data",
   "Consent is explicit, renewable, and governed by every person whose data is involved",
-  "Revenue comes from products and services chosen by participants and partners",
-  "Product decisions protect human agency ahead of engagement metrics",
+  "Human flourishing governs every product and business decision. Providence will not pursue growth by capturing attention, exploiting intimate data, creating dependency, or weakening human agency.",
   "Coherence is a unique experience for every human. No single measurement provides the full story. No collection of metrics will ever rank one person above another.",
   "Clinical and spiritual claims remain within the evidence and scope that support them",
   "Providence remains independent of employment screening and workplace evaluation",
   "Mission stewards retain exclusive authority over any sale, merger, or change of control",
   "Independent review governs material scientific, safety, and consent risks",
   "Core software and reference protocols remain open and auditable",
+  "No investor, customer, partner, or transaction may override these commitments",
 ] as const;
 
 export default function PrinciplesPage() {

@@ -1,0 +1,184 @@
+.art {
+  aspect-ratio: 5 / 3;
+  container-type: inline-size;
+  isolation: isolate;
+  margin-inline: auto;
+  max-height: 180px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.art > svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.thesis,
+.publisher {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.book {
+  background: #2b2e25;
+  border: 1px solid #8b7952;
+  border-left: 4px solid #776648;
+  bottom: 13%;
+  box-shadow: 4px 3px 0 #b8ae95, 6px 4px 0 #544c38, 11px 8px 16px #0000002e;
+  color: #f4f0e7;
+  left: 31%;
+  padding: 6% 5%;
+  position: absolute;
+  top: 9%;
+  transform: rotate(-7deg);
+  width: 38%;
+}
+
+.bookTitle {
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 7.3cqw;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.9;
+}
+
+.bookMark {
+  bottom: 7%;
+  height: 24%;
+  position: absolute;
+  right: 10%;
+  stroke: #bdad8b;
+  stroke-width: 1;
+}
+
+.edition {
+  border: 1px solid;
+  height: 72%;
+  padding: 5%;
+  position: absolute;
+  width: 40%;
+}
+
+.editionBack {
+  background: #293c30;
+  border-color: #728c77;
+  color: #bdd0bf;
+  left: 17%;
+  top: 9%;
+  transform: rotate(-9deg);
+}
+
+.monogram {
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 16cqw;
+  letter-spacing: -0.075em;
+  line-height: 1;
+  margin-bottom: 15%;
+}
+
+.editionFront {
+  background: #333329;
+  border-color: #9c8b66;
+  box-shadow: 0 6px 14px #0000002b;
+  color: #f4f0e7;
+  right: 16%;
+  top: 15%;
+  transform: rotate(5deg);
+}
+
+.editionTitle {
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 7.6cqw;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  margin-block: 5% 15%;
+}
+
+.printLines {
+  background: repeating-linear-gradient(to bottom, currentColor 0 1px, transparent 1px 5px);
+  display: block;
+  height: 16%;
+  opacity: 0.25;
+  width: 90%;
+}
+
+.editionMark {
+  bottom: 9%;
+  height: 10%;
+  position: absolute;
+  right: 14%;
+  stroke: #bdad8b;
+  stroke-width: 1;
+}
+
+.fineGold {
+  stroke: #bdad8b;
+  stroke-opacity: 0.36;
+  stroke-width: 1;
+}
+
+.fineSage {
+  stroke: #8fae9c;
+  stroke-opacity: 0.36;
+  stroke-width: 1;
+}
+
+.goldStroke {
+  stroke: #bdad8b;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
+
+.sageStroke {
+  stroke: #8fae9c;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
+
+.goldDisc {
+  fill: #ad8b4f;
+}
+
+.sageDisc {
+  fill: #8fae9c;
+}
+
+.personGold {
+  fill: #1d201b;
+  stroke: #bdad8b;
+  stroke-linecap: round;
+  stroke-width: 1.5;
+}
+
+.personGold circle {
+  fill: #ad8b4f;
+  stroke: none;
+}
+
+.personSage {
+  fill: #1d201b;
+  stroke: #8fae9c;
+  stroke-linecap: round;
+  stroke-width: 1.5;
+}
+
+.personSage circle {
+  fill: #8fae9c;
+  stroke: none;
+}
+
+.device {
+  fill: #262a22;
+  stroke: #bdad8b;
+  stroke-opacity: 0.7;
+  stroke-width: 1.2;
+}

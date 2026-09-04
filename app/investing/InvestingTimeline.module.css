@@ -10,7 +10,7 @@
   margin-bottom: 2rem;
 }
 
-/* Share the premise's frame, but not its display-size heading. */
+/* Share the premise's frame without inheriting its display-size heading. */
 .timeline .title {
   font-family: var(--font-display), Georgia, serif;
   font-size: clamp(1.8rem, 2.8vw, 2.5rem);
@@ -29,54 +29,119 @@
   max-width: 48ch;
 }
 
-.scrollHint {
-  color: var(--muted);
-  display: none;
-  font-size: 0.75rem;
-  margin-bottom: 0.75rem;
+.ribbon {
+  background: var(--night-soft);
+  color: var(--paper-light);
 }
 
 .viewport {
-  border-radius: 2px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-color: #bdad8b #303329;
+  scrollbar-width: thin;
 }
 
+.viewport:focus-visible {
+  outline: 2px solid #bdad8b;
+  outline-offset: 4px;
+}
+
+/* Column widths never depend on the milestone count. Every item stays on the
+   same row, with a visible continuation even on full-size desktop viewports. */
 .milestones {
   display: grid;
-  gap: clamp(1.25rem, 3vw, 2.25rem);
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  grid-auto-columns: min(18rem, 86%);
+  grid-auto-flow: column;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .milestone {
+  background: var(--night-soft);
+  display: flex;
+  flex-direction: column;
   min-width: 0;
+  padding: 1.25rem 1.5rem 1.4rem;
+  position: relative;
   scroll-snap-align: start;
 }
 
+.milestone:not(:last-child)::after {
+  background: #ad8b4f70;
+  bottom: 1.65rem;
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 1.65rem;
+  transform: skewX(-3deg);
+  width: 1px;
+}
+
+.art {
+  flex-shrink: 0;
+  margin-bottom: 1.35rem;
+}
+
+.milestone h3 {
+  color: var(--paper-light);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.95rem;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-bottom: 0.9rem;
+  min-height: 2.1em;
+  text-wrap: balance;
+}
+
+.milestone h3 a {
+  text-decoration-color: #bdad8b;
+  text-underline-offset: 0.16em;
+}
+
+.milestone h3 a:hover {
+  color: #d4bf97;
+}
+
+.description {
+  color: #cbc9bd;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  margin-bottom: 0;
+  text-wrap: pretty;
+}
+
 .step {
-  align-items: center;
+  align-items: flex-end;
+  border-bottom: 1px solid #ad8b4f70;
   display: flex;
   gap: 0.75rem;
   justify-content: space-between;
-  margin-bottom: 0.9rem;
+  margin-top: auto;
+  padding-bottom: 0.8rem;
+  padding-top: 1.75rem;
 }
 
 .number {
-  color: var(--gold);
+  color: #bdad8b;
   font-family: var(--font-display), Georgia, serif;
-  font-size: 1.9rem;
+  font-size: 3.1rem;
+  letter-spacing: -0.055em;
   line-height: 1;
 }
 
 .status {
-  color: var(--muted);
-  font-size: 0.75rem;
+  color: #cecbbf;
+  font-size: 0.72rem;
   line-height: 1.5;
+  padding-bottom: 0.35rem;
 }
 
 .status[data-delivered="true"] {
-  color: #465f50;
+  color: #a9c3ad;
 }
 
 .status[data-delivered="true"]::before {
@@ -90,238 +155,100 @@
   width: 0.35rem;
 }
 
-.preview {
-  aspect-ratio: 3 / 2;
-  container-type: inline-size;
-  isolation: isolate;
-  margin-bottom: 1.3rem;
+.scrollControls {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+}
+
+.scrollHint {
+  color: #cecbbf;
+  font-size: 0.75rem;
+}
+
+.scrollButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.scrollButton {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 1px solid #bdad8b;
+  color: #bdad8b;
+  cursor: pointer;
+  display: inline-flex;
+  height: 44px;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 160ms ease, color 160ms ease;
+  width: 44px;
+}
+
+.scrollButton:hover:not(:disabled) {
+  background: #bdad8b;
+  color: var(--night);
+}
+
+.scrollButton:focus-visible {
+  outline: 2px solid var(--paper-light);
+  outline-offset: 3px;
+}
+
+.scrollButton:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+
+.previousArrow,
+.nextArrow {
+  display: inline-flex;
+}
+
+.previousArrow {
+  transform: rotate(225deg);
+}
+
+.nextArrow {
+  transform: rotate(45deg);
+}
+
+.scrollHelp {
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
   overflow: hidden;
-  position: relative;
-}
-
-.previewCaption {
-  bottom: 5%;
-  color: var(--muted);
-  font-size: 0.65rem;
-  left: 0;
   position: absolute;
-  text-align: center;
-  width: 100%;
+  white-space: nowrap;
+  width: 1px;
 }
 
-.thesisPreview {
-  background: #dcd4c5;
-}
-
-.book {
-  background: var(--night-soft);
-  border-left: 4px solid #434638;
-  bottom: 17%;
-  box-shadow: 6px 4px 0 #efe8d9, 8px 5px 0 #b5a992, 14px 11px 22px #554a3324;
-  color: var(--paper-light);
-  left: 28%;
-  padding: 5% 6%;
-  position: absolute;
-  top: 9%;
-  transform: rotate(-7deg);
-  width: 44%;
-}
-
-.bookLabel {
-  color: #c0ae89;
-  display: block;
-  font-size: 2.3cqw;
-  margin-bottom: 11%;
-}
-
-.bookTitle {
-  display: block;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 8.2cqw;
-  letter-spacing: -0.045em;
-  line-height: 0.86;
-}
-
-.bookMark {
-  bottom: 7%;
-  height: 24%;
-  position: absolute;
-  right: 10%;
-  stroke: #ad9260;
-  stroke-width: 1;
-}
-
-.publisherPreview {
-  background: #d7ddd3;
-}
-
-.edition {
-  height: 72%;
-  padding: 5%;
-  position: absolute;
-  width: 48%;
-}
-
-.editionBack {
-  background: #526451;
-  color: #eee9dd;
-  left: 12%;
-  top: 8%;
-  transform: rotate(-9deg);
-}
-
-.editionMonogram {
-  display: block;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 18cqw;
-  letter-spacing: -0.075em;
-  line-height: 1.2;
-}
-
-.editionFront {
-  background: #f7f3eb;
-  box-shadow: 0 6px 16px #27342124;
-  right: 12%;
-  top: 12%;
-  transform: rotate(5deg);
-}
-
-.editionLabel,
-.editionCredit {
-  color: var(--gold);
-  display: block;
-  font-size: 2.3cqw;
-}
-
-.editionTitle {
-  display: block;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 8.5cqw;
-  letter-spacing: -0.05em;
-  line-height: 0.92;
-  margin-block: 13% 12%;
-}
-
-.printLines {
-  background: repeating-linear-gradient(to bottom, currentColor 0 1px, transparent 1px 5px);
-  display: block;
-  height: 15%;
-  opacity: 0.25;
-  width: 85%;
-}
-
-.editionCredit {
-  bottom: 7%;
-  position: absolute;
-}
-
-.providencePreview {
-  background: var(--night-soft);
-}
-
-.dialogue {
-  height: 100%;
-  width: 100%;
-}
-
-.presenceRings {
-  stroke: #b2ac943b;
-}
-
-.participantOne {
-  fill: #ad8b4f;
-}
-
-.participantTwo {
-  fill: #8fae9c;
-}
-
-.voiceOne,
-.voiceTwo {
-  stroke-linecap: round;
-  stroke-width: 1.5;
-}
-
-.voiceOne {
-  stroke: #c5a36a;
-}
-
-.voiceTwo {
-  stroke: #8fae9c;
-}
-
-.reflectionPath {
-  stroke: #bbb7a8;
-}
-
-.reflectionLabel {
-  bottom: 15%;
-  color: var(--paper-light);
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 6cqw;
-  left: 0;
-  position: absolute;
-  text-align: center;
-  width: 100%;
-}
-
-.providencePreview .previewCaption {
-  color: #b4b3a7;
-}
-
-.milestone h3 {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.6rem, 2.3vw, 2rem);
-  font-weight: 400;
-  letter-spacing: -0.025em;
-  line-height: 1.1;
-  margin-bottom: 0.7rem;
-}
-
-.milestone h3 a {
-  text-decoration-color: var(--gold);
-  text-underline-offset: 0.16em;
-}
-
-.milestone h3 a:hover {
-  color: var(--gold);
-}
-
-.description {
-  color: var(--muted);
-  font-size: 0.85rem;
-  line-height: 1.65;
-  margin-bottom: 0;
-  text-wrap: pretty;
-}
-
-/* Narrow screens reveal the next panel and use native scrolling, including
-   keyboard navigation, without adding a carousel runtime. */
 @media (max-width: 800px) {
   .heading {
     grid-template-columns: 1fr;
   }
+}
 
-  .scrollHint {
-    display: block;
-  }
-
-  .viewport {
-    overflow-x: auto;
-    padding-block: 0.25rem 1rem;
-    scroll-snap-type: x mandatory;
-    scrollbar-color: var(--gold) transparent;
-    scrollbar-width: thin;
-  }
-
-  .milestones {
-    gap: 1.25rem;
-    grid-auto-columns: 84%;
-    grid-auto-flow: column;
-    grid-template-columns: none;
+@media (max-width: 400px) {
+  .milestone {
+    padding-inline: 1.25rem;
   }
 
   .milestone h3 {
     font-size: 1.8rem;
+  }
+
+  .scrollControls {
+    padding-inline: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollButton {
+    transition: none;
   }
 }

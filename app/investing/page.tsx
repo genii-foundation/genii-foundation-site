@@ -184,12 +184,13 @@ export default function InvestingPage() {
 
                 <div className={styles.pathDetails}>
                   <section>
-                    <h4>Initial product</h4>
+                    <h4>Human-alignment layer</h4>
                     <p>
-                      The Providence App is the leading first product: a
-                      private, on-device application for post-retreat integration
-                      and sustained coherence practice. Retreats, partner systems,
-                      and practitioner tools define the commercial scope.
+                      Emergent intelligence will need a human-alignment layer. The
+                      Providence App is the leading first product: a private,
+                      on-device application for post-retreat integration and
+                      sustained coherence practice. Retreats, partner systems, and
+                      practitioner tools define the commercial scope.
                     </p>
                   </section>
                   <section>

@@ -134,8 +134,6 @@ export default function InvestingPage() {
           </div>
         </section>
 
-        <InvestingTimeline />
-
         <section className={styles.premise} aria-labelledby="premise-title">
           <div className={styles.contentFrame}>
             <p className={styles.eyebrow}>Investment premise</p>
@@ -158,6 +156,7 @@ export default function InvestingPage() {
                 </p>
               </div>
             </div>
+            <InvestingTimeline />
           </div>
         </section>
 

@@ -1,25 +1,23 @@
 .timeline {
-  background: var(--paper-light);
-  border-block: 1px solid var(--line);
-  padding-block: clamp(2.75rem, 5vw, 4.5rem);
+  margin-top: clamp(3.5rem, 6vw, 5rem);
 }
 
 .heading {
   align-items: start;
   display: grid;
-  gap: 1.5rem 3rem;
-  grid-template-columns: 1.1fr 0.9fr;
-  margin-bottom: 2.5rem;
+  gap: 1rem 2.5rem;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 2rem;
 }
 
-.heading h2 {
+/* Share the premise's frame, but not its display-size heading. */
+.timeline .title {
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
   font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 1.08;
-  margin-bottom: 0;
-  max-width: 23ch;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  max-width: 20ch;
   text-wrap: balance;
 }
 
@@ -31,9 +29,21 @@
   max-width: 48ch;
 }
 
+.scrollHint {
+  color: var(--muted);
+  display: none;
+  font-size: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.viewport {
+  border-radius: 2px;
+}
+
 .milestones {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   list-style: none;
   margin: 0;
   padding: 0;
@@ -41,67 +51,240 @@
 
 .milestone {
   min-width: 0;
-  padding: 2.2rem 1.25rem 0 0;
-  position: relative;
+  scroll-snap-align: start;
 }
 
-/* Each connector belongs to its node so the line ends at the last milestone,
-   including when the sequence wraps into two rows. */
-.milestone::before {
-  border-top: 1px solid var(--line);
-  content: "";
-  inset: 0.55rem 0 auto 0;
-  position: absolute;
+.step {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
 }
 
-.milestone[data-status="delivered"]::before {
-  border-color: var(--gold);
-}
-
-.milestone:last-child::before {
-  display: none;
-}
-
-.marker {
-  background: var(--paper-light);
-  border: 1px solid var(--gold);
-  border-radius: 50%;
-  height: 1.15rem;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 1.15rem;
-}
-
-.milestone[data-status="delivered"] .marker {
-  background: var(--gold);
-}
-
-.marker svg {
-  display: block;
-  height: 100%;
-  stroke: var(--paper-light);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.5;
-  width: 100%;
+.number {
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.9rem;
+  line-height: 1;
 }
 
 .status {
-  color: var(--gold);
+  color: var(--muted);
   font-size: 0.75rem;
-  font-weight: 600;
-  margin-bottom: 0.6rem;
+  line-height: 1.5;
+}
+
+.status[data-delivered="true"] {
+  color: #465f50;
+}
+
+.status[data-delivered="true"]::before {
+  background: currentColor;
+  border-radius: 50%;
+  content: "";
+  display: inline-block;
+  height: 0.35rem;
+  margin-right: 0.45rem;
+  vertical-align: 0.12em;
+  width: 0.35rem;
+}
+
+.preview {
+  aspect-ratio: 3 / 2;
+  container-type: inline-size;
+  isolation: isolate;
+  margin-bottom: 1.3rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.previewCaption {
+  bottom: 5%;
+  color: var(--muted);
+  font-size: 0.65rem;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.thesisPreview {
+  background: #dcd4c5;
+}
+
+.book {
+  background: var(--night-soft);
+  border-left: 4px solid #434638;
+  bottom: 17%;
+  box-shadow: 6px 4px 0 #efe8d9, 8px 5px 0 #b5a992, 14px 11px 22px #554a3324;
+  color: var(--paper-light);
+  left: 28%;
+  padding: 5% 6%;
+  position: absolute;
+  top: 9%;
+  transform: rotate(-7deg);
+  width: 44%;
+}
+
+.bookLabel {
+  color: #c0ae89;
+  display: block;
+  font-size: 2.3cqw;
+  margin-bottom: 11%;
+}
+
+.bookTitle {
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 8.2cqw;
+  letter-spacing: -0.045em;
+  line-height: 0.86;
+}
+
+.bookMark {
+  bottom: 7%;
+  height: 24%;
+  position: absolute;
+  right: 10%;
+  stroke: #ad9260;
+  stroke-width: 1;
+}
+
+.publisherPreview {
+  background: #d7ddd3;
+}
+
+.edition {
+  height: 72%;
+  padding: 5%;
+  position: absolute;
+  width: 48%;
+}
+
+.editionBack {
+  background: #526451;
+  color: #eee9dd;
+  left: 12%;
+  top: 8%;
+  transform: rotate(-9deg);
+}
+
+.editionMonogram {
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 18cqw;
+  letter-spacing: -0.075em;
+  line-height: 1.2;
+}
+
+.editionFront {
+  background: #f7f3eb;
+  box-shadow: 0 6px 16px #27342124;
+  right: 12%;
+  top: 12%;
+  transform: rotate(5deg);
+}
+
+.editionLabel,
+.editionCredit {
+  color: var(--gold);
+  display: block;
+  font-size: 2.3cqw;
+}
+
+.editionTitle {
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 8.5cqw;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  margin-block: 13% 12%;
+}
+
+.printLines {
+  background: repeating-linear-gradient(to bottom, currentColor 0 1px, transparent 1px 5px);
+  display: block;
+  height: 15%;
+  opacity: 0.25;
+  width: 85%;
+}
+
+.editionCredit {
+  bottom: 7%;
+  position: absolute;
+}
+
+.providencePreview {
+  background: var(--night-soft);
+}
+
+.dialogue {
+  height: 100%;
+  width: 100%;
+}
+
+.presenceRings {
+  stroke: #b2ac943b;
+}
+
+.participantOne {
+  fill: #ad8b4f;
+}
+
+.participantTwo {
+  fill: #8fae9c;
+}
+
+.voiceOne,
+.voiceTwo {
+  stroke-linecap: round;
+  stroke-width: 1.5;
+}
+
+.voiceOne {
+  stroke: #c5a36a;
+}
+
+.voiceTwo {
+  stroke: #8fae9c;
+}
+
+.reflectionPath {
+  stroke: #bbb7a8;
+}
+
+.reflectionLabel {
+  bottom: 15%;
+  color: var(--paper-light);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 6cqw;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.providencePreview .previewCaption {
+  color: #b4b3a7;
 }
 
 .milestone h3 {
   font-family: var(--font-display), Georgia, serif;
-  font-size: 1.55rem;
+  font-size: clamp(1.6rem, 2.3vw, 2rem);
   font-weight: 400;
-  letter-spacing: -0.015em;
-  line-height: 1.15;
-  margin-bottom: 0.8rem;
-  text-wrap: balance;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-bottom: 0.7rem;
+}
+
+.milestone h3 a {
+  text-decoration-color: var(--gold);
+  text-underline-offset: 0.16em;
+}
+
+.milestone h3 a:hover {
+  color: var(--gold);
 }
 
 .description {
@@ -109,78 +292,36 @@
   font-size: 0.85rem;
   line-height: 1.65;
   margin-bottom: 0;
+  text-wrap: pretty;
 }
 
-.evidence {
-  color: var(--gold);
-  display: inline-block;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  margin-top: 0.85rem;
-  padding-block: 0.35rem;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-
-.evidence:hover {
-  color: var(--ink);
-}
-
-@media (max-width: 1100px) {
-  .milestones {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    row-gap: 2rem;
-  }
-
-  .milestone:nth-child(3)::before {
-    display: none;
-  }
-}
-
-@media (max-width: 700px) {
+/* Narrow screens reveal the next panel and use native scrolling, including
+   keyboard navigation, without adding a carousel runtime. */
+@media (max-width: 800px) {
   .heading {
     grid-template-columns: 1fr;
   }
 
-  .milestones {
-    grid-template-columns: 1fr;
-    row-gap: 0;
-  }
-
-  .milestone {
-    padding: 0 0 1.75rem 2rem;
-  }
-
-  .milestone:last-child {
-    padding-bottom: 0;
-  }
-
-  .milestone::before,
-  .milestone:nth-child(3)::before {
-    border-left: 1px solid var(--line);
-    border-top: 0;
+  .scrollHint {
     display: block;
-    inset: 0 auto 0 0.55rem;
   }
 
-  .milestone[data-status="delivered"]::before {
-    border-color: var(--gold);
+  .viewport {
+    overflow-x: auto;
+    padding-block: 0.25rem 1rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-color: var(--gold) transparent;
+    scrollbar-width: thin;
   }
 
-  .milestone:last-child::before {
-    display: none;
-  }
-
-  .status {
-    margin-bottom: 0.35rem;
+  .milestones {
+    gap: 1.25rem;
+    grid-auto-columns: 84%;
+    grid-auto-flow: column;
+    grid-template-columns: none;
   }
 
   .milestone h3 {
-    margin-bottom: 0.5rem;
-    text-wrap: pretty;
-  }
-
-  .evidence {
-    margin-top: 0.4rem;
+    font-size: 1.8rem;
   }
 }

@@ -137,41 +137,45 @@ export function InvestingTimeline() {
       </div>
 
       <div className={styles.ribbon}>
-        <div
-          className={styles.viewport}
-          ref={viewportRef}
-          id="milestone-viewport"
-          role="region"
-          aria-label="GENII milestones"
-          aria-describedby="milestone-scroll-help"
-          tabIndex={0}
-          onKeyDown={handleKeyDown}
-        >
-          <ol className={styles.milestones} role="list">
-            {milestones.map((milestone, index) => (
-              <li key={milestone.id} className={styles.milestone} data-milestone={milestone.id}>
-                <div className={styles.art}>
-                  <InvestingMilestoneArt kind={milestone.id} />
-                </div>
-                <h3>
-                  {"href" in milestone ? (
-                    <a href={milestone.href}>
-                      {milestone.title} <ActionArrow />
-                    </a>
-                  ) : milestone.title}
-                </h3>
-                <p className={styles.description}>{milestone.description}</p>
-                <div className={styles.step}>
-                  <span className={styles.number} aria-hidden="true">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className={styles.status} data-delivered={milestone.id === "thesis"}>
-                    {milestone.status}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ol>
+        <div className={styles.viewportFrame}>
+          <div
+            className={styles.viewport}
+            data-overflow-left={scrollState.canGoBack}
+            data-overflow-right={scrollState.canGoForward}
+            ref={viewportRef}
+            id="milestone-viewport"
+            role="region"
+            aria-label="GENII milestones"
+            aria-describedby="milestone-scroll-help"
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
+          >
+            <ol className={styles.milestones} role="list">
+              {milestones.map((milestone, index) => (
+                <li key={milestone.id} className={styles.milestone} data-milestone={milestone.id}>
+                  <div className={styles.art}>
+                    <InvestingMilestoneArt kind={milestone.id} />
+                  </div>
+                  <h3>
+                    {"href" in milestone ? (
+                      <a href={milestone.href}>
+                        {milestone.title} <ActionArrow />
+                      </a>
+                    ) : milestone.title}
+                  </h3>
+                  <p className={styles.description}>{milestone.description}</p>
+                  <div className={styles.step}>
+                    <span className={styles.number} aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className={styles.status} data-delivered={milestone.id === "thesis"}>
+                      {milestone.status}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
 
         {scrollState.hasOverflow && (

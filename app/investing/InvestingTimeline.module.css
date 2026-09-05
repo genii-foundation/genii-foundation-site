@@ -1,7 +1,7 @@
 .timeline {
   --timeline-rail: max(var(--content-gutter), calc((100cqw - var(--content-width)) / 2 + var(--content-gutter)));
   --card-inset: min(1.5rem, var(--content-gutter));
-  background: linear-gradient(115deg, #ffffff08, #0b201933), #494333;
+  background: var(--night-soft);
   color: var(--paper-light);
   container-type: inline-size;
   padding: clamp(3.5rem, 6vw, 5rem) 0 2.5rem;
@@ -39,17 +39,47 @@
 }
 
 .viewport {
+  --edge-fade-width: clamp(1.5rem, 4vw, 4rem);
+  --fade-left: 0px;
+  --fade-right: 0px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-padding-inline-start: calc(var(--timeline-rail) - var(--card-inset));
   scroll-snap-type: x proximity;
-  scrollbar-color: #d0bd94 #494333;
+  scrollbar-color: #d0bd94 var(--night-soft);
   scrollbar-width: thin;
 }
 
-.viewport:focus-visible {
+/* Fade only the overflowing edges, revealing the section's actual background.
+   The opaque bottom strip keeps the native scrollbar fully visible. */
+.viewport[data-overflow-left="true"] {
+  --fade-left: var(--edge-fade-width);
+}
+
+.viewport[data-overflow-right="true"] {
+  --fade-right: var(--edge-fade-width);
+}
+
+.viewport:is([data-overflow-left="true"], [data-overflow-right="true"]) {
+  --edge-mask: linear-gradient(to right, transparent, #000 var(--fade-left), #000 calc(100% - var(--fade-right)), transparent);
+  -webkit-mask-image: var(--edge-mask), linear-gradient(#000, #000);
+  mask-image: var(--edge-mask), linear-gradient(#000, #000);
+  -webkit-mask-size: 100% 100%, 100% 1rem;
+  mask-size: 100% 100%, 100% 1rem;
+  -webkit-mask-position: top, bottom;
+  mask-position: top, bottom;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/* Keep the keyboard focus ring outside the masked scrolling surface. */
+.viewportFrame:has(> .viewport:focus-visible) {
   outline: 2px solid #bdad8b;
-  outline-offset: 4px;
+  outline-offset: -2px;
+}
+
+.viewport:focus-visible {
+  outline: none;
 }
 
 /* The leading inset belongs to the scrolling content, not the viewport.

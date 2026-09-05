@@ -1,5 +1,10 @@
 .timeline {
-  margin-top: clamp(3.5rem, 6vw, 5rem);
+  --timeline-rail: max(var(--content-gutter), calc((100cqw - var(--content-width)) / 2 + var(--content-gutter)));
+  --card-inset: min(1.5rem, var(--content-gutter));
+  background: linear-gradient(115deg, #ffffff08, #0b201933), #494333;
+  color: var(--paper-light);
+  container-type: inline-size;
+  padding: clamp(3.5rem, 6vw, 5rem) 0 2.5rem;
 }
 
 .heading {
@@ -22,7 +27,7 @@
 }
 
 .heading p {
-  color: var(--muted);
+  color: #e1dace;
   font-size: 0.9rem;
   line-height: 1.65;
   margin-bottom: 0;
@@ -30,15 +35,15 @@
 }
 
 .ribbon {
-  background: var(--night-soft);
   color: var(--paper-light);
 }
 
 .viewport {
   overflow-x: auto;
   overscroll-behavior-x: contain;
+  scroll-padding-inline-start: calc(var(--timeline-rail) - var(--card-inset));
   scroll-snap-type: x proximity;
-  scrollbar-color: #bdad8b #303329;
+  scrollbar-color: #d0bd94 #494333;
   scrollbar-width: thin;
 }
 
@@ -47,24 +52,24 @@
   outline-offset: 4px;
 }
 
-/* Column widths never depend on the milestone count. Every item stays on the
-   same row, with a visible continuation even on full-size desktop viewports. */
+/* The leading inset belongs to the scrolling content, not the viewport.
+   Text begins at the shared content rail and can scroll past it to the page edge. */
 .milestones {
   display: grid;
   gap: 0;
-  grid-auto-columns: min(18rem, 86%);
+  grid-auto-columns: 18rem;
   grid-auto-flow: column;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 var(--content-gutter) 0 calc(var(--timeline-rail) - var(--card-inset));
+  width: max-content;
 }
 
 .milestone {
-  background: var(--night-soft);
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: 1.25rem 1.5rem 1.4rem;
+  padding: 1.25rem var(--card-inset) 1.4rem;
   position: relative;
   scroll-snap-align: start;
 }
@@ -107,7 +112,7 @@
 }
 
 .description {
-  color: #cbc9bd;
+  color: #e1dace;
   font-size: 0.85rem;
   line-height: 1.65;
   margin-bottom: 0;
@@ -126,7 +131,7 @@
 }
 
 .number {
-  color: #bdad8b;
+  color: #d0bd94;
   font-family: var(--font-display), Georgia, serif;
   font-size: 3.1rem;
   letter-spacing: -0.055em;
@@ -161,7 +166,7 @@
   flex-wrap: wrap;
   gap: 0.5rem 1rem;
   justify-content: space-between;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 0;
 }
 
 .scrollHint {
@@ -234,16 +239,8 @@
 }
 
 @media (max-width: 400px) {
-  .milestone {
-    padding-inline: 1.25rem;
-  }
-
   .milestone h3 {
     font-size: 1.8rem;
-  }
-
-  .scrollControls {
-    padding-inline: 1.25rem;
   }
 }
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { ActionArrow } from "../ActionArrow";
+import base from "../providence.module.css";
 import { InvestingMilestoneArt } from "./InvestingMilestoneArt";
 import styles from "./InvestingTimeline.module.css";
 
@@ -125,12 +126,14 @@ export function InvestingTimeline() {
 
   return (
     <section className={styles.timeline} id="progress" aria-labelledby="progress-title">
-      <div className={styles.heading}>
-        <h2 className={styles.title} id="progress-title">Bootstrapped and moving forward.</h2>
-        <p>
-          We’ve funded the work ourselves. Join us in strengthening human connection
-          and healing our relationship with increasingly powerful technology.
-        </p>
+      <div className={base.contentFrame}>
+        <div className={styles.heading}>
+          <h2 className={styles.title} id="progress-title">Bootstrapped and moving forward.</h2>
+          <p>
+            We’ve funded the work ourselves. Join us in strengthening human connection
+            and healing our relationship with increasingly powerful technology.
+          </p>
+        </div>
       </div>
 
       <div className={styles.ribbon}>
@@ -172,29 +175,31 @@ export function InvestingTimeline() {
         </div>
 
         {scrollState.hasOverflow && (
-          <div className={styles.scrollControls}>
-            <span className={styles.scrollHint}>Explore all {milestones.length} milestones</span>
-            <div className={styles.scrollButtons} role="group" aria-label="Explore the timeline">
-              <button
-                className={styles.scrollButton}
-                type="button"
-                aria-label="Previous milestones"
-                aria-controls="milestone-viewport"
-                disabled={!scrollState.canGoBack}
-                onClick={() => advance(-1)}
-              >
-                <span className={styles.previousArrow}><ActionArrow /></span>
-              </button>
-              <button
-                className={styles.scrollButton}
-                type="button"
-                aria-label="Next milestones"
-                aria-controls="milestone-viewport"
-                disabled={!scrollState.canGoForward}
-                onClick={() => advance(1)}
-              >
-                <span className={styles.nextArrow}><ActionArrow /></span>
-              </button>
+          <div className={base.contentFrame}>
+            <div className={styles.scrollControls}>
+              <span className={styles.scrollHint}>Explore all {milestones.length} milestones</span>
+              <div className={styles.scrollButtons} role="group" aria-label="Explore the timeline">
+                <button
+                  className={styles.scrollButton}
+                  type="button"
+                  aria-label="Previous milestones"
+                  aria-controls="milestone-viewport"
+                  disabled={!scrollState.canGoBack}
+                  onClick={() => advance(-1)}
+                >
+                  <span className={styles.previousArrow}><ActionArrow /></span>
+                </button>
+                <button
+                  className={styles.scrollButton}
+                  type="button"
+                  aria-label="Next milestones"
+                  aria-controls="milestone-viewport"
+                  disabled={!scrollState.canGoForward}
+                  onClick={() => advance(1)}
+                >
+                  <span className={styles.nextArrow}><ActionArrow /></span>
+                </button>
+              </div>
             </div>
           </div>
         )}

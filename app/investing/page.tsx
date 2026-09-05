@@ -134,7 +134,10 @@ export default function InvestingPage() {
           </div>
         </section>
 
-        <section className={styles.premise} aria-labelledby="premise-title">
+        <section
+          className={[styles.premise, styles.investingPremise].join(" ")}
+          aria-labelledby="premise-title"
+        >
           <div className={styles.contentFrame}>
             <p className={styles.eyebrow}>Investment premise</p>
             <div className={styles.premiseGrid}>
@@ -156,9 +159,10 @@ export default function InvestingPage() {
                 </p>
               </div>
             </div>
-            <InvestingTimeline />
           </div>
         </section>
+
+        <InvestingTimeline />
 
         <section className={styles.capitalPaths} id="paths" aria-labelledby="paths-title">
           <div className={styles.contentFrame}>

@@ -10,6 +10,8 @@
   --gold-bright: #ad8b4f;
   --sage: #6e8277;
   --line: rgba(35, 36, 31, 0.2);
+  --content-width: 70rem;
+  --content-gutter: 1.5rem;
   /* The painting moved to .route-backdrop-providence in globals.css so it can
      survive a route change and cross-fade. Keep the tones here in step. */
   background: transparent;
@@ -50,7 +52,9 @@
 }
 
 .contentFrame {
-  max-width: 70rem;
+  max-width: var(--content-width);
+  padding-left: var(--content-gutter);
+  padding-right: var(--content-gutter);
 }
 
 .footerInner {
@@ -373,6 +377,10 @@
 
 .premise {
   padding: clamp(6rem, 12vw, 11rem) 0;
+}
+
+.investingPremise {
+  padding-bottom: clamp(3.5rem, 6vw, 5rem);
 }
 
 .premiseGrid {
@@ -1682,9 +1690,8 @@
 }
 
 @media (min-width: 701px) and (max-width: 1200px) {
-  .contentFrame {
-    padding-left: clamp(3rem, 6vw, 4.5rem);
-    padding-right: clamp(3rem, 6vw, 4.5rem);
+  .site {
+    --content-gutter: clamp(3rem, 6vw, 4.5rem);
   }
 }
 
@@ -1802,7 +1809,10 @@
 }
 
 @media (max-width: 700px) {
-  .contentFrame,
+  .site {
+    --content-gutter: 1rem;
+  }
+
   .footerInner {
     padding-left: 1rem;
     padding-right: 1rem;

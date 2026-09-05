@@ -21,13 +21,6 @@ const investingSections = [
   { href: "#invitation", label: "Diligence" },
 ] as const;
 
-const alignmentInvestingSections = [
-  { href: "#commercial", label: "Model" },
-  { href: "#paths", label: "Capital" },
-  { href: "#architecture", label: "Architecture" },
-  { href: "#invitation", label: "Diligence" },
-] as const;
-
 function Wordmark() {
   return (
     <Image
@@ -51,14 +44,7 @@ function getRouteChrome(pathname: string): {
     };
   }
 
-  if (pathname === "/investing/alignment") {
-    return {
-      sectionItems: alignmentInvestingSections,
-      skipLabel: "Skip to the alignment investment thesis",
-    };
-  }
-
-  if (pathname.startsWith("/investing")) {
+  if (pathname === "/investing") {
     return {
       sectionItems: investingSections,
       skipLabel: "Skip to the investment case",

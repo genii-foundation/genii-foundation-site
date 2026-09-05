@@ -220,12 +220,7 @@ export function PrimaryNavigation({
       >
         {navigationItems.map(({ href, label }) => (
           <Link
-            aria-current={
-              !isContactOpen &&
-              (pathname === href || (href !== "/" && pathname.startsWith(`${href}/`)))
-                ? "page"
-                : undefined
-            }
+            aria-current={!isContactOpen && pathname === href ? "page" : undefined}
             href={href}
             key={href}
           >

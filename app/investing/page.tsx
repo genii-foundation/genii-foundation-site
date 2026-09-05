@@ -38,7 +38,7 @@ const commercialPathways = [
   {
     horizon: "First product",
     title: "Providence App",
-    text: "A private, on-device application using biofeedback and neurofeedback to support personal and interpersonal flourishing, from post-retreat integration to sustained practice.",
+    text: "Emergent intelligence will need a human-alignment layer. A private, on-device application using biofeedback and neurofeedback to support personal and interpersonal flourishing, from post-retreat integration to sustained practice.",
   },
   {
     horizon: "Partner distribution",

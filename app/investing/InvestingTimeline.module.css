@@ -1,6 +1,6 @@
 .timeline {
   --timeline-rail: max(var(--content-gutter), calc((100cqw - var(--content-width)) / 2 + var(--content-gutter)));
-  --card-inset: min(1.5rem, var(--content-gutter));
+  --card-inset: clamp(1.5rem, 3vw, 2.5rem);
   background: var(--night-soft);
   color: var(--paper-light);
   container-type: inline-size;
@@ -44,7 +44,6 @@
   --fade-right: 0px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  scroll-padding-inline-start: calc(var(--timeline-rail) - var(--card-inset));
   scroll-snap-type: x proximity;
   scrollbar-color: #d0bd94 var(--night-soft);
   scrollbar-width: thin;
@@ -82,16 +81,16 @@
   outline: none;
 }
 
-/* The leading inset belongs to the scrolling content, not the viewport.
-   Text begins at the shared content rail and can scroll past it to the page edge. */
+/* Offset the larger card padding so the first text stays on the shared rail,
+   even when that padding exceeds the page gutter on small screens. */
 .milestones {
   display: grid;
   gap: 0;
-  grid-auto-columns: 18rem;
+  grid-auto-columns: calc(15rem + 2 * var(--card-inset));
   grid-auto-flow: column;
   list-style: none;
-  margin: 0;
-  padding: 0 var(--content-gutter) 0 calc(var(--timeline-rail) - var(--card-inset));
+  margin: 0 0 0 calc(-1 * var(--card-inset));
+  padding: 0 var(--content-gutter) 0 var(--timeline-rail);
   width: max-content;
 }
 
@@ -101,16 +100,19 @@
   min-width: 0;
   padding: 1.25rem var(--card-inset) 1.4rem;
   position: relative;
+  /* Scroll margins can be negative, unlike scroll padding, keeping each snap
+     aligned with the content rail at narrow widths too. */
+  scroll-margin-inline-start: calc(var(--timeline-rail) - var(--card-inset));
   scroll-snap-align: start;
 }
 
 .milestone:not(:last-child)::after {
   background: #ad8b4f70;
-  bottom: 1.65rem;
   content: "";
+  height: 50%;
   position: absolute;
   right: 0;
-  top: 1.65rem;
+  top: 25%;
   transform: skewX(-3deg);
   width: 1px;
 }
@@ -175,10 +177,6 @@
   padding-bottom: 0.35rem;
 }
 
-.status[data-delivered="true"] {
-  color: #a9c3ad;
-}
-
 .status[data-delivered="true"]::before {
   background: currentColor;
   border-radius: 50%;
@@ -195,13 +193,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem 1rem;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 0.75rem 0;
-}
-
-.scrollHint {
-  color: #cecbbf;
-  font-size: 0.75rem;
 }
 
 .scrollButtons {

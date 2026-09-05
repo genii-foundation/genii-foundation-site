@@ -48,8 +48,8 @@ function Providence() {
       </g>
       <circle className={styles.goldDisc} cx="108" cy="72" r="22" />
       <circle className={styles.sageDisc} cx="192" cy="72" r="22" />
-      <path className={styles.goldStroke} d="M22 137h23c10 0 10-10 18-10s8 21 16 21 8-33 16-33 8 28 16 28 9-12 17-12 8 6 16 6h35" />
-      <path className={styles.sageStroke} d="M123 141h21c10 0 10-8 18-8s8 19 16 19 8-30 16-30 8 26 16 26 9-11 17-11 8 4 16 4h35" />
+      <path className={styles.goldStroke} d="M22 137h23c10 0 10-10 18-10s8 21 16 21 8-33 16-33 8 28 16 28 9-12 17-12 8 6 16 6h6" />
+      <path className={styles.sageStroke} d="M150 137c6 0 6-4 12-4s8 19 16 19 8-30 16-30 8 26 16 26 9-11 17-11 8 4 16 4h35" />
     </svg>
   );
 }

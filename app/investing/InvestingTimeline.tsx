@@ -29,7 +29,7 @@ const milestones = [
     status: "Building now",
     title: "Providence App",
     description:
-      "Two or more people record dialogue and biomarkers with shared consent, then receive customized AI feedback and coaching for presence, growth, and repair.",
+      "Two or more people record dialogue and biomarkers with shared consent, then receive customized AI feedback and coaching for growth and deeper presence.",
   },
   {
     id: "retreat",
@@ -128,11 +128,8 @@ export function InvestingTimeline() {
     <section className={styles.timeline} id="progress" aria-labelledby="progress-title">
       <div className={base.contentFrame}>
         <div className={styles.heading}>
-          <h2 className={styles.title} id="progress-title">Bootstrapped and moving forward.</h2>
-          <p>
-            We’ve funded the work ourselves. Join us in strengthening human connection
-            and healing our relationship with increasingly powerful technology.
-          </p>
+          <h2 className={styles.title} id="progress-title">Milestones.</h2>
+          <p>Bootstrapped and moving forwards.</p>
         </div>
       </div>
 
@@ -181,7 +178,6 @@ export function InvestingTimeline() {
         {scrollState.hasOverflow && (
           <div className={base.contentFrame}>
             <div className={styles.scrollControls}>
-              <span className={styles.scrollHint}>Explore all {milestones.length} milestones</span>
               <div className={styles.scrollButtons} role="group" aria-label="Explore the timeline">
                 <button
                   className={styles.scrollButton}

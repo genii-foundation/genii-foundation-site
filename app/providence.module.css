@@ -10,6 +10,8 @@
   --gold-bright: #ad8b4f;
   --sage: #6e8277;
   --line: rgba(35, 36, 31, 0.2);
+  --content-width: 70rem;
+  --content-gutter: 1.5rem;
   /* The painting moved to .route-backdrop-providence in globals.css so it can
      survive a route change and cross-fade. Keep the tones here in step. */
   background: transparent;
@@ -50,7 +52,9 @@
 }
 
 .contentFrame {
-  max-width: 70rem;
+  max-width: var(--content-width);
+  padding-left: var(--content-gutter);
+  padding-right: var(--content-gutter);
 }
 
 .footerInner {
@@ -373,6 +377,10 @@
 
 .premise {
   padding: clamp(6rem, 12vw, 11rem) 0;
+}
+
+.investingPremise {
+  padding-bottom: clamp(3.5rem, 6vw, 5rem);
 }
 
 .premiseGrid {
@@ -719,7 +727,8 @@
   margin-top: clamp(3rem, 6vw, 5rem);
 }
 
-.financialSurface {
+/* Separate adjacent rows; the enclosing panel supplies the closing border. */
+.financialSurface:not(:last-child) {
   border-bottom: 1px solid var(--line);
 }
 
@@ -951,10 +960,14 @@
 
 .projectionTable th,
 .projectionTable td {
-  border-bottom: 1px solid var(--line);
   padding: 0.85rem 0.75rem;
   text-align: left;
   vertical-align: top;
+}
+
+.projectionTable thead th,
+.projectionTable tbody tr:not(:last-child) > :is(th, td) {
+  border-bottom: 1px solid var(--line);
 }
 
 .projectionTable th:first-child,
@@ -1122,11 +1135,14 @@
 }
 
 .poweredGrid dl div {
-  border-bottom: 1px solid rgba(244, 240, 231, 0.12);
   display: grid;
   gap: 1.5rem;
   grid-template-columns: 8rem 1fr;
   padding: 1.2rem 0;
+}
+
+.poweredGrid dl div:not(:last-child) {
+  border-bottom: 1px solid rgba(244, 240, 231, 0.12);
 }
 
 .poweredGrid dt {
@@ -1681,6 +1697,12 @@
   gap: 1.5rem;
 }
 
+@media (min-width: 701px) and (max-width: 1200px) {
+  .site {
+    --content-gutter: clamp(3rem, 6vw, 4.5rem);
+  }
+}
+
 @media (max-width: 900px) {
   /* Released with the grids below. Each of these carries a ch measure that
      exists to keep the heading clear of the column beside it; once the layout
@@ -1795,7 +1817,10 @@
 }
 
 @media (max-width: 700px) {
-  .contentFrame,
+  .site {
+    --content-gutter: 1rem;
+  }
+
   .footerInner {
     padding-left: 1rem;
     padding-right: 1rem;

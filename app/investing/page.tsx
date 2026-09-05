@@ -6,6 +6,7 @@ import {
   ProvidenceFooter,
 } from "../ProvidencePageChrome";
 import { FinancialModel } from "./FinancialModel";
+import { InvestingTimeline } from "./InvestingTimeline";
 import styles from "../providence.module.css";
 
 export const metadata: Metadata = {
@@ -36,7 +37,7 @@ const commercialPathways = [
   {
     horizon: "First product",
     title: "Providence App",
-    text: "A private, on-device application using biofeedback and neurofeedback to support personal and interpersonal flourishing, from post-retreat integration to sustained practice.",
+    text: "Emergent intelligence will need a human-alignment layer. A private, on-device application using biofeedback and neurofeedback to support personal and interpersonal flourishing, from post-retreat integration to sustained practice.",
   },
   {
     horizon: "Partner distribution",
@@ -130,7 +131,10 @@ export default function InvestingPage() {
           </div>
         </section>
 
-        <section className={styles.premise} aria-labelledby="premise-title">
+        <section
+          className={[styles.premise, styles.investingPremise].join(" ")}
+          aria-labelledby="premise-title"
+        >
           <div className={styles.contentFrame}>
             <p className={styles.eyebrow}>Investment premise</p>
             <div className={styles.premiseGrid}>
@@ -154,6 +158,8 @@ export default function InvestingPage() {
             </div>
           </div>
         </section>
+
+        <InvestingTimeline />
 
         <section className={styles.capitalPaths} id="paths" aria-labelledby="paths-title">
           <div className={styles.contentFrame}>
@@ -181,12 +187,13 @@ export default function InvestingPage() {
 
                 <div className={styles.pathDetails}>
                   <section>
-                    <h4>Initial product</h4>
+                    <h4>Human-alignment layer</h4>
                     <p>
-                      The Providence App is the leading first product: a
-                      private, on-device application for post-retreat integration
-                      and sustained coherence practice. Retreats, partner systems,
-                      and practitioner tools define the commercial scope.
+                      Emergent intelligence will need a human-alignment layer. The
+                      Providence App is the leading first product: a private,
+                      on-device application for post-retreat integration and
+                      sustained coherence practice. Retreats, partner systems, and
+                      practitioner tools define the commercial scope.
                     </p>
                   </section>
                   <section>

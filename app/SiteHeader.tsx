@@ -15,7 +15,7 @@ const foundationSections = [
 ] as const;
 
 const investingSections = [
-  { href: "#paths", label: "Paths" },
+  { href: "#progress", label: "Paths" },
   { href: "#commercial", label: "Model" },
   { href: "#architecture", label: "Architecture" },
   { href: "#invitation", label: "Diligence" },

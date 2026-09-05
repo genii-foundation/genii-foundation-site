@@ -1,0 +1,274 @@
+.timeline {
+  --timeline-rail: max(var(--content-gutter), calc((100cqw - var(--content-width)) / 2 + var(--content-gutter)));
+  --card-inset: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--night-soft);
+  color: var(--paper-light);
+  container-type: inline-size;
+  padding: clamp(3.5rem, 6vw, 5rem) 0 2.5rem;
+}
+
+.heading {
+  align-items: start;
+  display: grid;
+  gap: 1rem 2.5rem;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 2rem;
+}
+
+/* Share the premise's frame without inheriting its display-size heading. */
+.timeline .title {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+
+.heading p {
+  color: #e1dace;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin-bottom: 0;
+  max-width: 48ch;
+}
+
+.ribbon {
+  color: var(--paper-light);
+}
+
+.viewport {
+  --edge-fade-width: clamp(1.5rem, 4vw, 4rem);
+  --fade-left: 0px;
+  --fade-right: 0px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-color: #d0bd94 var(--night-soft);
+  scrollbar-width: thin;
+}
+
+/* Fade only the overflowing edges, revealing the section's actual background.
+   The opaque bottom strip keeps the native scrollbar fully visible. */
+.viewport[data-overflow-left="true"] {
+  --fade-left: var(--edge-fade-width);
+}
+
+.viewport[data-overflow-right="true"] {
+  --fade-right: var(--edge-fade-width);
+}
+
+.viewport:is([data-overflow-left="true"], [data-overflow-right="true"]) {
+  --edge-mask: linear-gradient(to right, transparent, #000 var(--fade-left), #000 calc(100% - var(--fade-right)), transparent);
+  -webkit-mask-image: var(--edge-mask), linear-gradient(#000, #000);
+  mask-image: var(--edge-mask), linear-gradient(#000, #000);
+  -webkit-mask-size: 100% 100%, 100% 1rem;
+  mask-size: 100% 100%, 100% 1rem;
+  -webkit-mask-position: top, bottom;
+  mask-position: top, bottom;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/* Keep the keyboard focus ring outside the masked scrolling surface. */
+.viewportFrame:has(> .viewport:focus-visible) {
+  outline: 2px solid #bdad8b;
+  outline-offset: -2px;
+}
+
+.viewport:focus-visible {
+  outline: none;
+}
+
+/* Offset the larger card padding so the first text stays on the shared rail,
+   even when that padding exceeds the page gutter on small screens. */
+.milestones {
+  display: grid;
+  gap: 0;
+  grid-auto-columns: calc(15rem + 2 * var(--card-inset));
+  grid-auto-flow: column;
+  list-style: none;
+  margin: 0 0 0 calc(-1 * var(--card-inset));
+  padding: 0 var(--content-gutter) 0 var(--timeline-rail);
+  width: max-content;
+}
+
+.milestone {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 1.25rem var(--card-inset) 1.4rem;
+  position: relative;
+  /* Scroll margins can be negative, unlike scroll padding, keeping each snap
+     aligned with the content rail at narrow widths too. */
+  scroll-margin-inline-start: calc(var(--timeline-rail) - var(--card-inset));
+  scroll-snap-align: start;
+}
+
+.milestone:not(:last-child)::after {
+  background: #ad8b4f70;
+  content: "";
+  height: 50%;
+  position: absolute;
+  right: 0;
+  top: 25%;
+  transform: skewX(-3deg);
+  width: 1px;
+}
+
+.art {
+  flex-shrink: 0;
+  margin-bottom: 1.35rem;
+}
+
+.milestone h3 {
+  color: var(--paper-light);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.95rem;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-bottom: 0.9rem;
+  min-height: 2.1em;
+  text-wrap: balance;
+}
+
+.milestone h3 a {
+  text-decoration-color: #bdad8b;
+  text-underline-offset: 0.16em;
+}
+
+.milestone h3 a:hover {
+  color: #d4bf97;
+}
+
+.description {
+  color: #e1dace;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  margin-bottom: 0;
+  text-wrap: pretty;
+}
+
+.step {
+  align-items: flex-end;
+  border-bottom: 1px solid #ad8b4f70;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-bottom: 0.8rem;
+  padding-top: 1.75rem;
+}
+
+.number {
+  color: #d0bd94;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 3.1rem;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.status {
+  color: #cecbbf;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  padding-bottom: 0.35rem;
+}
+
+.status[data-delivered="true"]::before {
+  background: currentColor;
+  border-radius: 50%;
+  content: "";
+  display: inline-block;
+  height: 0.35rem;
+  margin-right: 0.45rem;
+  vertical-align: 0.12em;
+  width: 0.35rem;
+}
+
+.scrollControls {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  justify-content: flex-end;
+  padding: 0.75rem 0;
+}
+
+.scrollButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.scrollButton {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 1px solid #bdad8b;
+  color: #bdad8b;
+  cursor: pointer;
+  display: inline-flex;
+  height: 44px;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 160ms ease, color 160ms ease;
+  width: 44px;
+}
+
+.scrollButton:hover:not(:disabled) {
+  background: #bdad8b;
+  color: var(--night);
+}
+
+.scrollButton:focus-visible {
+  outline: 2px solid var(--paper-light);
+  outline-offset: 3px;
+}
+
+.scrollButton:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+
+.previousArrow,
+.nextArrow {
+  display: inline-flex;
+}
+
+.previousArrow {
+  transform: rotate(225deg);
+}
+
+.nextArrow {
+  transform: rotate(45deg);
+}
+
+.scrollHelp {
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+@media (max-width: 800px) {
+  .heading {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .milestone h3 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollButton {
+    transition: none;
+  }
+}

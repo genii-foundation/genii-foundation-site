@@ -727,7 +727,8 @@
   margin-top: clamp(3rem, 6vw, 5rem);
 }
 
-.financialSurface {
+/* Separate adjacent rows; the enclosing panel supplies the closing border. */
+.financialSurface:not(:last-child) {
   border-bottom: 1px solid var(--line);
 }
 
@@ -959,10 +960,14 @@
 
 .projectionTable th,
 .projectionTable td {
-  border-bottom: 1px solid var(--line);
   padding: 0.85rem 0.75rem;
   text-align: left;
   vertical-align: top;
+}
+
+.projectionTable thead th,
+.projectionTable tbody tr:not(:last-child) > :is(th, td) {
+  border-bottom: 1px solid var(--line);
 }
 
 .projectionTable th:first-child,
@@ -1130,11 +1135,14 @@
 }
 
 .poweredGrid dl div {
-  border-bottom: 1px solid rgba(244, 240, 231, 0.12);
   display: grid;
   gap: 1.5rem;
   grid-template-columns: 8rem 1fr;
   padding: 1.2rem 0;
+}
+
+.poweredGrid dl div:not(:last-child) {
+  border-bottom: 1px solid rgba(244, 240, 231, 0.12);
 }
 
 .poweredGrid dt {

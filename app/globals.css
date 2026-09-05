@@ -69,6 +69,7 @@
   --gold: #806a3f;
   --gold-bright: #a2854d;
   --content-width: 73.75rem;
+  --mobile-content-gutter: clamp(1.5rem, 8vw, 2rem);
   --navigation-width: 92rem;
 }
 
@@ -1750,6 +1751,13 @@ button.text-link {
 }
 
 @media (max-width: 700px) {
+  /* Page content shares a wider rail; the compact navigation keeps its own. */
+  .content-frame,
+  .footer-inner {
+    padding-left: var(--mobile-content-gutter);
+    padding-right: var(--mobile-content-gutter);
+  }
+
   .atlas-site[data-route-leaving="true"]::before,
   body:has(.atlas-site[data-route-leaving="true"]) .site-header,
   body:has(.atlas-site[data-route-leaving="true"]) .header-inner {
@@ -2040,9 +2048,7 @@ button.text-link {
     height: 5rem;
   }
 
-  .header-inner,
-  .content-frame,
-  .footer-inner {
+  .header-inner {
     padding-left: 1rem;
     padding-right: 1rem;
   }

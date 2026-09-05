@@ -148,8 +148,8 @@
 @media (max-width: 700px) {
   .unified-footer-inner {
     min-height: 0;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: var(--mobile-content-gutter);
+    padding-right: var(--mobile-content-gutter);
   }
 
   .unified-footer-primary {

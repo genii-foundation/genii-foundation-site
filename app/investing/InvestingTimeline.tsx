@@ -128,7 +128,7 @@ export function InvestingTimeline() {
     <section className={styles.timeline} id="progress" aria-labelledby="progress-title">
       <div className={base.contentFrame}>
         <div className={styles.heading}>
-          <h2 className={styles.title} id="progress-title">Milestones.</h2>
+          <h2 className={styles.title} id="progress-title">Milestones</h2>
           <p>Bootstrapped and moving forwards.</p>
         </div>
       </div>

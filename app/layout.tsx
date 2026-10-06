@@ -34,6 +34,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://genii.foundation"),
   applicationName: "GENII Foundation",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "GENII Foundation",
+  },
   title: "GENII Foundation | Research, Culture, Infrastructure",
   description:
     "GENII Foundation is an independent home for long-horizon research, consequential media, and public-interest technology.",
@@ -74,6 +79,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       lang="en"
     >
       <body>
+        <div className="ios-pwa-status-strip" aria-hidden="true" />
         <RouteBackdrop />
         <ContactDialogProvider>
           <SiteHeader />

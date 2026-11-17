@@ -13,6 +13,15 @@ function paletteFor(pathname: string) {
   // The commitments are a long read, so they sit on flat paper rather than the
   // Providence gradient.
   if (pathname === "/principles") return "principles";
+  // The deeper pages are long reads too, and take the same flat paper.
+  if (
+    pathname === "/sovereignty" ||
+    pathname === "/coherence-economy" ||
+    pathname === "/research" ||
+    pathname === "/purposeful/seven-initiates"
+  ) {
+    return "principles";
+  }
   return "providence";
 }
 

@@ -13,8 +13,11 @@ import { usePathname } from "next/navigation";
 import { ContactTrigger, useContactDialog } from "./ContactDialog";
 
 const navigationItems = [
-  { href: "/", label: "Foundation" },
-  { href: "/principles", label: "Principles" },
+  { href: "/", label: "Overview" },
+  { href: "/foundation", label: "Foundation" },
+  { href: "/bow-media", label: "BOW Media" },
+  { href: "/purposeful", label: "Purposeful" },
+  { href: "/providence", label: "Providence" },
   { href: "/investing", label: "Investing" },
 ] as const;
 
@@ -220,7 +223,12 @@ export function PrimaryNavigation({
       >
         {navigationItems.map(({ href, label }) => (
           <Link
-            aria-current={!isContactOpen && pathname === href ? "page" : undefined}
+            aria-current={
+              !isContactOpen &&
+              (pathname === href || (href !== "/" && pathname.startsWith(`${href}/`)))
+                ? "page"
+                : undefined
+            }
             href={href}
             key={href}
           >

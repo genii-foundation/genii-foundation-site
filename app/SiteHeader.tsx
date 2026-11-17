@@ -7,15 +7,67 @@ import { usePathname } from "next/navigation";
 
 import { PrimaryNavigation, type SectionNavigationItem } from "./PrimaryNavigation";
 
-// Fields of work sits under Mission on the page, so it is reached by reading
-// rather than by its own top-of-page link.
+// The sections a reader is most likely to jump to. The rest are reached by
+// reading down the page.
 const foundationSections = [
-  { href: "#work", label: "Current work" },
-  { href: "#mission", label: "Mission" },
+  { href: "#architecture", label: "Architecture" },
+  { href: "#measure", label: "Enrichment" },
+  { href: "#system", label: "How it works" },
+  { href: "#status", label: "Status" },
+  { href: "#paths", label: "Ways in" },
 ] as const;
 
+// On-page links for the site v2 pages, keyed by route.
+const pageSections: Record<string, readonly SectionNavigationItem[]> = {
+  "/foundation": [
+    { href: "#role", label: "Role" },
+    { href: "#ventures", label: "Ventures" },
+    { href: "#custodians", label: "Custodians" },
+  ],
+  "/bow-media": [
+    { href: "#studio", label: "Studio" },
+    { href: "#catalog", label: "Catalog" },
+    { href: "#flagship", label: "Flagship" },
+    { href: "#publisher", label: "Publisher" },
+  ],
+  "/purposeful": [
+    { href: "#ways-in", label: "Ways in" },
+    { href: "#questions", label: "Questions" },
+    { href: "#pathway", label: "Pathway" },
+    { href: "#initiates", label: "Seven Initiates" },
+  ],
+  "/purposeful/seven-initiates": [
+    { href: "#seven", label: "The seven" },
+    { href: "#curriculum", label: "Curriculum" },
+    { href: "#safeguards", label: "Safeguards" },
+  ],
+  "/providence": [
+    { href: "#how", label: "How it works" },
+    { href: "#first", label: "Near term" },
+    { href: "#building", label: "Built" },
+    { href: "#horizon", label: "Horizon" },
+    { href: "#sovereignty", label: "Sovereignty" },
+  ],
+  "/sovereignty": [
+    { href: "#requirements", label: "Requirements" },
+    { href: "#test", label: "Tests" },
+    { href: "#ai", label: "AI limits" },
+    { href: "#principles", label: "Principles" },
+  ],
+  "/coherence-economy": [
+    { href: "#proposition", label: "Proposition" },
+    { href: "#thesis", label: "In the thesis" },
+    { href: "#boundaries", label: "Boundaries" },
+  ],
+  "/research": [
+    { href: "#questions", label: "Questions" },
+    { href: "#volumes", label: "Volumes" },
+  ],
+};
+
 const investingSections = [
-  { href: "#progress", label: "Paths" },
+  { href: "#structure", label: "Structure" },
+  { href: "#paths", label: "Paths" },
   { href: "#commercial", label: "Model" },
   { href: "#architecture", label: "Architecture" },
   { href: "#invitation", label: "Diligence" },
@@ -47,7 +99,7 @@ function getRouteChrome(pathname: string): {
   if (pathname === "/investing") {
     return {
       sectionItems: investingSections,
-      skipLabel: "Skip to the investment case",
+      skipLabel: "Skip to the funding paths",
     };
   }
 
@@ -59,7 +111,7 @@ function getRouteChrome(pathname: string): {
   }
 
   return {
-    sectionItems: [],
+    sectionItems: pageSections[pathname] ?? [],
     skipLabel: "Skip to the main content",
   };
 }

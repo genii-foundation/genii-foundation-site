@@ -34,9 +34,9 @@ const milestones = [
   {
     id: "retreat",
     status: "Next objective",
-    title: "First partner retreat",
+    title: "First Purposeful retreat",
     description:
-      "Deliver a revenue-positive Powered By Providence retreat with shared consent and skilled guidance.",
+      "Deliver a revenue-positive Purposeful retreat at a partner venue with shared consent and skilled guidance.",
   },
   {
     id: "community",

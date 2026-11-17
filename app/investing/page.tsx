@@ -10,14 +10,14 @@ import { InvestingTimeline } from "./InvestingTimeline";
 import styles from "../providence.module.css";
 
 export const metadata: Metadata = {
-  title: "Invest in Providence | GENII Foundation",
+  title: "Fund GENII and Its Ventures | GENII Foundation",
   description:
-    "The commercial strategy, capital architecture, and operating principles behind Providence.",
+    "Two ways to fund one mission: philanthropic support for GENII Foundation, and venture investment in BOW Media, Purposeful, and Providence.",
   alternates: { canonical: "/investing" },
   openGraph: {
-    title: "Invest in Providence",
+    title: "Two ways to fund. One mission.",
     description:
-      "Patient capital for a consent-bound commercial system built around interpersonal coherence.",
+      "Philanthropic partners support the foundation. Venture investors back one or more ventures, each with its own business model.",
     url: "https://genii.foundation/investing",
     siteName: "GENII Foundation",
     type: "website",
@@ -33,34 +33,104 @@ export const metadata: Metadata = {
   },
 };
 
-const commercialPathways = [
+// The three ventures, in the order the deck presents them. The tree near the
+// top of the page and the commercial section both read from this list so the
+// names, roles, and links cannot drift apart.
+const ventures = [
   {
-    horizon: "First product",
-    title: "Providence App",
-    text: "Emergent intelligence will need a human-alignment layer. A private, on-device application using biofeedback and neurofeedback to support personal and interpersonal flourishing, from post-retreat integration to sustained practice.",
+    id: "bow-media",
+    name: "BOW Media",
+    href: "/bow-media",
+    role: "Culture",
+    summary:
+      "Awakens curiosity and transmits wisdom through original cultural work.",
   },
   {
-    horizon: "Partner distribution",
-    title: "Powered By Providence",
-    text: "A licensed system of telemetry, consent, training, and support for retreat centers and intentional communities.",
+    id: "purposeful",
+    name: "Purposeful",
+    href: "/purposeful",
+    role: "Development",
+    summary:
+      "Cultivates human capacities through practice, teachers, relationship, and contribution.",
   },
   {
-    horizon: "Professional network",
-    title: "Practitioner infrastructure",
-    text: "Training, supervision, software, standards, and referral infrastructure for qualified independent practitioners.",
+    id: "providence",
+    name: "Providence",
+    href: "/providence",
+    role: "Coordination",
+    summary:
+      "A synchronicity engine that aligns vision, values, and the people who carry them, toward an operating system for personal and social life.",
   },
-  {
-    horizon: "Licensable core",
-    title: "Consent infrastructure",
-    text: "Local processing, multi-person consent, participant-controlled records, and research tooling for intimate group settings.",
-  },
-];
+] as const;
+
+type VentureId = (typeof ventures)[number]["id"];
+
+// What each venture offers commercially. Only Purposeful's retreats and
+// network and Providence's app and partner system carry modeled figures in
+// FinancialModel. BOW Media's one commercial fact is the Publisher milestone
+// from the timeline; nothing else is claimed for it.
+const commercialPathways: Record<
+  VentureId,
+  { horizon: string; title: string; text: string }[]
+> = {
+  "bow-media": [
+    {
+      horizon: "Building now",
+      title: "GENII Publisher",
+      text: "Give any author or institution a thesis-caliber e-reader, tailored to their ideas, identity, and audience.",
+    },
+  ],
+  purposeful: [
+    {
+      horizon: "Professional network",
+      title: "Mentorship and practitioner network",
+      text: "Connects people with teachers and mentors, supported by AI and built for global reach. Training, supervision, software, standards, and referral infrastructure support qualified independent practitioners.",
+    },
+    {
+      horizon: "Physical experience",
+      title: "Retreats",
+      text: "Small, curated retreats where practice happens in person, in rooms, between people.",
+    },
+    {
+      horizon: "Year-long program",
+      title: "Curriculum",
+      text: "A year-long curriculum built on the principles of the Seven Initiates.",
+    },
+  ],
+  providence: [
+    {
+      horizon: "First product",
+      title: "Providence App",
+      text: "Emergent intelligence will need a human-alignment layer. A private, on-device application using biofeedback and neurofeedback to support personal and interpersonal flourishing, from post-retreat integration to sustained practice.",
+    },
+    {
+      horizon: "Partner distribution",
+      title: "Powered By Providence",
+      text: "A licensed system of telemetry, consent, training, and support for retreat centers and intentional communities.",
+    },
+    {
+      horizon: "Licensable core",
+      title: "Consent infrastructure",
+      text: "Local processing, multi-person consent, participant-controlled records, and research tooling for intimate group settings.",
+    },
+  ],
+};
+
+// One honest line per venture about what this page does and does not model.
+const ventureNotes: Record<VentureId, string> = {
+  "bow-media":
+    "BOW Media's commercial model is not yet modeled on this page.",
+  purposeful:
+    "Retreats and the mentorship and practitioner network are modeled below. The curriculum is not yet modeled.",
+  providence:
+    "Providence is a proposed integration, not a finished product. Its near-term experience, a personal planner, a council for reflection, and consent-based connection, is being proven through standalone tools built in collaboration with Terran Labs: Freed, Vorton, and Vorteo. Product and entity relationships with Terran Labs are still being finalized, and commercial terms for that work are not modeled on this page.",
+};
 
 const developmentSequence = [
   {
     number: "01",
     title: "Validate the human model",
-    text: "Mentor relationships, small gatherings, and facilitated practice establish whether the underlying experience creates value before software enters the system.",
+    text: "Purposeful's mentor relationships, small gatherings, and facilitated practice establish whether the underlying experience creates value before software enters the system.",
   },
   {
     number: "02",
@@ -70,12 +140,12 @@ const developmentSequence = [
   {
     number: "03",
     title: "Launch the companion",
-    text: "The on-device companion extends reflection into daily life and establishes the first recurring revenue surface.",
+    text: "The on-device Providence companion extends reflection into daily life and establishes the first recurring revenue surface.",
   },
   {
     number: "04",
     title: "Establish practitioner distribution",
-    text: "Training, software, supervision, and referral infrastructure connect the product to skilled independent practice.",
+    text: "Purposeful's training, software, supervision, and referral infrastructure connect the product to skilled independent practice.",
   },
   {
     number: "05",
@@ -101,21 +171,23 @@ export default function InvestingPage() {
         >
           <div className={styles.contentFrame}>
             <div className={styles.investingHeroGrid}>
-              <h1 id="investing-title">Invest in Providence.</h1>
+              <h1 id="investing-title">Two ways to fund. One mission.</h1>
               <div className={styles.investingHeroCopy}>
                 <p className={styles.investingHeroLead}>
-                  Providence is raising patient capital to build a private companion,
-                  revenue-positive retreats, partner systems, and a practitioner network.
+                  Philanthropic partners support GENII Foundation. Venture
+                  investors back one or more of its ventures, each with its own
+                  business model.
                 </p>
                 <p>
-                  GENII Foundation protects the research, standards, and public-interest
-                  infrastructure behind the commercial company.
+                  GENII keeps the fire: the research, principles, and stewardship
+                  every venture draws on. BOW Media, Purposeful, and Providence
+                  carry the business models.
                 </p>
                 <a
                   className={`${styles.investingHeroAction} action-link`}
                   href="#paths"
                 >
-                  See the capital strategy <ProvidenceArrow />
+                  See both paths <ProvidenceArrow />
                 </a>
               </div>
             </div>
@@ -123,9 +195,9 @@ export default function InvestingPage() {
             <aside className={styles.investingStatus} aria-label="Formation status">
               <strong>Formation status</strong>
               <p>
-                GENII Foundation and Providence&apos;s separate mission-aligned company
-                are under legal design. This page describes the intended structure,
-                not completed entities or offering terms.
+                GENII Foundation and the entities for its ventures are under legal
+                design. This page describes the intended structure, not completed
+                entities or offering terms.
               </p>
             </aside>
           </div>
@@ -133,29 +205,72 @@ export default function InvestingPage() {
 
         <section
           className={[styles.premise, styles.investingPremise].join(" ")}
+          id="structure"
           aria-labelledby="premise-title"
         >
           <div className={styles.contentFrame}>
-            <p className={styles.eyebrow}>Investment premise</p>
+            <p className={styles.eyebrow}>How it is structured</p>
             <div className={styles.premiseGrid}>
               <h2 id="premise-title">
-                What can be measured can be cultivated. Human presence is both.
+                One foundation. Three ventures. Each funded on its own terms.
               </h2>
               <div>
                 <p>
-                  Providence begins with skilled human practice. Mentors, peers,
+                  The work begins with skilled human practice. Mentors, peers,
                   practitioners, retreats, and communities create the conditions
-                  for deliberate interpersonal practice. Technology gives participants useful
-                  perception of the experience they are creating together.
+                  for deliberate interpersonal practice. Technology gives
+                  participants useful perception of the experience they are
+                  creating together.
                 </p>
                 <p>
-                  The commercial opportunity sits within that integrated system. GENII
-                  holds the research, access programs, standards, and shared
-                  infrastructure in permanent mission stewardship. Providence
-                  commercializes the products and services that can scale.
+                  GENII holds the vision, values, research, and shared standards in
+                  permanent mission stewardship. Each venture carries its own
+                  business model and commercializes the products and services
+                  that can scale.
                 </p>
               </div>
             </div>
+
+            {/* Plain list markup so the tree reads in order without CSS: the
+                foundation, its funding path, the ventures, theirs. The
+                connectors are drawn by providence.module.css. */}
+            <div className={styles.fundingTree}>
+              <div className={styles.treeRoot}>
+                <div className={`${styles.treeNode} ${styles.treeFoundation}`}>
+                  <p className={styles.treeRole}>Foundation</p>
+                  <h3>GENII Foundation</h3>
+                  <p>Research, principles, and stewardship. Holds the vision and values.</p>
+                </div>
+                <p className={styles.treeFunding}>
+                  <span>Philanthropic support</span>
+                  <a href="#philanthropy">Fund the foundation</a>
+                </p>
+              </div>
+
+              <ul className={styles.treeBranches} aria-label="GENII ventures">
+                {ventures.map((venture) => (
+                  <li className={styles.treeNode} key={venture.id}>
+                    <p className={styles.treeRole}>{venture.role}</p>
+                    <h3>
+                      <Link href={venture.href}>{venture.name}</Link>
+                    </h3>
+                    <p>{venture.summary}</p>
+                  </li>
+                ))}
+              </ul>
+
+              <p className={`${styles.treeFunding} ${styles.treeFundingVentures}`}>
+                <span>Venture investment</span>
+                <a href="#investors">Back one or more ventures</a>
+              </p>
+            </div>
+
+            {/* The deck states this as intent. No mechanism is agreed, so the
+                sentence must not read as a commitment. */}
+            <p className={styles.treeIntent}>
+              As the ventures grow, GENII intends for them to help sustain the
+              foundation. No mechanism for that is agreed yet.
+            </p>
           </div>
         </section>
 
@@ -165,75 +280,27 @@ export default function InvestingPage() {
           <div className={styles.contentFrame}>
             <p className={styles.eyebrow}>Capital strategy</p>
             <div className={styles.sectionHeading}>
-              <h2 id="paths-title">One Mission. Two Paths</h2>
+              <h2 id="paths-title">Two capital pathways. One mission.</h2>
               <p>
-                Patient investment finances the commercial system and seeks a
-                return. Philanthropy finances research, access, standards, and
-                infrastructure held for public benefit.
+                The two paths carry different legal and economic commitments.
+                Philanthropy funds the foundation and its public-benefit work.
+                Patient investment funds a venture and seeks a return.
               </p>
             </div>
 
             <div className={styles.pathGrid}>
-              <article className={`${styles.pathCard} ${styles.investorCard}`}>
+              <article
+                className={`${styles.pathCard} ${styles.philanthropyCard}`}
+                id="philanthropy"
+              >
                 <div className={styles.pathNumber}>01</div>
-                <p className={styles.pathType}>For the patient impact investor</p>
-                <h3>Finance the commercial system.</h3>
-                <p className={styles.pathLead}>
-                  Providence&apos;s primary initial financing strategy is patient
-                  impact investment into the commercial venture, led by
-                  values-aligned angels and family offices. It is not pursuing
-                  conventional institutional venture capital at this stage.
-                </p>
-
-                <div className={styles.pathDetails}>
-                  <section>
-                    <h4>Human-alignment layer</h4>
-                    <p>
-                      Emergent intelligence will need a human-alignment layer. The
-                      Providence App is the leading first product: a private,
-                      on-device application for post-retreat integration and
-                      sustained coherence practice. Retreats, partner systems, and
-                      practitioner tools define the commercial scope.
-                    </p>
-                  </section>
-                  <section>
-                    <h4>Initial revenue surfaces</h4>
-                    <ul>
-                      <li>Companion subscriptions</li>
-                      <li>Providence-produced retreats</li>
-                      <li>Powered By Providence implementation and licensing</li>
-                      <li>Practitioner training, software, and renewals</li>
-                    </ul>
-                  </section>
-                  <section>
-                    <h4>Intended capital structure</h4>
-                    <p>
-                      A mission-aligned commercial company in the jurisdiction best
-                      suited to its governance and financing. The intended terms
-                      combine patient return mechanics with permanent founder and
-                      mission-steward authority over any sale, merger, or change of
-                      control. Counsel will translate these commitments into the
-                      charter, investor rights, and financing documents.
-                    </p>
-                  </section>
-                </div>
-
-                <a
-                  className={styles.pathAction}
-                  href="mailto:hello@genii.foundation?subject=Patient%20capital%20for%20Providence"
-                >
-                  Discuss patient capital <ProvidenceArrow />
-                </a>
-              </article>
-
-              <article className={`${styles.pathCard} ${styles.philanthropyCard}`}>
-                <div className={styles.pathNumber}>02</div>
                 <p className={styles.pathType}>For the philanthropic partner</p>
-                <h3>Fund the public-interest foundation.</h3>
+                <h3>Support the foundation.</h3>
                 <p className={styles.pathLead}>
-                  Charitable capital supports measurable public benefit over the
-                  same three to ten year horizon. Its mandate is research, access,
-                  standards, education, and shared infrastructure.
+                  Philanthropic partners fund GENII&apos;s stewardship, research,
+                  governance, institutional capacity, cultural and public-benefit
+                  infrastructure, and the conditions for independent learning,
+                  over a three to ten year horizon.
                 </p>
 
                 <div className={styles.pathDetails}>
@@ -261,7 +328,7 @@ export default function InvestingPage() {
                     <p>
                       Restricted budgets, independent oversight, published evidence
                       thresholds, participant safeguards, and arm&apos;s-length agreements
-                      with the commercial company preserve charitable purpose.
+                      with the ventures preserve charitable purpose.
                     </p>
                   </section>
                 </div>
@@ -273,7 +340,90 @@ export default function InvestingPage() {
                   Discuss philanthropic support <ProvidenceArrow />
                 </a>
               </article>
+
+              <article
+                className={`${styles.pathCard} ${styles.investorCard}`}
+                id="investors"
+              >
+                <div className={styles.pathNumber}>02</div>
+                <p className={styles.pathType}>For the patient impact investor</p>
+                <h3>Back one or more ventures.</h3>
+                <p className={styles.pathLead}>
+                  Each venture has its own business model and can be financed on
+                  its own terms. Which venture raises first is not yet decided. The
+                  intended first financing is patient impact investment led by
+                  values-aligned angels and family offices. Conventional
+                  institutional venture capital is outside the plan at this stage.
+                </p>
+
+                <div className={styles.pathDetails}>
+                  <section>
+                    <h4>What investors back</h4>
+                    <p>
+                      A defined venture, working product, technical team, initial
+                      pilots, a credible market hypothesis, and an evidence-based
+                      next stage.
+                    </p>
+                  </section>
+                  <section>
+                    <h4>Modeled revenue surfaces</h4>
+                    <ul>
+                      <li>Purposeful retreats</li>
+                      <li>
+                        Purposeful mentorship and practitioner network: training,
+                        software, and renewals
+                      </li>
+                      <li>Providence App subscriptions</li>
+                      <li>Powered By Providence implementation and licensing</li>
+                    </ul>
+                  </section>
+                  <section>
+                    <h4>Intended capital structure</h4>
+                    <p>
+                      A mission-aligned commercial entity for each venture, in the
+                      jurisdiction best suited to its governance and financing. The
+                      intended terms combine patient return mechanics with
+                      permanent founder and mission-steward authority over any
+                      sale, merger, or change of control. Counsel will translate
+                      these commitments into the charter, investor rights, and
+                      financing documents.
+                    </p>
+                  </section>
+                </div>
+
+                <a
+                  className={styles.pathAction}
+                  href="mailto:hello@genii.foundation?subject=Venture%20investment%20with%20GENII"
+                >
+                  Discuss venture investment <ProvidenceArrow />
+                </a>
+              </article>
             </div>
+
+            {/* A lighter third invitation. It asks for work, not money, so it
+                sits outside the two numbered capital paths. */}
+            <aside
+              className={styles.collaboratorInvite}
+              id="collaborators"
+              aria-labelledby="collaborator-title"
+            >
+              <p className={styles.eyebrow}>For collaborators</p>
+              <div>
+                <h3 id="collaborator-title">Bring work that belongs here.</h3>
+                <p>
+                  Some people will bring their own work rather than capital:
+                  research, teaching, practice, cultural work, or technology that
+                  fits within GENII&apos;s architecture and one of its ventures.
+                  Tell us what you are building and where you see it fitting.
+                </p>
+                <a
+                  className={styles.pathAction}
+                  href="mailto:hello@genii.foundation?subject=Collaborating%20with%20GENII"
+                >
+                  Propose a collaboration <ProvidenceArrow />
+                </a>
+              </div>
+            </aside>
 
             <aside
               className={styles.contributorSignal}
@@ -286,10 +436,11 @@ export default function InvestingPage() {
                 </h3>
                 <p>
                   Individual gifts fund GENII&apos;s public-interest work immediately.
-                  They also show patient angels that Providence is earning durable
-                  support from the people it intends to serve. A one-time gift is a
-                  vote of confidence. A monthly contribution makes that vote legible
-                  over time and gives the team a dependable base for planning.
+                  They also show patient angels that GENII and its ventures are
+                  earning durable support from the people they intend to serve. A
+                  one-time gift is a vote of confidence. A monthly contribution
+                  makes that vote legible over time and gives the team a
+                  dependable base for planning.
                 </p>
                 <p>
                   This support increases the force of larger investment. Angels can
@@ -299,7 +450,7 @@ export default function InvestingPage() {
                   funder.
                 </p>
                 <p className={styles.contributorBoundary}>
-                  Charitable gifts to GENII, customer payments to Providence, and
+                  Charitable gifts to GENII, customer payments to the ventures, and
                   investment capital will be tracked and reported separately. They
                   fund different work and create different rights.
                 </p>
@@ -311,10 +462,11 @@ export default function InvestingPage() {
               <div>
                 <h3>Separate instruments create separate rights.</h3>
                 <p>
-                  One partner may support both entities. A charitable gift funds
-                  the public-benefit mandate. A separately documented investment
-                  funds the commercial company and carries the associated economic
-                  rights. The two transactions remain legally and financially distinct.
+                  One partner may support the foundation and invest in a venture. A
+                  charitable gift funds the public-benefit mandate. A separately
+                  documented investment funds that venture and carries the
+                  associated economic rights. The two transactions remain legally
+                  and financially distinct.
                 </p>
               </div>
             </div>
@@ -325,41 +477,63 @@ export default function InvestingPage() {
           <div className={styles.contentFrame}>
             <p className={styles.eyebrow}>Commercial system</p>
             <div className={styles.sectionHeading}>
-              <h2 id="venture-title">A private companion with place-based distribution.</h2>
+              <h2 id="venture-title">Each venture carries its own business model.</h2>
               <p>
-                Providence combines a trusted individual product with retreats,
-                partner implementations, and practitioner distribution. GENII
-                retains stewardship of the public-interest layer.
+                BOW Media carries culture, Purposeful carries development, and
+                Providence carries coordination. Purposeful and Providence have
+                modeled revenue surfaces on this page; BOW Media does not yet.
+                GENII retains stewardship of the public-interest layer.
               </p>
             </div>
 
-            <div className={styles.ventureGrid}>
-              {commercialPathways.map((pathway) => (
-                <article key={pathway.title}>
-                  <p>{pathway.horizon}</p>
-                  <h3>{pathway.title}</h3>
-                  <span>{pathway.text}</span>
-                </article>
+            <div className={styles.ventureModels}>
+              {ventures.map((venture) => (
+                <section
+                  aria-labelledby={`${venture.id}-model-title`}
+                  className={styles.ventureModel}
+                  key={venture.id}
+                >
+                  <header className={styles.ventureModelHeader}>
+                    <p className={styles.eyebrow}>{venture.role}</p>
+                    <h3 id={`${venture.id}-model-title`}>
+                      <Link href={venture.href}>{venture.name}</Link>
+                    </h3>
+                    <p>{venture.summary}</p>
+                  </header>
+
+                  <div className={styles.ventureGrid}>
+                    {commercialPathways[venture.id].map((pathway) => (
+                      <article key={pathway.title}>
+                        <p>{pathway.horizon}</p>
+                        <h4>{pathway.title}</h4>
+                        <span>{pathway.text}</span>
+                      </article>
+                    ))}
+                  </div>
+
+                  <p className={styles.ventureModelNote}>{ventureNotes[venture.id]}</p>
+                </section>
               ))}
             </div>
 
             <div className={styles.retreatStatement}>
               <div>
-                <p className={styles.eyebrow}>Physical experience</p>
-                <h3>Retreats validate the product and generate revenue.</h3>
+                <p className={styles.eyebrow}>Purposeful retreats</p>
+                <h3>Retreats validate the practice and generate revenue.</h3>
               </div>
               <div>
                 <p>
                   Retreats provide a bounded setting for consent, skilled guidance,
-                  immediate reflection, and disciplined product research. Every
-                  Providence-produced retreat must cover its full delivery cost
-                  before companion subscriptions or research support receive credit.
+                  immediate reflection, and disciplined product research. Purposeful
+                  hosts each retreat, and Providence technology can support it with
+                  participant consent. Every Purposeful retreat must cover its full
+                  delivery cost before companion subscriptions or research support
+                  receive credit.
                 </p>
                 <p>
-                  Providence will partner with established venues and intentional
+                  Purposeful will partner with established venues and intentional
                   communities rather than own land. Each partner retains authority
-                  over its place, program, and culture while Providence supplies the
-                  technical and practice system.
+                  over its place, program, and culture.
                 </p>
               </div>
             </div>
@@ -372,14 +546,14 @@ export default function InvestingPage() {
           <div className={styles.contentFrame}>
             <div className={styles.poweredHeader}>
               <div>
-                <p className={styles.eyebrow}>Place-based partnership</p>
+                <p className={styles.eyebrow}>Providence partner system</p>
                 <h3 id="powered-title">Powered By Providence</h3>
               </div>
               <p>
-                Providence does not merely measure an individual&apos;s regulated
-                state. It creates consent-bound experiences in which people can
-                perceive, practice, and carry forward the quality of presence
-                they build together.
+                Providence creates consent-bound experiences in which people can
+                perceive, practice, and carry forward the quality of presence they
+                build together. Measuring one person&apos;s regulated state is only
+                a small part of it.
               </p>
             </div>
 
@@ -476,17 +650,17 @@ export default function InvestingPage() {
             <div className={styles.returnGrid}>
               <article>
                 <span>Revenue positive</span>
-                <h4>Providence retreats</h4>
+                <h4>Purposeful retreats</h4>
                 <p>
-                  Providence prices each program to cover full delivery costs and
-                  contribute cash to product development.
+                  Purposeful prices each program to cover full delivery costs and
+                  contribute cash beyond them.
                 </p>
               </article>
               <article>
                 <span>Recurring partner revenue</span>
                 <h4>Powered retreats and communities</h4>
                 <p>
-                  Operators pay for implementation, licenses, training,
+                  Operators pay Providence for implementation, licenses, training,
                   instrumentation, coaching, and ongoing support.
                 </p>
               </article>
@@ -503,13 +677,14 @@ export default function InvestingPage() {
             <div className={styles.returnBoundary}>
               <h4>Patient impact capital is the first fit.</h4>
               <p>
-                Providence is raising first from values-aligned angels and family
-                offices. Large companion adoption and repeatable partner licensing
-                can create substantial enterprise value. Mission stewards retain
-                exclusive authority over any sale, merger, or change of control.
+                The intended first investors are values-aligned angels and
+                family offices. For Providence, large companion adoption and
+                repeatable partner licensing can create substantial enterprise
+                value. Mission stewards retain exclusive authority over any sale,
+                merger, or change of control.
               </p>
               <p>
-                The software core remains open source. The commercial company earns
+                The Providence software core remains open source. Providence earns
                 revenue from the official product, trusted marks, hosted services,
                 integrations, training, and accountable implementation.
               </p>
@@ -524,9 +699,18 @@ export default function InvestingPage() {
               <h2 id="sequence-title">Evidence gates each expansion.</h2>
               <p>
                 Each product must establish demand, safety, and repeatable delivery
-                before Providence finances the next layer.
+                before its venture finances the next layer.
               </p>
             </div>
+
+            {/* The deck's capital flow line. The arrows are the deck's own
+                notation; the label gives screen readers a plain reading. */}
+            <p
+              className={styles.capitalFlow}
+              aria-label="Capital leads to capabilities, then working demonstrations, then validation, then the next stage."
+            >
+              Capital → Capabilities → Working demonstrations → Validation → Next stage
+            </p>
 
             <ol className={styles.sequenceList}>
               {developmentSequence.map((stage) => (
@@ -546,9 +730,10 @@ export default function InvestingPage() {
             <div className={styles.sectionHeading}>
               <h2 id="architecture-title">Mission protection with commercial clarity.</h2>
               <p>
-                The Foundation protects research, standards, access, and the
-                commons. The commercial company builds products, signs customers,
-                and provides investors a defined economic instrument.
+                This is the intended structure; the entities are under legal
+                design. The Foundation protects research, standards, access, and
+                the commons. Each venture builds products, signs customers, and
+                provides investors a defined economic instrument.
               </p>
             </div>
 
@@ -589,12 +774,12 @@ export default function InvestingPage() {
                 </svg>
               </div>
               <article>
-                <p>Mission-aligned commercial company</p>
-                <h3>Providence venture</h3>
+                <p>Mission-aligned commercial entities</p>
+                <h3>The ventures</h3>
                 <ul>
-                  <li>Commercial application</li>
-                  <li>Retreat and partner experience systems</li>
-                  <li>Subscriptions and partner licenses</li>
+                  <li>BOW Media: original cultural work and publishing</li>
+                  <li>Purposeful: mentorship network, retreats, and curriculum</li>
+                  <li>Providence: app, partner licenses, and consent infrastructure</li>
                   <li>Implementation, training, and support</li>
                   <li>Patient, noncontrolling investor return</li>
                 </ul>
@@ -608,7 +793,7 @@ export default function InvestingPage() {
                 the relevant founding intellectual property. Before financing,
                 counsel will document founder contributions, copyright and trademark
                 ownership, the open-source policy, and the arm&apos;s-length licenses
-                between the Foundation and the commercial company.
+                between the Foundation and each venture.
               </p>
             </aside>
 
@@ -624,14 +809,16 @@ export default function InvestingPage() {
                 <h3>Independent practitioners</h3>
                 <p>
                   Qualified practitioners provide guided experiences, integration,
-                  referrals, and a professional distribution channel for Providence.
+                  and referrals through Purposeful&apos;s network, and a
+                  professional distribution channel for Providence.
                 </p>
               </article>
               <article>
                 <h3>Retreat and community partners</h3>
                 <p>
                   Partner organizations retain authority over place, program, and
-                  culture while licensing Providence technology and practice systems.
+                  culture while hosting Purposeful retreats or licensing Providence
+                  technology and practice systems.
                 </p>
               </article>
             </div>
@@ -644,7 +831,7 @@ export default function InvestingPage() {
               <p className={styles.eyebrow}>Providence principles</p>
               <div>
                 <h2 id="guardrails-title">
-                  These principles govern every product, partnership, and financing.
+                  Ten principles govern every Providence product, partnership, and financing.
                 </h2>
                 <div className={styles.principleSummaryCopy}>
                   <p>
@@ -665,13 +852,15 @@ export default function InvestingPage() {
           <div className={styles.contentFrame}>
             <p className={styles.eyebrow}>Investor diligence</p>
             <div className={styles.invitationGrid}>
-              <h2 id="invitation-title">Examine the first commercial proof.</h2>
+              <h2 className={styles.invitationClosing} id="invitation-title">
+                Help us build for returns that endure, with human agency at the center.
+              </h2>
               <div>
                 <p>
-                  Providence is opening diligence conversations with patient impact
-                  angels and values-aligned family offices. GENII is also speaking
-                  with scientific partners, philanthropic funders, fiscal sponsors,
-                  practitioners, and community operators.
+                  GENII is opening diligence conversations with patient impact
+                  angels and values-aligned family offices for its ventures. It is
+                  also speaking with scientific partners, philanthropic funders,
+                  fiscal sponsors, practitioners, and community operators.
                 </p>
                 <p>
                   We will share the current product thesis, commercial model,
@@ -680,7 +869,7 @@ export default function InvestingPage() {
                 </p>
                 <a
                   className={styles.invitationAction}
-                  href="mailto:hello@genii.foundation?subject=Providence%20investor%20diligence"
+                  href="mailto:hello@genii.foundation?subject=GENII%20investor%20diligence"
                 >
                   Start a diligence conversation <ProvidenceArrow />
                 </a>

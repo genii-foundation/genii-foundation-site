@@ -1,0 +1,1014 @@
+/*
+ * Shared styles for the pages added in site v2: the homepage sections, the
+ * foundation, the three ventures, the deeper pages, and the investing page.
+ *
+ * Everything here builds on the tokens and type already used across the site
+ * (see globals.css and providence.module.css). `.tokens` carries the palette so
+ * the homepage, which keeps its own root element, can share these parts.
+ */
+
+.tokens {
+  --night: #141512;
+  --night-soft: #1d201b;
+  --paper-light: #f4f0e7;
+  --ink: #11120f;
+  --muted: #5c564b;
+  --gold: #806a3f;
+  --gold-bright: #ad8b4f;
+  --gold-on-night: #c4a96e;
+  --line: rgba(35, 36, 31, 0.2);
+  --panel: rgba(248, 245, 237, 0.78);
+  --section-space: clamp(4.5rem, 9vw, 8rem);
+}
+
+.page {
+  background: transparent;
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.page h1,
+.page h2,
+.page h3,
+.page h4,
+.page p,
+.block h2,
+.block h3,
+.block h4,
+.block p {
+  margin-top: 0;
+}
+
+.frame {
+  margin: 0 auto;
+  max-width: 70rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: 100%;
+}
+
+/* ---------------------------------------------------------------- Hero */
+
+.hero {
+  padding: clamp(3.5rem, 7vw, 6.5rem) 0 clamp(3rem, 6vw, 5rem);
+  position: relative;
+}
+
+.heroGrid {
+  align-items: end;
+  display: grid;
+  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+  margin-top: 1.25rem;
+}
+
+.hero h1,
+.sectionHead h2,
+.statement h2,
+.card h3,
+.wayIn h3,
+.custodian h3,
+.treeRoot strong,
+.treeLeaf strong,
+.closing h2 {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 6.4vw, 5.9rem);
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+  margin-bottom: 0;
+  max-width: 13ch;
+  text-wrap: balance;
+}
+
+.heroCopy {
+  border-left: 1px solid var(--line);
+  padding-left: clamp(1.5rem, 3vw, 3rem);
+}
+
+.heroLead {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.3rem, 1.8vw, 1.65rem);
+  line-height: 1.45;
+  margin-bottom: 1.25rem;
+}
+
+.heroCopy p:last-child {
+  margin-bottom: 0;
+}
+
+.heroBody {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+/* A venture's own motif sits behind the top right of its hero. Decorative
+   only, so it never takes pointer events or competes with the reading. */
+.motif {
+  color: var(--gold);
+  height: clamp(14rem, 30vw, 26rem);
+  opacity: 0.2;
+  pointer-events: none;
+  position: absolute;
+  right: max(1.5rem, calc(50% - 35rem));
+  top: clamp(0.5rem, 2vw, 2rem);
+  width: clamp(14rem, 30vw, 26rem);
+  z-index: -1;
+}
+
+.motif svg {
+  height: 100%;
+  overflow: visible;
+  width: 100%;
+}
+
+/* ------------------------------------------------------------- Sections */
+
+.eyebrow {
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+.section {
+  padding: var(--section-space) 0 0;
+}
+
+.section:last-of-type {
+  padding-bottom: var(--section-space);
+}
+
+/* A paper panel, matching the homepage's mission card. */
+.panel {
+  background: var(--panel);
+  border-radius: 0.3rem;
+  box-shadow: 0 2.5rem 6rem rgba(51, 47, 38, 0.08);
+  padding: clamp(2rem, 5vw, 4.5rem);
+}
+
+.sectionHead {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  grid-template-columns: minmax(0, 1.1fr) minmax(16rem, 0.9fr);
+  margin-top: 1.25rem;
+}
+
+.sectionHead h2 {
+  font-size: clamp(2.3rem, 4.4vw, 4rem);
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  margin-bottom: 0;
+  max-width: 16ch;
+  text-wrap: balance;
+}
+
+.sectionHead > div > p,
+.prose p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.sectionHead > div > p:last-child,
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.sectionHead > div > p:first-child,
+.prose .lead {
+  color: var(--ink);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  line-height: 1.5;
+}
+
+.prose {
+  max-width: 44rem;
+}
+
+.sectionBody {
+  margin-top: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+/* ---------------------------------------------------------------- Cards */
+
+.cardGrid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cardGrid[data-columns="2"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cardGrid[data-columns="4"] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.card {
+  background: rgba(255, 253, 247, 0.5);
+  border: 1px solid var(--line);
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 2.4vw, 2.25rem);
+  position: relative;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+a.card:hover,
+a.card:focus-visible {
+  background: rgba(255, 253, 247, 0.85);
+  border-color: rgba(128, 106, 63, 0.6);
+}
+
+.cardNumber {
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1;
+  margin-bottom: 1.1rem;
+}
+
+.card h3 {
+  font-size: clamp(1.9rem, 2.8vw, 2.6rem);
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+.cardRole {
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.card p {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.card p:last-child {
+  margin-bottom: 0;
+}
+
+.cardDetail {
+  color: var(--gold);
+  font-size: 0.88rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+
+.cardAction {
+  align-items: center;
+  color: var(--gold);
+  display: inline-flex;
+  font-size: 0.68rem;
+  font-weight: 700;
+  gap: 0.6rem;
+  letter-spacing: 0.14em;
+  margin-top: auto;
+  padding-top: 1.25rem;
+  text-transform: uppercase;
+}
+
+/* The small tag that says what state a thing is in. */
+.tag {
+  align-self: flex-start;
+  border: 1px solid rgba(128, 106, 63, 0.55);
+  border-radius: 999px;
+  color: var(--gold);
+  display: inline-block;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  margin-bottom: 1.1rem;
+  padding: 0.3rem 0.7rem 0.26rem;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------- Honesty labels */
+
+/*
+ * States the true status of whatever sits above it: proposed, in development,
+ * not deployed. Both founders asked that this discipline carry from the deck
+ * onto the site, so it is one consistent part rather than ad hoc small print.
+ */
+.status {
+  align-items: start;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: clamp(1rem, 3vw, 2rem);
+  grid-template-columns: minmax(8rem, 0.28fr) 1fr;
+  margin-top: clamp(2.25rem, 4vw, 3.5rem);
+  padding-top: 1.35rem;
+}
+
+.status strong {
+  color: var(--gold);
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  padding-top: 0.2rem;
+  text-transform: uppercase;
+}
+
+.status p {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+  max-width: 48rem;
+}
+
+/* ----------------------------------------------------------------- Rows */
+
+/* Label on the left, explanation on the right, a rule between rows and none
+   after the last (see README: the outer edge already closes the region). */
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rows li {
+  align-items: baseline;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0.5rem clamp(1rem, 3vw, 2.5rem);
+  grid-template-columns: 2.5rem minmax(9rem, 0.36fr) 1fr;
+  padding: 1.25rem 0;
+}
+
+.rows[data-numbered="false"] li {
+  grid-template-columns: minmax(10rem, 0.36fr) 1fr;
+}
+
+.rows li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.rows li:last-child {
+  padding-bottom: 0;
+}
+
+.rowNumber {
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.25rem;
+}
+
+.rowLabel {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rows[data-display="true"] .rowLabel {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.4rem, 2vw, 1.75rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+.rowText {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ---------------------------------------------------------------- Steps */
+
+.steps {
+  counter-reset: step;
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.steps[data-columns="3"] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.steps li {
+  border-top: 1px solid var(--gold);
+  counter-increment: step;
+  padding-top: 1rem;
+}
+
+.steps li::before {
+  color: var(--gold);
+  content: counter(step, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.steps strong {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.steps span {
+  color: var(--muted);
+  display: block;
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
+/* A one-line chain: shared intention, complementary capacity, and so on. */
+.chain {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.2rem, 1.9vw, 1.6rem);
+  gap: 0.5rem 1rem;
+  line-height: 1.3;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chain li + li::before {
+  color: var(--gold);
+  content: "\2192";
+  margin-right: 1rem;
+}
+
+.closingLine {
+  border-top: 1px solid var(--line);
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+  font-style: italic;
+  line-height: 1.45;
+  margin: clamp(2.25rem, 4vw, 3.5rem) 0 0;
+  padding-top: 1.5rem;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* ------------------------------------------------------------ Statement */
+
+/* The night panel used for the one idea a page most wants remembered. */
+.statement {
+  background: var(--night);
+  border-radius: 0.3rem;
+  color: var(--paper-light);
+  padding: clamp(3.5rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4.5rem);
+  text-align: center;
+}
+
+.statement h2 {
+  font-size: clamp(2.8rem, 6.5vw, 5.6rem);
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  margin-bottom: 0;
+}
+
+.statement h2 span {
+  color: var(--gold-on-night);
+  display: block;
+}
+
+.statement hr {
+  background: rgba(196, 169, 110, 0.5);
+  border: 0;
+  height: 1px;
+  margin: clamp(1.75rem, 3vw, 2.5rem) auto;
+  width: 6rem;
+}
+
+.statement p {
+  color: #d6d2c8;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.7;
+  margin: 0 auto 0.35rem;
+  max-width: 44rem;
+}
+
+.statement .statementClose {
+  color: var(--gold-on-night);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+  font-style: italic;
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+/* -------------------------------------------------------------- Actions */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.75rem;
+}
+
+/* The gold pill, as on the deck's link buttons. Used where the reader is sent
+   to real work that lives elsewhere on the web. */
+.button {
+  align-items: center;
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  color: #fff;
+  display: inline-flex;
+  font-size: 0.8rem;
+  font-weight: 700;
+  gap: 0.65rem;
+  letter-spacing: 0.03em;
+  min-height: 2.75rem;
+  padding: 0.6rem 1.15rem 0.6rem 1.3rem;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  background: var(--night);
+  border-color: var(--night);
+  color: var(--paper-light);
+}
+
+.buttonQuiet {
+  background: transparent;
+  color: var(--gold);
+}
+
+.buttonQuiet:hover,
+.buttonQuiet:focus-visible {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #fff;
+}
+
+button.button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.inlineLink {
+  border-bottom: 1px solid var(--gold);
+  color: var(--ink);
+  transition: color 180ms ease;
+}
+
+.inlineLink:hover,
+.inlineLink:focus-visible {
+  color: var(--gold);
+}
+
+/* ----------------------------------------------------- Homepage: GENII bar */
+
+.foundationBar {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 1rem clamp(1.25rem, 3vw, 2.5rem);
+  grid-template-columns: auto auto 1fr auto;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.foundationBar img {
+  width: clamp(7rem, 11vw, 10rem);
+}
+
+.foundationBar span {
+  color: var(--gold);
+  font-size: 0.95rem;
+}
+
+.foundationBar p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* ------------------------------------------------------------- Products */
+
+.products {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.products li {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0.75rem clamp(1rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(7rem, 0.22fr) 1fr auto;
+  padding: 1.35rem 0;
+}
+
+.products li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.products li:last-child {
+  padding-bottom: 0;
+}
+
+.products strong {
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.7rem, 2.4vw, 2.1rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.products span {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+/* A framed product screenshot with its caption. */
+.screenshot {
+  margin: 0 0 clamp(2rem, 4vw, 3rem);
+}
+
+.screenshot img {
+  border: 1px solid var(--line);
+  border-radius: 0.3rem;
+  box-shadow: 0 1.5rem 3.5rem rgba(31, 27, 18, 0.18);
+  width: 100%;
+}
+
+.screenshot figcaption {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-top: 0.85rem;
+}
+
+/* --------------------------------------------------------- BOW: gallery */
+
+.shelf {
+  align-items: start;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  grid-template-columns: 5.5rem 1fr;
+  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+}
+
+.shelf:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.shelf:last-of-type {
+  padding-bottom: 0;
+}
+
+.shelfLabel {
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  padding-top: 0.5rem;
+  text-transform: uppercase;
+}
+
+.covers {
+  display: grid;
+  gap: clamp(1rem, 3vw, 2.25rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.covers figure {
+  margin: 0;
+}
+
+/* Every cover is cropped to one book proportion so a row reads as a shelf. */
+.covers img {
+  aspect-ratio: 2 / 3;
+  border-radius: 0.15rem;
+  box-shadow:
+    0 0.15rem 0.3rem rgba(31, 27, 18, 0.2),
+    0 1.2rem 2.4rem rgba(31, 27, 18, 0.22);
+  object-fit: cover;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+}
+
+@media (hover: hover) {
+  .covers li:hover img {
+    transform: translateY(-0.4rem) scale(1.015);
+  }
+}
+
+.covers figcaption {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  margin-top: 1rem;
+}
+
+.covers figcaption a {
+  border-bottom: 1px solid var(--gold);
+}
+
+.volumes {
+  columns: 2;
+  column-gap: clamp(2rem, 5vw, 4rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.volumes li {
+  border-top: 1px solid var(--line);
+  break-inside: avoid;
+  display: grid;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.25rem;
+  gap: 1rem;
+  grid-template-columns: 2.25rem 1fr;
+  line-height: 1.3;
+  padding: 0.8rem 0;
+}
+
+.volumes li span {
+  color: var(--gold);
+}
+
+/* ---------------------------------------------------------- Custodians */
+
+.custodians {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.custodian {
+  text-align: center;
+}
+
+/* The portraits are soft charcoal drawings that fade to transparent at the
+   shoulders, so they sit directly on the paper with no frame. */
+.custodian img {
+  height: clamp(15rem, 26vw, 21rem);
+  margin: 0 auto;
+  object-fit: contain;
+  width: auto;
+}
+
+.custodian h3 {
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  letter-spacing: -0.03em;
+  margin: 0.5rem 0 1rem;
+}
+
+.custodian p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+/* -------------------------------------------------------- Investing: tree */
+
+.tree {
+  text-align: center;
+}
+
+.treeRoot {
+  margin: 0 auto;
+  max-width: 46rem;
+}
+
+.treeRoot img {
+  margin: 0 auto 0.75rem;
+  width: clamp(8rem, 13vw, 11rem);
+}
+
+.treeRoot strong,
+.treeLeaf strong {
+  display: block;
+  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+  letter-spacing: -0.03em;
+}
+
+.treeRoot p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0.5rem 0 0;
+}
+
+/* The branch: one stem down from GENII, a bar across, a drop to each venture. */
+.treeBranch {
+  border: 1px solid rgba(128, 106, 63, 0.55);
+  border-bottom: 0;
+  height: 1.5rem;
+  margin: 2.75rem auto 0;
+  position: relative;
+  width: 66.666%;
+}
+
+.treeBranch::before,
+.treeBranch::after {
+  background: rgba(128, 106, 63, 0.55);
+  content: "";
+  left: 50%;
+  position: absolute;
+  width: 1px;
+}
+
+.treeBranch::before {
+  bottom: 100%;
+  height: 1.5rem;
+}
+
+.treeBranch::after {
+  height: 100%;
+  top: 0;
+}
+
+.treeLeaves {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0.85rem;
+}
+
+.treeLeaf {
+  display: block;
+  padding: 0.25rem 0.5rem;
+}
+
+.treeLeaf span {
+  color: var(--gold);
+  font-size: 0.95rem;
+}
+
+a.treeLeaf:hover strong,
+a.treeLeaf:focus-visible strong {
+  color: var(--gold);
+}
+
+/* ------------------------------------------------------------- Closing */
+
+.closing {
+  display: grid;
+  gap: clamp(2rem, 6vw, 6rem);
+  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+}
+
+.closing h2 {
+  font-size: clamp(2.6rem, 5.4vw, 4.8rem);
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  margin-bottom: 0;
+  max-width: 11ch;
+  text-wrap: balance;
+}
+
+.disclaimer {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.7;
+  padding: 2.5rem 0 var(--section-space);
+}
+
+/* ------------------------------------------------------------ Responsive */
+
+@media (max-width: 900px) {
+  .heroGrid,
+  .sectionHead,
+  .closing {
+    grid-template-columns: 1fr;
+  }
+
+  .heroCopy {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 1.5rem;
+  }
+
+  .cardGrid,
+  .cardGrid[data-columns="4"] {
+    grid-template-columns: 1fr;
+  }
+
+  .cardGrid[data-columns="4"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .foundationBar {
+    grid-template-columns: auto 1fr;
+  }
+
+  .foundationBar p,
+  .foundationBar a {
+    grid-column: 1 / -1;
+  }
+
+  .motif {
+    opacity: 0.16;
+  }
+}
+
+@media (max-width: 700px) {
+  .frame {
+    padding-left: var(--mobile-content-gutter);
+    padding-right: var(--mobile-content-gutter);
+  }
+
+  .cardGrid[data-columns="2"],
+  .cardGrid[data-columns="4"],
+  .custodians {
+    grid-template-columns: 1fr;
+  }
+
+  .status,
+  .rows li,
+  .rows[data-numbered="false"] li,
+  .products li {
+    grid-template-columns: 1fr;
+  }
+
+  .rows li {
+    gap: 0.35rem;
+  }
+
+  .shelf,
+  .steps[data-columns="3"] {
+    grid-template-columns: 1fr;
+  }
+
+  .shelfLabel {
+    padding-top: 0;
+  }
+
+  .covers {
+    gap: 0.85rem;
+  }
+
+  .covers figcaption {
+    font-size: 0.95rem;
+  }
+
+  .volumes {
+    columns: 1;
+  }
+
+  .treeBranch {
+    display: none;
+  }
+
+  .treeLeaves {
+    border-top: 1px solid var(--line);
+    grid-template-columns: 1fr;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+
+  .chain {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .chain li + li::before {
+    content: "\2193";
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .covers img,
+  .card,
+  .button {
+    transition: none;
+  }
+}

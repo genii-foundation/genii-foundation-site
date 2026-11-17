@@ -7,6 +7,10 @@ type Projection = {
   year: string;
 };
 
+// Each modeled surface belongs to one venture. BOW Media has no modeled
+// surface yet, so it does not appear in this list; the heading says so.
+type Venture = "Purposeful" | "Providence";
+
 type RevenueSurface = {
   assumptions: string[];
   contributionModel: string;
@@ -19,60 +23,21 @@ type RevenueSurface = {
   title: string;
   type: string;
   unitModel: string;
+  venture: Venture;
 };
 
+// Ordered by venture so the rows read as groups: Purposeful, then Providence.
+// The figures are unchanged from the earlier single-venture model; only the
+// attribution and the wording that named the producer have moved.
 const revenueSurfaces: RevenueSurface[] = [
   {
-    id: "companion-model",
-    index: "01",
-    type: "Recurring individual revenue",
-    title: "Providence App",
-    description:
-      "An optional subscription for post-retreat integration and sustained coherence practice. The open-source core remains available. Customers pay for the official product, supported experiences, integrations, and premium functions.",
-    unitModel: "$24 blended monthly revenue per paying participant",
-    contributionModel:
-      "75% after payment, hosting, support, and routine service delivery",
-    keyProof: "Six-month and twelve-month paid retention",
-    assumptions: [
-      "Working price band of $18, $24, or $30 per month, tested before launch",
-      "Average paid subscribers of 500 in Year 1, 2,500 in Year 2, and 10,000 in Year 3",
-      "Retreats, practitioners, and licensed partners provide the initial distribution channels",
-      "Surface contribution reflects direct service delivery; acquisition, product development, and central team costs appear at portfolio level",
-      "Participant purchases generate revenue; participants retain authority over every use of intimate data",
-    ],
-    projections: [
-      {
-        year: "Year 1",
-        driver: "500 average paid subscribers",
-        revenue: 144000,
-        contribution: 108000,
-      },
-      {
-        year: "Year 2",
-        driver: "2,500 average paid subscribers",
-        revenue: 720000,
-        contribution: 540000,
-      },
-      {
-        year: "Year 3",
-        driver: "10,000 average paid subscribers",
-        revenue: 2880000,
-        contribution: 2160000,
-      },
-    ],
-    risks: [
-      "Six-month and twelve-month retention determine whether post-retreat use is durable.",
-      "Every $1 of monthly revenue per user changes annual revenue by $120,000 at 10,000 average subscribers.",
-      "The model assigns no lifetime value until observed retention and acquisition cohorts support it.",
-    ],
-  },
-  {
     id: "retreat-model",
-    index: "02",
+    index: "01",
+    venture: "Purposeful",
     type: "Revenue-positive experience",
-    title: "Providence-produced retreats",
+    title: "Purposeful retreats",
     description:
-      "Five-day, four-night programs produced by Providence at partner venues. Each retreat must cover its full delivery cost without relying on companion revenue, charitable support, or research funding.",
+      "Five-day, four-night programs hosted by Purposeful at partner venues. Providence technology can support a retreat when participants consent. Each retreat must cover its full delivery cost without relying on companion revenue, charitable support, or research funding.",
     unitModel: "30 paid-equivalent participants at $3,500 each",
     contributionModel: "$21,000 per retreat on $105,000 of revenue",
     keyProof: "Break-even at twenty paid equivalents",
@@ -111,8 +76,99 @@ const revenueSurfaces: RevenueSurface[] = [
     ],
   },
   {
-    id: "powered-model",
+    id: "practitioner-model",
+    index: "02",
+    venture: "Purposeful",
+    type: "Training, certification, and tools",
+    title: "Mentorship and practitioner network",
+    description:
+      "Purposeful's professional pathway for independent mentors and practitioners who guide practice, support integration, and refer participants into voluntary continued practice.",
+    unitModel: "$5,500 blended first-year value and $1,800 renewal value",
+    contributionModel:
+      "60% on training years and 80% on software and supervision renewals",
+    keyProof: "Participant outcomes and practitioner renewal",
+    assumptions: [
+      "First-year value combines live training, supervised practice, certification review, software, and network participation",
+      "Renewal covers software, continuing supervision, standards, and referral infrastructure",
+      "Twenty-five new practitioners in Year 1, seventy-five in Year 2, and 175 in Year 3",
+      "Base case models approximately 80% renewal of eligible practitioners",
+      "The practitioner network remains independent of workplace and employer deployment",
+    ],
+    projections: [
+      {
+        year: "Year 1",
+        driver: "25 new practitioners",
+        revenue: 137500,
+        contribution: 82500,
+      },
+      {
+        year: "Year 2",
+        driver: "75 new practitioners and 20 renewals",
+        revenue: 448500,
+        contribution: 276300,
+      },
+      {
+        year: "Year 3",
+        driver: "175 new practitioners and 80 renewals",
+        revenue: 1106500,
+        contribution: 692700,
+      },
+    ],
+    risks: [
+      "Certification requires demonstrated competence within an independently governed scope of practice.",
+      "The $5,500 first-year price requires live mentorship, practicum, technology, and referral value sufficient to justify the premium.",
+      "Participant outcomes and practitioner renewal govern network growth, not credential volume.",
+    ],
+  },
+  {
+    id: "companion-model",
     index: "03",
+    venture: "Providence",
+    type: "Recurring individual revenue",
+    title: "Providence App",
+    description:
+      "An optional subscription for post-retreat integration and sustained coherence practice. The open-source core remains available. Customers pay for the official product, supported experiences, integrations, and premium functions.",
+    unitModel: "$24 blended monthly revenue per paying participant",
+    contributionModel:
+      "75% after payment, hosting, support, and routine service delivery",
+    keyProof: "Six-month and twelve-month paid retention",
+    assumptions: [
+      "Working price band of $18, $24, or $30 per month, tested before launch",
+      "Average paid subscribers of 500 in Year 1, 2,500 in Year 2, and 10,000 in Year 3",
+      "Purposeful retreats and practitioners, together with Powered By Providence partners, provide the initial distribution channels",
+      "Surface contribution reflects direct service delivery; acquisition, product development, and central team costs appear at portfolio level",
+      "Participant purchases generate revenue; participants retain authority over every use of intimate data",
+    ],
+    projections: [
+      {
+        year: "Year 1",
+        driver: "500 average paid subscribers",
+        revenue: 144000,
+        contribution: 108000,
+      },
+      {
+        year: "Year 2",
+        driver: "2,500 average paid subscribers",
+        revenue: 720000,
+        contribution: 540000,
+      },
+      {
+        year: "Year 3",
+        driver: "10,000 average paid subscribers",
+        revenue: 2880000,
+        contribution: 2160000,
+      },
+    ],
+    risks: [
+      "Six-month and twelve-month retention determine whether post-retreat use is durable.",
+      "Every $1 of monthly revenue per user changes annual revenue by $120,000 at 10,000 average subscribers.",
+      "The model assigns no lifetime value until observed retention and acquisition cohorts support it.",
+    ],
+  },
+  {
+    id: "powered-model",
+    index: "04",
+    venture: "Providence",
     type: "Partner implementation and license",
     title: "Powered By Providence",
     description:
@@ -155,50 +211,6 @@ const revenueSurfaces: RevenueSurface[] = [
       "Partner licensing requires audit and termination rights because a consent failure can damage the full network.",
     ],
   },
-  {
-    id: "practitioner-model",
-    index: "04",
-    type: "Training, certification, and tools",
-    title: "Independent practitioner network",
-    description:
-      "A professional pathway for independent practitioners who deliver Providence experiences, support integration, and refer participants into voluntary continued practice.",
-    unitModel: "$5,500 blended first-year value and $1,800 renewal value",
-    contributionModel:
-      "60% on training years and 80% on software and supervision renewals",
-    keyProof: "Participant outcomes and practitioner renewal",
-    assumptions: [
-      "First-year value combines live training, supervised practice, certification review, software, and network participation",
-      "Renewal covers software, continuing supervision, standards, and referral infrastructure",
-      "Twenty-five new practitioners in Year 1, seventy-five in Year 2, and 175 in Year 3",
-      "Base case models approximately 80% renewal of eligible practitioners",
-      "The practitioner network remains independent of workplace and employer deployment",
-    ],
-    projections: [
-      {
-        year: "Year 1",
-        driver: "25 new practitioners",
-        revenue: 137500,
-        contribution: 82500,
-      },
-      {
-        year: "Year 2",
-        driver: "75 new practitioners and 20 renewals",
-        revenue: 448500,
-        contribution: 276300,
-      },
-      {
-        year: "Year 3",
-        driver: "175 new practitioners and 80 renewals",
-        revenue: 1106500,
-        contribution: 692700,
-      },
-    ],
-    risks: [
-      "Certification requires demonstrated competence within an independently governed scope of practice.",
-      "The $5,500 first-year price requires live mentorship, practicum, technology, and referral value sufficient to justify the premium.",
-      "Participant outcomes and practitioner renewal govern network growth, not credential volume.",
-    ],
-  },
 ];
 
 const portfolioProjection = [
@@ -224,6 +236,28 @@ const portfolioProjection = [
     operatingResult: 205700,
   },
 ];
+
+/*
+ * NOT RENDERED. OWNER DECISION PENDING.
+ *
+ * The founders are deciding whether to publish a funding amount. Until they
+ * decide, the round size and capital requirement stay off the page. These are
+ * the values the "Combined base case" row used to show, kept verbatim so the
+ * change is easy to reverse: render `round` in the row's summary metric (in
+ * place of the Year 3 revenue) and the three `requirement` entries in the
+ * row's intro <dl>.
+ *
+ * Exported only so the linter does not flag an unused constant; nothing
+ * imports it.
+ */
+export const unpublishedCapitalFigures = {
+  round: { label: "Illustrative commercial round", value: "$2.5 million" },
+  requirement: [
+    { label: "Modeled deficit through Year 2", value: "$2,056,200" },
+    { label: "Planning reserve", value: "Approximately 20%" },
+    { label: "Illustrative capital requirement", value: "Approximately $2.5 million" },
+  ],
+} as const;
 
 const currency = new Intl.NumberFormat("en-US", {
   currency: "USD",
@@ -281,12 +315,15 @@ function PortfolioProjection() {
       <summary>
         <span className={styles.surfaceIndex}>00</span>
         <span className={styles.surfaceIdentity}>
-          <small>Combined base case</small>
-          <strong>Portfolio and capital requirement</strong>
+          <small className={styles.surfaceVenture}>Purposeful and Providence</small>
+          <small>All modeled surfaces</small>
+          <strong>Combined base case</strong>
         </span>
+        {/* Year 3 revenue stands in for the withdrawn round size; it is the
+            same figure as the table's Year 3 row. */}
         <span className={styles.surfaceMetric}>
-          <small>Illustrative commercial round</small>
-          <strong>$2.5 million</strong>
+          <small>Year 3 illustrative revenue</small>
+          <strong>{money(portfolioProjection[2].revenue)}</strong>
         </span>
         <span className={styles.surfaceToggle} aria-hidden="true" />
       </summary>
@@ -294,23 +331,26 @@ function PortfolioProjection() {
       <div className={styles.surfaceBody}>
         <div className={styles.surfaceIntro}>
           <p>
-            The four revenue surfaces share distribution while retaining distinct
-            unit economics. The base case reaches a modest positive operating
-            result in Year 3 after funding the central product, research, legal,
-            consent, and company operating functions.
+            The four modeled revenue surfaces, two for Purposeful and two for
+            Providence, share distribution while retaining distinct unit
+            economics. The base case reaches a modest positive operating result
+            in Year 3 after funding the central product, research, legal,
+            consent, and operating functions.
           </p>
           <dl>
             <div>
-              <dt>Modeled deficit through Year 2</dt>
-              <dd>$2,056,200</dd>
+              <dt>Modeled here</dt>
+              <dd>
+                Purposeful retreats, Purposeful&apos;s mentorship and practitioner
+                network, the Providence App, and Powered By Providence
+              </dd>
             </div>
             <div>
-              <dt>Planning reserve</dt>
-              <dd>Approximately 20%</dd>
-            </div>
-            <div>
-              <dt>Illustrative capital requirement</dt>
-              <dd>Approximately $2.5 million</dd>
+              <dt>Not yet modeled</dt>
+              <dd>
+                BOW Media, the Purposeful curriculum, and Providence&apos;s work
+                with Terran Labs
+              </dd>
             </div>
           </dl>
         </div>
@@ -372,9 +412,11 @@ export function FinancialModel() {
           <h3 id="financial-model-title">Complementary Revenue Surfaces</h3>
         </div>
         <p>
-          Each surface is a testable economic hypothesis. Expand a row to inspect
-          pricing, operating drivers, contribution economics, the three-year base
-          case, and the evidence required to replace each assumption.
+          Each surface is a testable economic hypothesis and names the venture it
+          belongs to. Expand a row to inspect pricing, operating drivers,
+          contribution economics, the three-year base case, and the evidence
+          required to replace each assumption. BOW Media&apos;s commercial model is
+          not yet modeled on this page.
         </p>
       </div>
 
@@ -382,10 +424,15 @@ export function FinancialModel() {
         <PortfolioProjection />
 
         {revenueSurfaces.map((surface) => (
-          <details className={styles.financialSurface} key={surface.id}>
+          <details
+            className={styles.financialSurface}
+            data-venture={surface.venture.toLowerCase()}
+            key={surface.id}
+          >
             <summary>
               <span className={styles.surfaceIndex}>{surface.index}</span>
               <span className={styles.surfaceIdentity}>
+                <small className={styles.surfaceVenture}>{surface.venture}</small>
                 <small>{surface.type}</small>
                 <strong>{surface.title}</strong>
               </span>
@@ -400,6 +447,10 @@ export function FinancialModel() {
               <div className={styles.surfaceIntro}>
                 <p>{surface.description}</p>
                 <dl>
+                  <div>
+                    <dt>Venture</dt>
+                    <dd>{surface.venture}</dd>
+                  </div>
                   <div>
                     <dt>Unit model</dt>
                     <dd>{surface.unitModel}</dd>

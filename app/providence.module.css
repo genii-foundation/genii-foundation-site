@@ -383,6 +383,172 @@
   padding-bottom: clamp(3.5rem, 6vw, 5rem);
 }
 
+/*
+ * Funding tree on the investing page: GENII on top, the three ventures
+ * beneath. Solid lines are structure; dashed boxes are where money enters.
+ * The markup is a plain list, so without CSS it still reads top to bottom.
+ * Below 700px the tree turns into a left rail; see the media query.
+ */
+.fundingTree {
+  --tree-drop: 2.5rem;
+  --tree-gap: 1.25rem;
+  --tree-line: rgba(128, 106, 63, 0.6);
+  margin-top: clamp(4rem, 8vw, 7rem);
+}
+
+.treeRoot {
+  align-items: center;
+  column-gap: var(--tree-gap);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.treeNode {
+  background: #ded8cc;
+  border: 1px solid var(--line);
+  padding: clamp(1.5rem, 2.5vw, 2.25rem);
+  position: relative;
+}
+
+.treeFoundation {
+  background: var(--night);
+  border-color: var(--night);
+  color: var(--paper-light);
+  grid-column: 2;
+}
+
+.treeRole {
+  color: var(--gold);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+.treeFoundation .treeRole {
+  color: #c3a565;
+}
+
+.treeNode h3 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.9rem, 2.6vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  margin: 1.5rem 0 1rem;
+}
+
+.treeNode h3 a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+}
+
+.treeNode > p:last-child {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+.treeFoundation > p:last-child {
+  color: #d0ccc2;
+}
+
+.treeFunding {
+  align-items: baseline;
+  border: 1px dashed var(--tree-line);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  gap: 0.4rem 1rem;
+  margin: 0;
+  padding: 0.85rem 1.1rem;
+  position: relative;
+}
+
+.treeFunding span {
+  color: var(--gold);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.treeFunding a {
+  color: var(--ink);
+}
+
+/* Philanthropy attaches to the foundation from the right. */
+.treeRoot > .treeFunding {
+  grid-column: 3;
+  justify-self: start;
+}
+
+.treeRoot > .treeFunding::before {
+  border-top: 1px dashed var(--tree-line);
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  width: var(--tree-gap);
+}
+
+.treeBranches {
+  display: grid;
+  gap: var(--tree-gap);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: var(--tree-drop) 0 0;
+  position: relative;
+}
+
+/* Stem down from the foundation. */
+.treeBranches::before {
+  border-left: 1px solid var(--tree-line);
+  content: "";
+  height: calc(var(--tree-drop) / 2);
+  left: 50%;
+  position: absolute;
+  top: 0;
+}
+
+/* Crossbar from the first column's centre to the last column's centre. */
+.treeBranches::after {
+  border-top: 1px solid var(--tree-line);
+  content: "";
+  left: calc((100% - 2 * var(--tree-gap)) / 6);
+  position: absolute;
+  right: calc((100% - 2 * var(--tree-gap)) / 6);
+  top: calc(var(--tree-drop) / 2);
+}
+
+/* Drop from the crossbar into each venture. */
+.treeBranches > .treeNode::before {
+  border-left: 1px solid var(--tree-line);
+  bottom: 100%;
+  content: "";
+  height: calc(var(--tree-drop) / 2 + 1px);
+  left: 50%;
+  position: absolute;
+}
+
+/* Investment attaches to the ventures as a band beneath all three. */
+.treeFundingVentures {
+  justify-content: center;
+  margin-top: var(--tree-gap);
+}
+
+.treeIntent {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  margin: 1.5rem 0 0;
+  max-width: 46rem;
+}
+
 .premiseGrid {
   display: grid;
   gap: clamp(2.5rem, 5vw, 5rem);
@@ -584,6 +750,39 @@
   padding-top: 1.5rem;
 }
 
+/* Lighter than the contributor panel: an outline only, since it asks for
+   work rather than money. Sits directly under the two path cards. */
+.collaboratorInvite {
+  align-items: start;
+  border: 1px solid rgba(244, 240, 231, 0.18);
+  display: grid;
+  gap: clamp(3rem, 8vw, 8rem);
+  grid-template-columns: minmax(12rem, 0.4fr) 1fr;
+  margin-top: 1.25rem;
+  padding: clamp(2rem, 4vw, 4rem);
+}
+
+.collaboratorInvite h3 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2rem, 2.8vw, 2.8rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  margin-bottom: 1.25rem;
+}
+
+.collaboratorInvite > div > p {
+  color: #d0ccc2;
+  font-size: 0.88rem;
+  line-height: 1.75;
+  margin-bottom: 0;
+  max-width: 47rem;
+}
+
+.collaboratorInvite .pathAction {
+  margin-top: 1.75rem;
+}
+
 .twoChecks {
   align-items: start;
   display: grid;
@@ -622,12 +821,20 @@
  * difference, so a section link lands on its eyebrow rather than a screen and a
  * half above it. Any new section given an anchor id belongs in this list.
  */
+.investingPremise,
 .capitalPaths,
 .venture,
 .architecture,
 .invitation {
   --section-padding-top: clamp(6rem, 12vw, 11rem);
   scroll-margin-top: calc(1.75rem - var(--section-padding-top));
+}
+
+/* Card-level anchors (#philanthropy, #investors, #collaborators) have no top
+   padding to cancel, so they take the same 1.75rem landing directly. */
+.pathCard[id],
+.collaboratorInvite {
+  scroll-margin-top: 1.75rem;
 }
 
 .venture .sectionHeading > p,
@@ -652,6 +859,7 @@
 }
 
 .ventureGrid article h3,
+.ventureGrid article h4,
 .sequenceList h3,
 .architectureGrid h3,
 .satelliteGrid h3 {
@@ -659,7 +867,8 @@
   font-weight: 400;
 }
 
-.ventureGrid article h3 {
+.ventureGrid article h3,
+.ventureGrid article h4 {
   font-size: clamp(2.2rem, 3.2vw, 3.2rem);
   letter-spacing: -0.04em;
   line-height: 0.95;
@@ -670,6 +879,74 @@
   color: var(--muted);
   font-size: 0.84rem;
   line-height: 1.75;
+}
+
+/* Commercial section, one group per venture: a header row, then its offers
+   as cards, then one line on what the page does and does not model. */
+.ventureModels {
+  display: grid;
+  gap: clamp(4rem, 7vw, 6rem);
+  margin-top: clamp(4rem, 8vw, 7rem);
+}
+
+.ventureModelHeader {
+  border-top: 1px solid var(--line);
+  column-gap: clamp(2.5rem, 5vw, 5rem);
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.45fr) 1fr;
+  padding-top: 2rem;
+}
+
+.ventureModelHeader h3 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.6rem, 3.8vw, 3.8rem);
+  font-weight: 400;
+  grid-column: 1;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  margin: 1.25rem 0 0;
+}
+
+.ventureModelHeader h3 a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.12em;
+}
+
+.ventureModelHeader > p:last-child {
+  align-self: end;
+  color: var(--muted);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  line-height: 1.55;
+  margin-bottom: 0;
+}
+
+.ventureModel .ventureGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 2rem;
+}
+
+.ventureModel .ventureGrid article {
+  min-height: 15rem;
+}
+
+.ventureModel .ventureGrid article h4 {
+  font-size: clamp(1.7rem, 2.3vw, 2.3rem);
+  line-height: 1.02;
+  margin: 2rem 0 1.25rem;
+}
+
+.ventureModelNote {
+  border-left: 3px solid var(--gold-bright);
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.7;
+  margin: 1.25rem 0 0;
+  max-width: 52rem;
+  padding-left: 1rem;
 }
 
 .retreatStatement {
@@ -782,6 +1059,12 @@
   line-height: 1;
 }
 
+/* Venture label on each revenue row. Selector weight matches the portfolio
+   override below so the label keeps its colour on the dark row. */
+.surfaceIdentity small.surfaceVenture {
+  color: var(--gold);
+}
+
 .surfaceMetric {
   justify-items: end;
   text-align: right;
@@ -839,6 +1122,10 @@
 .portfolioSurface .surfaceIdentity small,
 .portfolioSurface .surfaceMetric small {
   color: #aaa69d;
+}
+
+.portfolioSurface .surfaceIdentity small.surfaceVenture {
+  color: #c3a565;
 }
 
 .surfaceBody {
@@ -1328,6 +1615,17 @@
   margin-bottom: 0;
 }
 
+/* The deck's capital flow line, set as a single quiet line on the dark
+   sequence section. It wraps freely on small screens. */
+.capitalFlow {
+  color: #c3a565;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+  margin: clamp(3rem, 6vw, 4.5rem) 0 0;
+}
+
 .sequenceList {
   list-style: none;
   margin: clamp(4rem, 8vw, 7rem) 0 0;
@@ -1647,6 +1945,14 @@
   max-width: 12ch;
 }
 
+/* The closing line is a full sentence, so it runs smaller and wider than
+   the short headline this slot was sized for. */
+.invitation h2.invitationClosing {
+  font-size: clamp(2.6rem, 3.8vw, 3.8rem);
+  line-height: 1.02;
+  max-width: 18ch;
+}
+
 .invitationAction {
   margin-top: 2rem;
 }
@@ -1726,6 +2032,7 @@
 
   .heroGrid,
   .investingHeroGrid,
+  .ventureModelHeader,
   .premiseGrid,
   .sectionHeading,
   .retreatStatement,
@@ -1838,6 +2145,7 @@
   .formationNote,
   .investingStatus,
   .contributorSignal,
+  .collaboratorInvite,
   .twoChecks,
   .guardrailIntro,
   .poweredCore,
@@ -1860,8 +2168,102 @@
   }
 
   .ventureGrid,
+  .ventureModel .ventureGrid,
   .principleGrid {
     grid-template-columns: 1fr;
+  }
+
+  .ventureModel .ventureGrid article {
+    min-height: 0;
+  }
+
+  /*
+   * Funding tree as a left rail. Everything below the foundation is indented
+   * by --tree-indent and a solid rail runs down the gutter, with a tick into
+   * each venture. The rail is drawn in segments by each item so it can stop
+   * at the last venture's midpoint without measuring anything.
+   */
+  .fundingTree {
+    --tree-indent: 1.5rem;
+    --tree-rail: calc(var(--tree-indent) / -2);
+  }
+
+  .treeRoot {
+    grid-template-columns: 1fr;
+    row-gap: var(--tree-gap);
+  }
+
+  .treeFoundation,
+  .treeRoot > .treeFunding {
+    grid-column: 1;
+  }
+
+  .treeRoot > .treeFunding {
+    justify-self: stretch;
+    margin-left: var(--tree-indent);
+  }
+
+  /* Dashed tick from the rail into the philanthropy box. */
+  .treeRoot > .treeFunding::before {
+    left: calc(var(--tree-rail) - 1px);
+    right: auto;
+    width: calc(var(--tree-indent) / 2 + 1px);
+  }
+
+  /* Rail segment passing beside the philanthropy box. */
+  .treeRoot > .treeFunding::after {
+    border-left: 1px solid var(--tree-line);
+    /* Overlap by the 1px border so the segments join without a seam. */
+    bottom: -1px;
+    content: "";
+    left: calc(var(--tree-rail) - 1px);
+    position: absolute;
+    top: calc(var(--tree-gap) * -1 - 1px);
+  }
+
+  .treeBranches {
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    padding: var(--tree-gap) 0 0 var(--tree-indent);
+  }
+
+  .treeBranches::before,
+  .treeBranches::after {
+    display: none;
+  }
+
+  /* Tick from the rail into each venture. */
+  .treeBranches > .treeNode::before {
+    border-left: 0;
+    border-top: 1px solid var(--tree-line);
+    bottom: auto;
+    height: 0;
+    left: calc(var(--tree-rail) - 1px);
+    top: 50%;
+    width: calc(var(--tree-indent) / 2 + 1px);
+  }
+
+  /* Rail segment covering the gap above each venture and its own height. */
+  .treeBranches > .treeNode::after {
+    border-left: 1px solid var(--tree-line);
+    bottom: -1px;
+    content: "";
+    left: calc(var(--tree-rail) - 1px);
+    position: absolute;
+    top: calc(-1rem - 1px);
+  }
+
+  .treeBranches > .treeNode:first-child::after {
+    top: calc(var(--tree-gap) * -1 - 1px);
+  }
+
+  .treeBranches > .treeNode:last-child::after {
+    bottom: 50%;
+  }
+
+  .treeFundingVentures {
+    justify-content: flex-start;
+    margin-left: var(--tree-indent);
   }
 
   /* Single column, so only the first cell is in the top row. */

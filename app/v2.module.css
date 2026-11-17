@@ -639,6 +639,8 @@ button.button {
   font-family: var(--font-display), Georgia, serif;
   font-size: clamp(1.7rem, 2.4vw, 2.1rem);
   font-weight: 400;
+  /* Cormorant's default numerals hang low; SYN3H needs its 3 level with the capitals. */
+  font-variant-numeric: lining-nums;
   letter-spacing: -0.03em;
 }
 
@@ -650,13 +652,18 @@ button.button {
 
 /* A framed product screenshot with its caption. */
 .screenshot {
-  margin: 0 0 clamp(2rem, 4vw, 3rem);
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+  max-width: 48rem;
 }
 
+/* The deck's picture style: a white mat with a soft shadow, tilted a touch,
+   like a pinned print. */
 .screenshot img {
-  border: 1px solid var(--line);
-  border-radius: 0.3rem;
-  box-shadow: 0 1.5rem 3.5rem rgba(31, 27, 18, 0.18);
+  background: #fff;
+  border-radius: 0.15rem;
+  box-shadow: 0 1.5rem 3.5rem rgba(31, 27, 18, 0.2);
+  padding: clamp(0.5rem, 1.2vw, 0.9rem);
+  transform: rotate(-1deg);
   width: 100%;
 }
 

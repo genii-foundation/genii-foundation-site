@@ -23,10 +23,10 @@ export const metadata: Metadata = {
 };
 
 const howItWorks = [
-  { label: "Plan", text: "Your intentions, priorities, and direction." },
-  { label: "Reflect", text: "A chosen council helps examine possibilities." },
-  { label: "Share", text: "You choose what information leaves your space." },
-  { label: "Meet", text: "Discover complementary people and initiatives." },
+  { label: "Plan", text: "Your intentions and direction." },
+  { label: "Reflect", text: "A council you choose." },
+  { label: "Share", text: "Only what you release." },
+  { label: "Meet", text: "The right people and work." },
 ] as const;
 
 const firstExperience = [
@@ -51,21 +51,28 @@ const firstExperience = [
 const products = [
   {
     name: "Vorton",
-    text: "Personal. Your council and your planner.",
+    text: "Sovereign life OS.",
     action: "Open Vorton",
     href: links.vorton,
   },
   {
     name: "Freed",
-    text: "Social. A feed you control: your data, your people.",
+    text: "Liberating legacy social media.",
     action: "Open Freed",
     href: links.freed,
   },
   {
     name: "Vorteo",
-    text: "Open source. The agent platform beneath both.",
+    text: "Open-source agent platform.",
     action: "Open Vorteo",
     href: links.vorteo,
+  },
+  // The owner asked that SYN3H be described as a movement, not a single artifact.
+  {
+    name: "SYN3H",
+    text: "Next-generation social experiences.",
+    action: "TerranLabs.com",
+    href: links.terranLabs,
   },
 ] as const;
 
@@ -143,7 +150,7 @@ export default function ProvidencePage() {
             </p>
             <div className={styles.actions}>
               <LinkButton href={links.terranLabs} quiet>
-                Visit Terran Labs
+                TerranLabs.com
               </LinkButton>
             </div>
           </>
@@ -171,7 +178,7 @@ export default function ProvidencePage() {
           ))}
         </ul>
         <Status>
-          A proposed integration, not a finished product. Freed, Vorton, and Vorteo are
+          A proposed integration, not a finished product. Freed, Vorton, Vorteo, and SYN3H are
           Terran Labs products at different stages of development, and GENII does not
           operate them. Product and entity relationships with Terran Labs are still
           being finalized.

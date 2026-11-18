@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 
 import { links } from "../content";
 import {
-  DeeperLinks,
   Keystone,
   LinkButton,
   PageHero,
   PageShell,
+  Rows,
   Section,
   Status,
   Steps,
-  Tag,
 } from "../parts";
 import styles from "../v2.module.css";
 
@@ -22,6 +20,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "/providence" },
 };
 
+/*
+ * This page says what Providence is and where it is going, in the deck's
+ * words. It does not describe the products: those are Terran Labs' own, and
+ * the Terran Labs site shows them far better than a summary here could. One
+ * paragraph and one link send the reader there.
+ */
+
 const howItWorks = [
   { label: "Plan", text: "Your intentions and direction." },
   { label: "Reflect", text: "A council you choose." },
@@ -29,54 +34,16 @@ const howItWorks = [
   { label: "Meet", text: "The right people and work." },
 ] as const;
 
-const firstExperience = [
+const direction = [
   {
-    title: "Personal planner",
-    text: "Goals, values, priorities, and chosen context.",
+    label: "Near term",
+    text: "Planner, council, and connection, with consent-based coherence sensing in Vorton.",
   },
   {
-    title: "Council and reflection",
-    text: "AI-assisted consideration, never imposed authority.",
-  },
-  {
-    title: "Consent-based connection",
-    text: "User-controlled discovery and introductions.",
+    label: "Long term",
+    text: "Individual, interpersonal, collective, and ecological intelligence.",
   },
 ] as const;
-
-/*
- * The products are Terran Labs' own. The site says what each is in a line and
- * sends the reader to it; it does not re-describe them at length.
- */
-const products = [
-  {
-    name: "Vorton",
-    text: "Sovereign life OS.",
-    action: "Open Vorton",
-    href: links.vorton,
-  },
-  {
-    name: "Freed",
-    text: "Liberating legacy social media.",
-    action: "Open Freed",
-    href: links.freed,
-  },
-  {
-    name: "Vorteo",
-    text: "Open-source agent platform.",
-    action: "Open Vorteo",
-    href: links.vorteo,
-  },
-  // The owner asked that SYN3H be described as a movement, not a single artifact.
-  {
-    name: "SYN3H",
-    text: "Next-generation social experiences.",
-    action: "TerranLabs.com",
-    href: links.terranLabs,
-  },
-] as const;
-
-const horizon = ["Individual", "Interpersonal", "Collective", "Ecological"] as const;
 
 export default function ProvidencePage() {
   return (
@@ -89,9 +56,7 @@ export default function ProvidencePage() {
         figure={<Keystone />}
       >
         <div className={styles.actions}>
-          <LinkButton href="#building" quiet>
-            See what is built
-          </LinkButton>
+          <LinkButton href={links.terranLabs}>TerranLabs.com</LinkButton>
         </div>
       </PageHero>
 
@@ -111,121 +76,35 @@ export default function ProvidencePage() {
       </Section>
 
       <Section
-        id="first"
-        eyebrow="Near term"
-        title="The first product experience."
+        id="direction"
+        eyebrow="Where it is going"
+        title="Proven alone, then joined."
         panel
-        intro={
-          <p>
-            A concrete planner, council, and connection experience. This is the
-            near-term focus.
-          </p>
-        }
       >
-        <div className={styles.cardGrid}>
-          {firstExperience.map((item, index) => (
-            <article className={styles.card} key={item.title}>
-              <span className={styles.cardNumber} aria-hidden="true">
-                {index + 1}
-              </span>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </article>
-          ))}
-        </div>
+        <Rows display items={direction} numbered={false} />
+        <Status>
+          A proposed integration, not a finished product. Relationships with Terran Labs
+          are still being finalized.
+        </Status>
       </Section>
 
       <Section
-        id="building"
-        eyebrow="What Terran Labs is building"
-        title="Proven separately, then brought together."
+        id="terran-labs"
+        eyebrow="Built with Terran Labs"
+        title="See the work itself."
         intro={
           <>
             <p>
-              Each tool stands alone. Proven separately, they converge into Providence.
+              Terran Labs builds the tools Providence will join: Vorton, Freed, Vorteo,
+              and SYN3H. Each stands on its own today, and GENII does not operate them.
             </p>
-            <p>
-              That is an ambitious claim. Ambitious claims are substantiated by proving
-              the individual pieces, which is the work underway now.
-            </p>
+            <p>The Terran Labs site shows what each one is and where it stands.</p>
             <div className={styles.actions}>
-              <LinkButton href={links.terranLabs} quiet>
-                TerranLabs.com
-              </LinkButton>
+              <LinkButton href={links.terranLabs}>Explore TerranLabs.com</LinkButton>
             </div>
           </>
         }
-      >
-        <figure className={styles.screenshot}>
-          <Image
-            alt="Vorton's council view: four advisers around a table, each offering a short written position. The data shown is a fictional demonstration."
-            height={1000}
-            sizes="(max-width: 700px) 100vw, 67rem"
-            src="/providence/vorton-council.webp"
-            width={1600}
-          />
-          <figcaption>
-            Vorton&apos;s council, shown with fictional demonstration data.
-          </figcaption>
-        </figure>
-        <ul className={styles.products}>
-          {products.map((product) => (
-            <li key={product.name}>
-              <strong>{product.name}</strong>
-              <span>{product.text}</span>
-              <LinkButton href={product.href}>{product.action}</LinkButton>
-            </li>
-          ))}
-        </ul>
-        <Status>
-          A proposed integration, not a finished product. Freed, Vorton, Vorteo, and SYN3H are
-          Terran Labs products at different stages of development, and GENII does not
-          operate them. Product and entity relationships with Terran Labs are still
-          being finalized.
-        </Status>
-      </Section>
-
-      <Section
-        id="coordination"
-        eyebrow="Toward a coordination device"
-        title="Helping people act together."
-        intro={
-          <p>
-            With consent, Providence would connect shared intentions, complementary
-            abilities, and coherent opportunities, helping people organize resources and
-            act together.
-          </p>
-        }
-      >
-        <ol className={styles.chain}>
-          <li>Shared intention</li>
-          <li>Complementary capacity</li>
-          <li>Coherent opportunity</li>
-          <li>Collective action</li>
-        </ol>
-      </Section>
-
-      <Section
-        id="horizon"
-        eyebrow="Long term"
-        title="The research horizon."
-        intro={
-          <p>
-            Individual, interpersonal, collective, and ecological intelligence. The
-            first is the near-term focus. The other three are research.
-          </p>
-        }
-      >
-        <ol className={styles.chain}>
-          {horizon.map((scale) => (
-            <li key={scale}>{scale}</li>
-          ))}
-        </ol>
-        <Status>
-          Conceptual design, not deployed. The thesis itself says the full architecture
-          is a design intention, with no public version operating.
-        </Status>
-      </Section>
+      />
 
       <Section
         id="sovereignty"
@@ -251,33 +130,6 @@ export default function ProvidencePage() {
           </>
         }
       />
-
-      <Section
-        id="coherence"
-        eyebrow="Coherence sensing"
-        title="Consent-based, and taking shape inside Vorton."
-        intro={
-          <>
-            <Tag>In progress</Tag>
-            <p>
-              Coherence sensing gives people who consent a reflection of the experience
-              they are creating together. Much of it is already built into Vorton, which
-              is how we expect to bring it to people.
-            </p>
-            <p>
-              The earlier open-source research, a consent-first ecosystem for
-              interpersonal biometric measurement and reflection, remains public.
-            </p>
-            <div className={styles.actions}>
-              <LinkButton href={links.coherenceApp} quiet>
-                Follow the research on GitHub
-              </LinkButton>
-            </div>
-          </>
-        }
-      />
-
-      <DeeperLinks />
     </PageShell>
   );
 }

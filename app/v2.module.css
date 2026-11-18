@@ -459,26 +459,6 @@ a.card:focus-visible {
   line-height: 1.65;
 }
 
-/* A one-line chain: shared intention, complementary capacity, and so on. */
-.chain {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.2rem, 1.9vw, 1.6rem);
-  gap: 0.5rem 1rem;
-  line-height: 1.3;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.chain li + li::before {
-  color: var(--gold);
-  content: "\2192";
-  margin-right: 1rem;
-}
-
 .closingLine {
   border-top: 1px solid var(--line);
   color: var(--gold);
@@ -627,71 +607,6 @@ button.button {
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 0;
-}
-
-/* ------------------------------------------------------------- Products */
-
-.products {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.products li {
-  align-items: center;
-  border-top: 1px solid var(--line);
-  display: grid;
-  gap: 0.75rem clamp(1rem, 3vw, 2.5rem);
-  grid-template-columns: minmax(7rem, 0.22fr) 1fr auto;
-  padding: 1.35rem 0;
-}
-
-.products li:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-
-.products li:last-child {
-  padding-bottom: 0;
-}
-
-.products strong {
-  color: var(--gold);
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.7rem, 2.4vw, 2.1rem);
-  font-weight: 400;
-  /* Cormorant's default numerals hang low; SYN3H needs its 3 level with the capitals. */
-  font-variant-numeric: lining-nums;
-  letter-spacing: -0.03em;
-}
-
-.products span {
-  color: var(--muted);
-  font-size: 1rem;
-  line-height: 1.65;
-}
-
-/* A framed product screenshot with its caption. */
-.screenshot {
-  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
-  max-width: 48rem;
-}
-
-/* The deck's picture style: a white mat with a soft shadow, tilted a touch,
-   like a pinned print. */
-.screenshot img {
-  background: #fff;
-  border-radius: 0.15rem;
-  box-shadow: 0 1.5rem 3.5rem rgba(31, 27, 18, 0.2);
-  padding: clamp(0.5rem, 1.2vw, 0.9rem);
-  transform: rotate(-1deg);
-  width: 100%;
-}
-
-.screenshot figcaption {
-  color: var(--muted);
-  font-size: 0.88rem;
-  margin-top: 0.85rem;
 }
 
 /* --------------------------------------------------------- BOW: gallery */
@@ -982,8 +897,7 @@ a.treeLeaf:focus-visible strong {
 
   .status,
   .rows li,
-  .rows[data-numbered="false"] li,
-  .products li {
+  .rows[data-numbered="false"] li {
     grid-template-columns: 1fr;
   }
 
@@ -1023,14 +937,6 @@ a.treeLeaf:focus-visible strong {
     padding-top: 1.5rem;
   }
 
-  .chain {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .chain li + li::before {
-    content: "\2193";
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1270,4 +1176,178 @@ a.treeLeaf:focus-visible strong {
   .fan img {
     transition: none;
   }
+}
+
+/* ------------------------------------------- Keystone design candidates */
+
+/*
+ * Three alternatives to the white mat, each drawn only from the site palette
+ * (paper, night, gold, sage). Selected with data-design on .keystone. Remove
+ * the two that lose once the owner picks.
+ */
+
+/* A. Night: dark tiles with a gold hairline, like the investing page blocks. */
+.keystone[data-design="night"] {
+  gap: 0.75rem;
+}
+
+.keystone[data-design="night"] figure {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(173, 139, 79, 0.28), transparent 11rem),
+    var(--night-soft);
+  border: 1px solid rgba(196, 169, 110, 0.38);
+  border-radius: 0.35rem;
+  box-shadow: 0 1.4rem 2.6rem rgba(20, 21, 18, 0.28);
+  padding: 0.55rem;
+  transform: none;
+}
+
+.keystone[data-design="night"] img {
+  border-radius: 0.2rem;
+  opacity: 0.94;
+}
+
+.keystone[data-design="night"] figcaption {
+  padding: 0.6rem 0.35rem 0.55rem;
+}
+
+.keystone[data-design="night"] figcaption strong {
+  color: var(--gold-on-night);
+}
+
+.keystone[data-design="night"] figcaption span {
+  color: #cfcabf;
+}
+
+.keystone[data-design="night"] .keystoneDisc {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(173, 139, 79, 0.35), transparent 70%),
+    var(--night);
+  border-color: var(--gold-on-night);
+  box-shadow:
+    0 0 0 0.4rem rgba(222, 217, 206, 0.92),
+    0 0.8rem 2rem rgba(20, 21, 18, 0.35);
+  color: var(--paper-light);
+}
+
+.keystone[data-design="night"] .keystoneDisc em {
+  color: var(--gold-on-night);
+}
+
+/* B. Gold leaf: paper tiles in a fine double gold rule, pictures warmed toward
+   the page so four different interfaces read as one set. */
+.keystone[data-design="leaf"] {
+  gap: 1rem;
+}
+
+.keystone[data-design="leaf"] figure {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(173, 139, 79, 0.16), transparent 12rem),
+    #efe9dc;
+  border: 1px solid rgba(128, 106, 63, 0.7);
+  box-shadow: none;
+  outline: 1px solid rgba(128, 106, 63, 0.3);
+  outline-offset: 0.3rem;
+  padding: 0.6rem;
+  transform: none;
+}
+
+.keystone[data-design="leaf"] img {
+  filter: sepia(0.45) saturate(0.75) contrast(0.96);
+}
+
+.keystone[data-design="leaf"] figcaption {
+  padding: 0.65rem 0.25rem 0.5rem;
+  text-align: center;
+}
+
+.keystone[data-design="leaf"] figcaption strong {
+  color: var(--ink);
+  font-size: 1.4rem;
+}
+
+.keystone[data-design="leaf"] .keystoneDisc {
+  background: #efe9dc;
+  border-color: var(--gold);
+  box-shadow:
+    0 0 0 0.3rem #efe9dc,
+    0 0 0 calc(0.3rem + 1px) rgba(128, 106, 63, 0.45),
+    0 0.6rem 1.6rem rgba(31, 27, 18, 0.16);
+}
+
+/* C. Orbit: no tiles. Four round pictures on one ring around Providence. */
+.keystone[data-design="orbit"] {
+  gap: clamp(1.5rem, 4vw, 3rem) clamp(2.5rem, 7vw, 5.5rem);
+  padding: 0.5rem;
+}
+
+.keystone[data-design="orbit"]::before {
+  border: 1px solid rgba(128, 106, 63, 0.5);
+  border-radius: 50%;
+  content: "";
+  inset: 9% 9% 15%;
+  position: absolute;
+}
+
+.keystone[data-design="orbit"]::after {
+  border: 1px dashed rgba(128, 106, 63, 0.35);
+  border-radius: 50%;
+  content: "";
+  inset: 24% 24% 30%;
+  position: absolute;
+}
+
+.keystone[data-design="orbit"] figure {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  transform: none;
+  z-index: 1;
+}
+
+.keystone[data-design="orbit"] img {
+  aspect-ratio: 1;
+  object-position: center;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 0.3rem rgba(244, 240, 231, 0.95),
+    0 0 0 calc(0.3rem + 1px) rgba(128, 106, 63, 0.4),
+    0 1rem 2rem rgba(31, 27, 18, 0.2);
+}
+
+.keystone[data-design="orbit"] figcaption {
+  padding: 0.9rem 0 0.2rem;
+}
+
+.keystone[data-design="orbit"] figcaption strong {
+  font-size: 1.35rem;
+}
+
+.keystone[data-design="orbit"] .keystoneDisc {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(173, 139, 79, 0.35), transparent 70%),
+    var(--night);
+  border-color: var(--gold-on-night);
+  box-shadow: 0 0.8rem 2rem rgba(20, 21, 18, 0.3);
+  color: var(--paper-light);
+  top: 47%;
+  width: 30%;
+}
+
+.keystone[data-design="orbit"] .keystoneDisc em {
+  color: var(--gold-on-night);
+}
+
+.sampleLabel {
+  border-bottom: 1px solid var(--line);
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin: 0;
+  padding: 2.5rem 0 0.9rem;
+  text-transform: uppercase;
 }

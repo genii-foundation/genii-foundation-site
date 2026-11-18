@@ -39,9 +39,8 @@ const pageSections: Record<string, readonly SectionNavigationItem[]> = {
   ],
   "/providence": [
     { href: "#how", label: "How it works" },
-    { href: "#first", label: "Near term" },
-    { href: "#building", label: "Built" },
-    { href: "#horizon", label: "Horizon" },
+    { href: "#direction", label: "Direction" },
+    { href: "#terran-labs", label: "Terran Labs" },
     { href: "#sovereignty", label: "Sovereignty" },
   ],
   "/sovereignty": [

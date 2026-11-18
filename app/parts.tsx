@@ -411,7 +411,15 @@ export function InitiatesFigure() {
  * Providence: the keystone from the deck. Four standalone products, pictured
  * with public demonstration images, joined by one disc where they meet.
  */
-export function Keystone() {
+export function Keystone({
+  design = "mat",
+}: {
+  /**
+   * The look of the four pictures. "mat" is the white pinned print; the other
+   * three are candidates the owner is choosing between (see /samples/keystone).
+   */
+  design?: "mat" | "night" | "leaf" | "orbit";
+}) {
   const pieces = [
     { file: "freed-feed", name: "Freed", line: "Liberating legacy social media." },
     { file: "vorton-council-small", name: "Vorton", line: "Sovereign life OS." },
@@ -420,7 +428,7 @@ export function Keystone() {
   ] as const;
 
   return (
-    <div className={styles.keystone}>
+    <div className={styles.keystone} data-design={design}>
       {pieces.map((piece) => (
         <figure key={piece.name}>
           <Image

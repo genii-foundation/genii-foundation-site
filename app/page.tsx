@@ -2,82 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ActionArrow } from "./ActionArrow";
-import { ContactTrigger } from "./ContactDialog";
 import { SiteFooter } from "./SiteFooter";
 import { links } from "./content";
-import { DeeperLinks, LinkButton, Rows, Status, Steps, VentureCards } from "./parts";
+import { ContactButton, LinkButton, Status, VentureCards } from "./parts";
 import styles from "./v2.module.css";
 
 /*
- * The Foundation page is the site's home. It is the one place that shows how
- * everything fits together: what GENII is and holds, the three ventures, the
- * measure they share, how each feeds the next, and who the custodians are.
- * Every venture and every deeper question opens its own page.
+ * The Foundation page is the site's home, and it follows the pitch deck's main
+ * line: the problem, the architecture (GENII and its three ventures), the
+ * measure they share, the custodians, and how to ally with the work. Depth
+ * lives on the venture pages and the pages behind them, so this page stays
+ * short enough to read in one pass.
  */
 
-const holds = [
-  {
-    label: "Vision and values",
-    text: "What the work is for, and the measure it answers to: enrichment in the lives people lead, over engagement with a platform.",
-  },
-  {
-    label: "Research",
-    text: "The Coherence Thesis is the intellectual map: nine volumes of research behind the ventures.",
-  },
-  {
-    label: "Principles",
-    text: "The design commitments on human sovereignty, and the ten principles that govern every Providence product, partnership, and financing.",
-  },
-  {
-    label: "Stewardship",
-    text: "Care for the mission over time, so that the ventures can grow without losing what they were started to do.",
-  },
-] as const;
-
-const system = [
-  { label: "Insight", text: "The thesis clarifies what to investigate." },
-  { label: "Culture", text: "BOW makes wisdom culturally accessible." },
-  { label: "Practice", text: "Purposeful turns interest into capacity." },
-  { label: "Coordination", text: "Providence supports meaningful action." },
-  { label: "Learning", text: "Evidence returns to the entire system." },
-] as const;
-
-const journey = [
-  { label: "Discover", text: "A film awakens an interest in watershed restoration." },
-  { label: "Develop", text: "Teaching and practice build understanding and readiness." },
-  { label: "Connect", text: "The network reveals local mentors, expertise, and resources." },
-  { label: "Contribute", text: "People organize a tangible restoration project." },
-  { label: "Learn", text: "The outcome informs research, curriculum, and culture." },
-  {
-    label: "Demonstrate",
-    text: "BOW shares the results as new stories, restarting discovery.",
-  },
-] as const;
-
-const stages = [
-  {
-    tag: "Established",
-    title: "Source material",
-    text: "A substantial Coherence Thesis and a body of published and designed cultural work.",
-  },
-  {
-    tag: "In development",
-    title: "Current work",
-    text: "Emerging Providence demonstrations. Purposeful's curriculum and the design of its developmental network.",
-  },
-  {
-    tag: "Next",
-    title: "First validation",
-    text: "Working product experiences, real participants, documented learning, and carefully defined pilots.",
-  },
-  {
-    tag: "Horizon",
-    title: "Future research",
-    text: "Extended relational intelligence, ecological coordination, and experimental economic design.",
-  },
-] as const;
-
-const readers = [
+const alliances = [
   {
     title: "Support the foundation",
     text: "Philanthropic partners fund GENII itself: stewardship, research, governance, and public-benefit infrastructure.",
@@ -135,7 +73,7 @@ export default function Home() {
                 underinvesting in the wisdom, relationships, and institutions needed to
                 steward that power.
               </p>
-              <p>Can we develop rapidly enough to steward what we have built?</p>
+              <p>Can we develop rapidly enough to steward what we have made?</p>
               <div className={styles.actions}>
                 <LinkButton href={links.thesis}>Explore the thesis</LinkButton>
               </div>
@@ -162,18 +100,20 @@ export default function Home() {
               />
               <span>Vision &amp; Values</span>
               <p>
-                GENII keeps the fire: the research, principles, and stewardship every
-                venture draws on.
+                GENII keeps the fire: the research, principles, and stewardship behind
+                every venture.
               </p>
-              <a className={styles.cardAction} href="#role" style={{ paddingTop: 0 }}>
-                What GENII holds <ActionArrow />
-              </a>
             </div>
             <VentureCards />
             <p className={styles.closingLine}>
               Culture awakens possibility. Development cultivates capacity. Coordination
               turns both into contribution.
             </p>
+            <Status label="Formation status">
+              GENII is a foundation, and each venture carries its own business model. The
+              foundation and the entities for its ventures are under legal design; this
+              site describes an intended structure.
+            </Status>
           </div>
         </section>
 
@@ -195,127 +135,6 @@ export default function Home() {
             <p className={styles.statementClose}>
               We measure progress in the lives people lead beyond the platform.
             </p>
-          </div>
-        </section>
-
-        <section
-          className={`${styles.section} ${styles.block}`}
-          id="role"
-          aria-labelledby="role-title"
-        >
-          <p className={styles.eyebrow}>What GENII is</p>
-          <div className={styles.sectionHead}>
-            <h2 id="role-title">A foundation. The ventures carry the business.</h2>
-            <div>
-              <p>
-                GENII keeps the fire: the research, principles, and stewardship every
-                venture draws on. It exists for the meeting of wisdom, culture, and
-                technology, each made stronger by the others.
-              </p>
-              <p>
-                Three complementary ventures work under it. Each has its own business
-                model, and each can be funded on its own terms. As the ventures grow,
-                they are expected to sustain the foundation.
-              </p>
-              <p>
-                The foundation is also a meeting ground. It can stand behind work it
-                does not operate: the tools behind Providence are built by Terran Labs,
-                and GENII does not run them.
-              </p>
-            </div>
-          </div>
-          <div className={styles.sectionBody}>
-            <Rows items={holds} numbered={false} />
-            <Status label="Formation status">
-              GENII Foundation and the entities for its ventures are under legal design.
-              This site describes an intended structure. No legal form has been chosen,
-              and how the ventures will sustain the foundation is an intent with no
-              agreed mechanism yet.
-            </Status>
-          </div>
-        </section>
-
-        <section
-          className={`${styles.section} ${styles.block}`}
-          id="system"
-          aria-labelledby="system-title"
-        >
-          <p className={styles.eyebrow}>A living system</p>
-          <div className={styles.sectionHead}>
-            <h2 id="system-title">Each part feeds the next.</h2>
-            <div>
-              <p>
-                Research sets the questions. Culture carries them to people. Practice
-                builds the capacity to act on them. Coordination connects that capacity
-                to real work, and what the work teaches returns to the research.
-              </p>
-            </div>
-          </div>
-          <div className={styles.sectionBody}>
-            <Steps items={system} />
-            <Status label="What is proven">
-              The flywheel is the hypothesis. Pilots and measurable outcomes must
-              establish where it creates real value. Plainly: we need to test this with
-              real people and see whether it helps them grow, collaborate, and contribute.
-            </Status>
-          </div>
-        </section>
-
-        <section
-          className={`section-panel ${styles.block}`}
-          id="journey"
-          aria-labelledby="journey-title"
-          style={{ marginTop: "var(--section-space)" }}
-        >
-          <p className={styles.eyebrow}>An illustrative future experience</p>
-          <div className={styles.sectionHead}>
-            <h2 id="journey-title">One life. A world of possible contribution.</h2>
-            <div>
-              <p>
-                One way a single person might move through the whole architecture, told
-                as an ecological restoration story.
-              </p>
-              <p>The goal is a more meaningful life beyond the platform.</p>
-            </div>
-          </div>
-          <div className={styles.sectionBody}>
-            <Steps columns={3} items={journey} />
-            <Status label="Illustration">
-              This journey is an example of the intended experience. It describes no
-              existing project or participant.
-            </Status>
-          </div>
-        </section>
-
-        <section
-          className={`${styles.section} ${styles.block}`}
-          id="status"
-          aria-labelledby="status-title"
-        >
-          <p className={styles.eyebrow}>Where things stand</p>
-          <div className={styles.sectionHead}>
-            <h2 id="status-title">From intellectual foundation to demonstrable systems.</h2>
-            <div>
-              <p>
-                The thesis is ambitious. The first stage should be specific, visible, and
-                open to testing.
-              </p>
-              <p>
-                The first funded phase should convert claims about possibility into
-                evidence of use, value, safety, and impact.
-              </p>
-            </div>
-          </div>
-          <div className={styles.sectionBody}>
-            <div className={styles.cardGrid} data-columns="4">
-              {stages.map((stage) => (
-                <article className={styles.card} key={stage.title}>
-                  <span className={styles.tag}>{stage.tag}</span>
-                  <h3>{stage.title}</h3>
-                  <p>{stage.text}</p>
-                </article>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -389,54 +208,51 @@ export default function Home() {
 
         <section
           className={`${styles.section} ${styles.block}`}
-          id="paths"
-          aria-labelledby="paths-title"
+          id="alliances"
+          aria-labelledby="alliances-title"
         >
-          <p className={styles.eyebrow}>Find your way in</p>
+          <p className={styles.eyebrow}>Alliances</p>
           <div className={styles.sectionHead}>
-            <h2 id="paths-title">Start from what brought you here.</h2>
+            <h2 id="alliances-title">Help build the institution that will carry this vision.</h2>
+            <div>
+              <p>
+                The research is written. The tools are running. The first ventures are
+                under way.
+              </p>
+              <p>
+                We are choosing partners who think in generations: patient capital and
+                technical craft, building for the seventh generation from now.
+              </p>
+            </div>
           </div>
           <div className={styles.sectionBody}>
             <div className={styles.cardGrid} data-columns="4">
-              {readers.map((reader) => (
-                <Link className={styles.card} href={reader.href} key={reader.title}>
-                  <h3>{reader.title}</h3>
-                  <p>{reader.text}</p>
+              {alliances.map((alliance) => (
+                <Link className={styles.card} href={alliance.href} key={alliance.title}>
+                  <h3>{alliance.title}</h3>
+                  <p>{alliance.text}</p>
                   <span className={styles.cardAction}>
-                    {reader.action} <ActionArrow />
+                    {alliance.action} <ActionArrow />
                   </span>
                 </Link>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* DeeperLinks brings its own frame; the homepage frame already pads. */}
-        <div style={{ margin: "0 -1.5rem" }}>
-          <DeeperLinks />
-        </div>
-
-        <p className={styles.closingLine} style={{ borderTop: 0 }}>
-          We are Earth learning to participate more intelligently in the ongoing service
-          and evolution of life.
-        </p>
-
-        <section className="contact section-panel" id="contact" aria-labelledby="contact-title">
-          <p className="eyebrow">Contact</p>
-          <div className="contact-grid">
-            <h2 id="contact-title">Help build what this vision requires.</h2>
-            <div>
-              <p>
-                We seek partners who bring patient capital, technical craft, serious
-                inquiry, and courageous culture, to turn a substantial body of research
-                and design into a living, measurable, and economically sustainable model.
-              </p>
-              <ContactTrigger className="text-link">
-                Contact GENII Foundation
-              </ContactTrigger>
+            <p className={styles.closingLine}>
+              We are building for returns that endure, with human agency at the center.
+            </p>
+            <div className={styles.actions} style={{ justifyContent: "center" }}>
+              <ContactButton>Connect with us</ContactButton>
             </div>
           </div>
         </section>
+
+        <p
+          className={styles.closingLine}
+          style={{ borderTop: 0, marginBottom: "var(--section-space)" }}
+        >
+          We are Earth learning to participate more intelligently in the ongoing service
+          and evolution of life.
+        </p>
       </main>
 
       <SiteFooter />

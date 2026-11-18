@@ -14,9 +14,8 @@ import { PrimaryNavigation, type SectionNavigationItem } from "./PrimaryNavigati
 const foundationSections = [
   { href: "#architecture", label: "Architecture" },
   { href: "#measure", label: "Enrichment" },
-  { href: "#system", label: "How it works" },
   { href: "#custodians", label: "Custodians" },
-  { href: "#paths", label: "Ways in" },
+  { href: "#alliances", label: "Alliances" },
 ] as const;
 
 // On-page links for the site v2 pages, keyed by route.

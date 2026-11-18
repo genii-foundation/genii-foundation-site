@@ -10,7 +10,8 @@ export const ventures = [
     href: "/bow",
     name: "BOW",
     role: "Culture",
-    summary: "Awakens curiosity and transmits wisdom through original cultural work.",
+    summary:
+      "Bold, original mixed-media work: books, film, and conversation that carry wisdom into the culture.",
     detail: "Flagship: The Coherence Thesis",
   },
   {
@@ -18,16 +19,16 @@ export const ventures = [
     name: "Purposeful",
     role: "Development",
     summary:
-      "Cultivates human capacities through practice, teachers, relationship, and contribution.",
-    detail: "Mentorship, gatherings, curriculum",
+      "Mentorship, curated retreats, and a year-long curriculum that turn potential into capacity.",
+    detail: "Grounded in the Seven Initiates",
   },
   {
     href: "/providence",
     name: "Providence",
     role: "Coordination",
     summary:
-      "A synchronicity engine that aligns vision, values, and the people who carry them, toward an operating system for personal and social life.",
-    detail: "In collaboration with Terran Labs",
+      "The synchronicity engine: aligning vision, values, and the people who carry them.",
+    detail: "Built with Terran Labs",
   },
 ] as const;
 

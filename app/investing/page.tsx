@@ -12,7 +12,7 @@ import styles from "../providence.module.css";
 export const metadata: Metadata = {
   title: "Fund GENII and Its Ventures | GENII Foundation",
   description:
-    "Two ways to fund one mission: philanthropic support for GENII Foundation, and venture investment in BOW, Purposeful, and Providence.",
+    "Two ways to fund one mission: philanthropic support for GENII Foundation, and venture investment in BOW Media, Purposeful, and Providence.",
   alternates: { canonical: "/investing" },
   openGraph: {
     title: "Two ways to fund. One mission.",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 const ventures = [
   {
     id: "bow-media",
-    name: "BOW",
+    name: "BOW Media",
     href: "/bow",
     role: "Culture",
     summary:
@@ -67,7 +67,7 @@ type VentureId = (typeof ventures)[number]["id"];
 
 // What each venture offers commercially. Only Purposeful's retreats and
 // network and Providence's app and partner system carry modeled figures in
-// FinancialModel. BOW's one commercial fact is the Publisher milestone
+// FinancialModel. BOW Media's one commercial fact is the Publisher milestone
 // from the timeline; nothing else is claimed for it.
 const commercialPathways: Record<
   VentureId,
@@ -119,7 +119,7 @@ const commercialPathways: Record<
 // One honest line per venture about what this page does and does not model.
 const ventureNotes: Record<VentureId, string> = {
   "bow-media":
-    "BOW's commercial model is not yet modeled on this page.",
+    "BOW Media's commercial model is not yet modeled on this page.",
   purposeful:
     "Retreats and the mentorship and practitioner network are modeled below. The curriculum is not yet modeled.",
   providence:
@@ -180,7 +180,7 @@ export default function InvestingPage() {
                 </p>
                 <p>
                   GENII keeps the fire: the research, principles, and stewardship
-                  every venture draws on. BOW, Purposeful, and Providence
+                  every venture draws on. BOW Media, Purposeful, and Providence
                   carry the business models.
                 </p>
                 <a
@@ -482,9 +482,9 @@ export default function InvestingPage() {
             <div className={styles.sectionHeading}>
               <h2 id="venture-title">Each venture carries its own business model.</h2>
               <p>
-                BOW carries culture, Purposeful carries development, and
+                BOW Media carries culture, Purposeful carries development, and
                 Providence carries coordination. Purposeful and Providence have
-                modeled revenue surfaces on this page; BOW does not yet.
+                modeled revenue surfaces on this page; BOW Media does not yet.
                 GENII retains stewardship of the public-interest layer.
               </p>
             </div>
@@ -780,7 +780,7 @@ export default function InvestingPage() {
                 <p>Mission-aligned commercial entities</p>
                 <h3>The ventures</h3>
                 <ul>
-                  <li>BOW: original cultural work and publishing</li>
+                  <li>BOW Media: original cultural work and publishing</li>
                   <li>Purposeful: mentorship network, retreats, and curriculum</li>
                   <li>Providence: app, partner licenses, and consent infrastructure</li>
                   <li>Implementation, training, and support</li>

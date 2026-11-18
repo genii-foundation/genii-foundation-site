@@ -177,7 +177,7 @@ export default function PurposefulPage() {
         intro={
           <>
             <p>
-              BOW opens the door, and the thesis volume Purposeful sets out the
+              BOW Media opens the door, and the thesis volume Purposeful sets out the
               thinking in full. Providence then extends the work across distance and
               time.
             </p>

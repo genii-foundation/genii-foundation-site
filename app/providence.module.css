@@ -456,43 +456,79 @@
   color: #d0ccc2;
 }
 
-.treeFunding {
+/*
+ * The two funding bands. Philanthropic support sits above the foundation and
+ * runs the full width; commercial investment sits beneath the ventures as the
+ * base they stand on. The upper band is light and outlined, the lower one
+ * solid, so the difference in role reads without any drawn metaphor.
+ */
+.treeBand {
   align-items: baseline;
-  border: 1px dashed var(--tree-line);
   display: flex;
   flex-wrap: wrap;
-  font-size: 0.8rem;
-  gap: 0.4rem 1rem;
-  margin: 0;
-  padding: 0.85rem 1.1rem;
+  gap: 0.35rem 1.25rem;
+  justify-content: center;
+  padding: 1.05rem 1.5rem;
   position: relative;
+  text-align: center;
+  transition: background-color 180ms ease, border-color 180ms ease;
 }
 
-.treeFunding span {
-  color: var(--gold);
-  font-size: 0.6rem;
+.treeBand span {
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.treeFunding a {
-  color: var(--ink);
+.treeBand strong {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+  font-weight: 400;
 }
 
-/* Philanthropy attaches to the foundation from the right. */
-.treeRoot > .treeFunding {
-  grid-column: 3;
-  justify-self: start;
+.treeBandAbove {
+  background: rgba(255, 253, 247, 0.6);
+  border: 1px solid var(--tree-line);
+  margin-bottom: var(--tree-drop);
 }
 
-.treeRoot > .treeFunding::before {
-  border-top: 1px dashed var(--tree-line);
+.treeBandAbove span {
+  color: var(--gold);
+}
+
+.treeBandAbove:hover,
+.treeBandAbove:focus-visible {
+  background: #fffdf7;
+}
+
+/* Stem from the philanthropy band down into the foundation. */
+.treeBandAbove::after {
+  border-left: 1px solid var(--tree-line);
   content: "";
+  height: var(--tree-drop);
+  left: 50%;
   position: absolute;
-  right: 100%;
-  top: 50%;
-  width: var(--tree-gap);
+  top: 100%;
+}
+
+/* Runs the full width beneath the ventures, solid and dark, as their base. */
+.treeBandBelow {
+  background: var(--night);
+  border: 1px solid var(--night);
+  color: var(--paper-light);
+  margin-top: var(--tree-gap);
+  padding-bottom: 1.3rem;
+  padding-top: 1.3rem;
+}
+
+.treeBandBelow span {
+  color: #c3a565;
+}
+
+.treeBandBelow:hover,
+.treeBandBelow:focus-visible {
+  background: var(--night-soft);
 }
 
 .treeBranches {
@@ -533,12 +569,6 @@
   height: calc(var(--tree-drop) / 2 + 1px);
   left: 50%;
   position: absolute;
-}
-
-/* Investment attaches to the ventures as a band beneath all three. */
-.treeFundingVentures {
-  justify-content: center;
-  margin-top: var(--tree-gap);
 }
 
 .treeIntent {
@@ -2197,32 +2227,8 @@
     row-gap: var(--tree-gap);
   }
 
-  .treeFoundation,
-  .treeRoot > .treeFunding {
+  .treeFoundation {
     grid-column: 1;
-  }
-
-  .treeRoot > .treeFunding {
-    justify-self: stretch;
-    margin-left: var(--tree-indent);
-  }
-
-  /* Dashed tick from the rail into the philanthropy box. */
-  .treeRoot > .treeFunding::before {
-    left: calc(var(--tree-rail) - 1px);
-    right: auto;
-    width: calc(var(--tree-indent) / 2 + 1px);
-  }
-
-  /* Rail segment passing beside the philanthropy box. */
-  .treeRoot > .treeFunding::after {
-    border-left: 1px solid var(--tree-line);
-    /* Overlap by the 1px border so the segments join without a seam. */
-    bottom: -1px;
-    content: "";
-    left: calc(var(--tree-rail) - 1px);
-    position: absolute;
-    top: calc(var(--tree-gap) * -1 - 1px);
   }
 
   .treeBranches {
@@ -2263,11 +2269,6 @@
 
   .treeBranches > .treeNode:last-child::after {
     bottom: 50%;
-  }
-
-  .treeFundingVentures {
-    justify-content: flex-start;
-    margin-left: var(--tree-indent);
   }
 
   /* Single column, so only the first cell is in the top row. */

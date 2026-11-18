@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import {
@@ -9,7 +8,6 @@ import {
 import { FinancialModel } from "./FinancialModel";
 import { InvestingTimeline } from "./InvestingTimeline";
 import styles from "../providence.module.css";
-import v2 from "../v2.module.css";
 
 export const metadata: Metadata = {
   title: "Fund GENII and Its Ventures | GENII Foundation",
@@ -194,58 +192,50 @@ export default function InvestingPage() {
               </div>
             </div>
 
-            {/* The funding picture, as on the deck's capital slide. Philanthropic
-                support arches over everything as shelter; venture investment is
-                the ground the ventures stand on. Read top to bottom it is also
-                the plain order: who supports the foundation, the ventures, who
-                invests in them. */}
-            <div className={`${v2.tokens} ${v2.funding}`} id="structure">
-              <a className={v2.canopy} href="#philanthropy">
-                <span>
-                  <small>Philanthropic partners</small>
-                  <strong>Foundation support</strong>
-                </span>
-                <p>
-                  Stewardship, research, governance, institutional capacity, cultural
-                  and public-benefit infrastructure, and the conditions for independent
-                  learning.
-                </p>
-                <Image
-                  alt="GENII Foundation"
-                  height={238}
-                  src="/brand/genii-wordmark-black.png"
-                  width={1135}
-                />
+            {/* The funding structure as a plain tree. Read top to bottom it is
+                the order of support: philanthropy above the foundation, the
+                foundation above its ventures, and commercial investment as the
+                base the ventures stand on. Plain markup, so it reads in that
+                order without CSS; the connectors are drawn by
+                providence.module.css. */}
+            <div className={styles.fundingTree} id="structure">
+              <a className={`${styles.treeBand} ${styles.treeBandAbove}`} href="#philanthropy">
+                <span>Philanthropic support</span>
+                <strong>Supports the foundation itself</strong>
               </a>
 
-              <div className={v2.sheltered} aria-label="GENII ventures">
-                {ventures.map((venture) => (
-                  <Link href={venture.href} key={venture.id}>
-                    <strong>{venture.name}</strong>
-                    <span>{venture.role}</span>
-                  </Link>
-                ))}
+              <div className={styles.treeRoot}>
+                <div className={`${styles.treeNode} ${styles.treeFoundation}`}>
+                  <p className={styles.treeRole}>Foundation</p>
+                  <h3>GENII Foundation</h3>
+                  <p>Research, principles, and stewardship. Holds the vision and values.</p>
+                </div>
               </div>
 
-              <a className={v2.plinth} href="#investors">
-                <span>
-                  <small>Venture investors</small>
-                  <strong>Commercial investment</strong>
-                </span>
-                <p>
-                  A defined venture, working product, technical team, initial pilots, a
-                  credible market hypothesis, and an evidence-based next stage.
-                </p>
-                <em>One or more ventures</em>
-              </a>
+              <ul className={styles.treeBranches} aria-label="GENII ventures">
+                {ventures.map((venture) => (
+                  <li className={styles.treeNode} key={venture.id}>
+                    <p className={styles.treeRole}>{venture.role}</p>
+                    <h3>
+                      <Link href={venture.href}>{venture.name}</Link>
+                    </h3>
+                    <p>{venture.summary}</p>
+                  </li>
+                ))}
+              </ul>
 
-              {/* The deck states this as intent. No mechanism is agreed, so the
-                  sentence must not read as a commitment. */}
-              <p className={v2.fundingNote}>
-                As the ventures grow, GENII intends for them to sustain the foundation.
-                No mechanism for that is agreed yet.
-              </p>
+              <a className={`${styles.treeBand} ${styles.treeBandBelow}`} href="#investors">
+                <span>Commercial investment</span>
+                <strong>Backs one or more ventures</strong>
+              </a>
             </div>
+
+            {/* The deck states this as intent. No mechanism is agreed, so the
+                sentence must not read as a commitment. */}
+            <p className={styles.treeIntent}>
+              As the ventures grow, GENII intends for them to sustain the foundation. No
+              mechanism for that is agreed yet.
+            </p>
 
             <aside className={styles.investingStatus} aria-label="Formation status">
               <strong>Formation status</strong>

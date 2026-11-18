@@ -19,6 +19,27 @@
   --line: rgba(35, 36, 31, 0.2);
   --panel: rgba(248, 245, 237, 0.78);
   --section-space: clamp(4.5rem, 9vw, 8rem);
+
+  /*
+   * Card grounds. One soft glow from a corner over a plain base, the recipe
+   * the investing page's blocks use. Gold is the main glow; sage answers it
+   * from the opposite corner on the large dark blocks. Keep these quiet: the
+   * glow should be felt as depth, never read as decoration.
+   */
+  --ground-night:
+    radial-gradient(circle at 88% 3%, rgba(173, 139, 79, 0.27), transparent 24rem),
+    radial-gradient(circle at 6% 100%, rgba(110, 130, 119, 0.2), transparent 26rem),
+    var(--night-soft);
+  --ground-paper:
+    radial-gradient(circle at 92% 0%, rgba(173, 139, 79, 0.13), transparent 26rem),
+    radial-gradient(circle at 0% 100%, rgba(110, 130, 119, 0.08), transparent 24rem),
+    var(--panel);
+  --ground-card:
+    radial-gradient(circle at 100% 0%, rgba(173, 139, 79, 0.11), transparent 13rem),
+    rgba(255, 253, 247, 0.55);
+  --ground-card-hover:
+    radial-gradient(circle at 100% 0%, rgba(173, 139, 79, 0.2), transparent 15rem),
+    rgba(255, 253, 247, 0.9);
 }
 
 .page {
@@ -147,7 +168,7 @@
 
 /* A paper panel, matching the homepage's mission card. */
 .panel {
-  background: var(--panel);
+  background: var(--ground-paper);
   border-radius: 0.3rem;
   box-shadow: 0 2.5rem 6rem rgba(51, 47, 38, 0.08);
   padding: clamp(2rem, 5vw, 4.5rem);
@@ -215,7 +236,7 @@
 }
 
 .card {
-  background: rgba(255, 253, 247, 0.5);
+  background: var(--ground-card);
   border: 1px solid var(--line);
   border-radius: 0.25rem;
   display: flex;
@@ -227,7 +248,7 @@
 
 a.card:hover,
 a.card:focus-visible {
-  background: rgba(255, 253, 247, 0.85);
+  background: var(--ground-card-hover);
   border-color: rgba(128, 106, 63, 0.6);
 }
 
@@ -475,7 +496,7 @@ a.card:focus-visible {
 
 /* The night panel used for the one idea a page most wants remembered. */
 .statement {
-  background: var(--night);
+  background: var(--ground-night);
   border-radius: 0.3rem;
   color: var(--paper-light);
   padding: clamp(3.5rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4.5rem);
@@ -1286,7 +1307,9 @@ a.treeLeaf:focus-visible strong {
 
 /* A broad arc over everything beneath it, with light falling from its edge. */
 .canopy {
-  background: linear-gradient(rgba(255, 253, 247, 0.96), rgba(250, 247, 240, 0.9));
+  background:
+    radial-gradient(circle at 88% 0%, rgba(173, 139, 79, 0.14), transparent 22rem),
+    linear-gradient(rgba(255, 253, 247, 0.96), rgba(250, 247, 240, 0.9));
   border: 1px solid rgba(128, 106, 63, 0.45);
   border-bottom: 0;
   border-radius: 50% 50% 0 0 / 3.25rem 3.25rem 0 0;
@@ -1308,7 +1331,9 @@ a.treeLeaf:focus-visible strong {
 
 a.canopy:hover,
 a.canopy:focus-visible {
-  background: #fffdf7;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(173, 139, 79, 0.2), transparent 22rem),
+    #fffdf7;
 }
 
 /* The sheltered ground: a soft wash under the arc that holds the ventures. */
@@ -1350,7 +1375,9 @@ a.canopy:focus-visible {
 
 /* Solid ground: dark, heavier than anything above it, standing on a step. */
 .plinth {
-  background: var(--night);
+  background:
+    radial-gradient(circle at 92% 0%, rgba(173, 139, 79, 0.24), transparent 22rem),
+    var(--night);
   border: 1px solid var(--night);
   border-radius: 0 0 0.2rem 0.2rem;
   box-shadow: 0 0.55rem 0 -0.05rem #2a2c25, 0 1.1rem 0 -0.15rem #3c3e34;
@@ -1379,7 +1406,9 @@ a.canopy:focus-visible {
 
 a.plinth:hover,
 a.plinth:focus-visible {
-  background: var(--night-soft);
+  background:
+    radial-gradient(circle at 92% 0%, rgba(173, 139, 79, 0.32), transparent 22rem),
+    var(--night-soft);
 }
 
 .fundingNote {

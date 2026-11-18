@@ -2,7 +2,7 @@
  * Copy shared by more than one page.
  *
  * The wording here follows the founders' pitch deck (Round 17, 17 November
- * 2026) so the site and the deck tell the same story. Change it in one place.
+ * 2026; the deck has since moved on, so recheck before launch) so the site and the deck tell the same story. Change it in one place.
  */
 
 export const ventures = [

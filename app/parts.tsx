@@ -415,7 +415,7 @@ export function Keystone() {
   const pieces = [
     { file: "freed-feed", name: "Freed", line: "Liberating legacy social media." },
     { file: "vorton-council-small", name: "Vorton", line: "Sovereign life OS." },
-    { file: "vorteo-profiles", name: "Vorteo", line: "Open-source agent platform." },
+    { file: "vorteo-sandbox", name: "Vorteo", line: "Open-source agent platform." },
     { file: "syn3h-world", name: "SYN3H", line: "Next-generation social experiences." },
   ] as const;
 

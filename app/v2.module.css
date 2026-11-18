@@ -1178,6 +1178,8 @@ a.treeLeaf:focus-visible strong {
 .keystone img {
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  /* Screenshots keep their top-left corner, where the interface begins. */
+  object-position: left top;
   width: 100%;
 }
 

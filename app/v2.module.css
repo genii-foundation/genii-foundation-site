@@ -105,6 +105,17 @@
   text-wrap: balance;
 }
 
+/* The second line of a venture heading: the name stays at display size and
+   the statement beneath it reads as its line, at about half the size. */
+.heroSubtitle {
+  display: block;
+  font-size: 0.5em;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-top: 0.35em;
+  max-width: 18ch;
+}
+
 .heroCopy {
   border-left: 1px solid var(--line);
   padding-left: clamp(1.5rem, 3vw, 3rem);

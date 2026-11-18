@@ -31,6 +31,7 @@ export function PageHero({
   figure,
   lead,
   motif,
+  subtitle,
   title,
 }: {
   body?: ReactNode;
@@ -41,6 +42,8 @@ export function PageHero({
   lead: ReactNode;
   /** A decorative drawing for this page's visual world. */
   motif?: ReactNode;
+  /** A second line of the heading, set smaller than the name above it. */
+  subtitle?: ReactNode;
   title: ReactNode;
 }) {
   if (figure) {
@@ -50,7 +53,10 @@ export function PageHero({
           <div className={styles.heroSplit}>
             <div>
               <p className={styles.eyebrow}>{eyebrow}</p>
-              <h1 id="page-title">{title}</h1>
+              <h1 id="page-title">
+                {title}
+                {subtitle ? <span className={styles.heroSubtitle}> {subtitle}</span> : null}
+              </h1>
               <p className={styles.heroLead}>{lead}</p>
               {body ? <p className={styles.heroBody}>{body}</p> : null}
               {children}
@@ -72,7 +78,10 @@ export function PageHero({
       <div className={styles.frame}>
         <p className={styles.eyebrow}>{eyebrow}</p>
         <div className={styles.heroGrid}>
-          <h1 id="page-title">{title}</h1>
+          <h1 id="page-title">
+            {title}
+            {subtitle ? <span className={styles.heroSubtitle}> {subtitle}</span> : null}
+          </h1>
           <div className={styles.heroCopy}>
             <p className={styles.heroLead}>{lead}</p>
             {body ? <p className={styles.heroBody}>{body}</p> : null}

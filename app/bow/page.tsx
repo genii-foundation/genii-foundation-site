@@ -85,7 +85,8 @@ export default function BowMediaPage() {
     <PageShell>
       <PageHero
         eyebrow="Venture one · Culture"
-        title="BOW. Culture is the doorway."
+        title="BOW."
+        subtitle="Culture is the doorway."
         lead="Bold, original, mixed-media cultural touchstones, led by The Coherence Thesis, with dozens of further works already in production."
         body="Democratizing long-form publishing and lengthening humanity's attention span."
         figure={<CoverFan />}

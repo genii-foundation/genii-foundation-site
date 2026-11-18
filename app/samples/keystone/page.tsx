@@ -39,7 +39,8 @@ export default async function KeystoneSamplesPage({
           </div>
           <PageHero
             eyebrow="Venture three · Coordination"
-            title="Providence. Intelligence that increases agency."
+            title="Providence."
+            subtitle="Intelligence that increases agency."
             lead="A synchronicity engine, built with Terran Labs."
             body="Standalone tools are proven first, then converge into one operating system for personal and social life, where people's intentions can find one another."
             figure={<Keystone design={sample.design} />}

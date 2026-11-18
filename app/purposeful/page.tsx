@@ -70,7 +70,8 @@ export default function PurposefulPage() {
     <PageShell>
       <PageHero
         eyebrow="Venture two · Development"
-        title="Purposeful. Development is the work."
+        title="Purposeful."
+        subtitle="Development is the work."
         lead="A pathway through which curiosity becomes practice, relationship, contribution, and stewardship."
         body="Purposeful helps people become who they are capable of becoming, and find one another."
         figure={<ThreeDoors />}

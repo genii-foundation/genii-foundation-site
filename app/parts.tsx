@@ -295,7 +295,7 @@ export function DeeperLinks({ current }: { current?: string }) {
 
 /* ------------------------------------------------------ Hero figures */
 
-/** BOW: three covers, one from each shelf, the flagship nearest the reader. */
+/** BOW Media: three covers, one from each shelf, the flagship nearest the reader. */
 export function CoverFan() {
   const covers = [
     { file: "08-kids-108", title: "108" },

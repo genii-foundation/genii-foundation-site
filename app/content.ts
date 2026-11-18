@@ -8,7 +8,7 @@
 export const ventures = [
   {
     href: "/bow",
-    name: "BOW",
+    name: "BOW Media",
     role: "Culture",
     summary:
       "Bold, original mixed-media work: books, film, and conversation that carry wisdom into the culture.",

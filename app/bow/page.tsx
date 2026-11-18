@@ -15,9 +15,9 @@ import {
 import styles from "../v2.module.css";
 
 export const metadata: Metadata = {
-  title: "BOW | GENII Foundation",
+  title: "BOW Media | GENII Foundation",
   description:
-    "BOW is GENII's culture venture: original books and media, led by The Coherence Thesis.",
+    "BOW Media is GENII's culture venture: original books and media, led by The Coherence Thesis.",
   alternates: { canonical: "/bow" },
 };
 
@@ -85,7 +85,7 @@ export default function BowMediaPage() {
     <PageShell>
       <PageHero
         eyebrow="Venture one · Culture"
-        title="BOW."
+        title="BOW Media."
         subtitle="Culture is the doorway."
         lead="Bold, original, mixed-media cultural touchstones, led by The Coherence Thesis, with dozens of further works already in production."
         body="Democratizing long-form publishing and lengthening humanity's attention span."
@@ -111,7 +111,7 @@ export default function BowMediaPage() {
               educational experiences, and the preservation of wisdom across generations.
             </p>
             <p>
-              Culture is part of the developmental environment. BOW&apos;s titles
+              Culture is part of the developmental environment. BOW Media&apos;s titles
               are written for children, teenagers, and adults.
             </p>
           </>
@@ -125,7 +125,7 @@ export default function BowMediaPage() {
         panel
         intro={
           <p>
-            Nine titles across three shelves, from the growing body of BOW
+            Nine titles across three shelves, from the growing body of BOW Media
             manuscripts.
           </p>
         }

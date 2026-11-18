@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { Keystone, PageHero, PageShell } from "../../parts";
 import styles from "../../v2.module.css";
@@ -24,6 +25,10 @@ export default async function KeystoneSamplesPage({
 }: {
   searchParams: Promise<{ only?: string }>;
 }) {
+  // A working page for the owner, served only by the development preview. The
+  // public site answers with "not found".
+  if (process.env.NODE_ENV === "production") notFound();
+
   // ?only=night (or leaf, orbit) shows one design by itself.
   const { only } = await searchParams;
   const shown = samples.filter((sample) => !only || sample.design === only);

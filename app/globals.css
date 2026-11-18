@@ -779,7 +779,10 @@ body:has(.atlas-site[data-route-leaving="true"])
 .site-header .section-navigation {
   border-top: 1px solid rgba(41, 42, 37, 0.16);
   gap: clamp(1rem, 2vw, 2rem);
-  justify-content: center;
+  /* "safe" matters: plain centring pushes the first link off the left edge,
+     out of reach, whenever the links are wider than the row. With it, an
+     overflowing row starts at its first link and scrolls from there. */
+  justify-content: safe center;
   max-width: 100%;
   min-height: 2rem;
   width: 100%;
@@ -1929,8 +1932,11 @@ button.text-link {
     min-height: 2rem;
   }
 
+  /* A floor between links, so a row too long for the screen scrolls with its
+     labels still apart instead of running them together. When the labels fit,
+     space-evenly spreads them as before. */
   header.unified-header .section-navigation {
-    gap: 0;
+    gap: 0.7rem;
     justify-content: space-evenly;
   }
 
@@ -2109,8 +2115,11 @@ button.text-link {
     --nav-column-gap: 0.3rem;
   }
 
+  /* A floor between links, so a row too long for the screen scrolls with its
+     labels still apart instead of running them together. When the labels fit,
+     space-evenly below spreads them as before. */
   .site-header .section-navigation {
-    gap: 0;
+    gap: 0.7rem;
   }
 
   /* Use the entire track when the labels fit. If they overflow, flexbox falls

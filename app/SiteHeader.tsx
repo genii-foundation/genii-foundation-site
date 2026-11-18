@@ -8,12 +8,12 @@ import { usePathname } from "next/navigation";
 import { PrimaryNavigation, type SectionNavigationItem } from "./PrimaryNavigation";
 
 // The sections a reader is most likely to jump to. The rest are reached by
-// reading down the page.
+// reading down the page. Keep this list short enough to fit the row beside the
+// wordmark at desktop width: a link that does not fit cannot show as selected.
+// The first link is the one selected at the top of the page.
 const foundationSections = [
-  { href: "#problem", label: "Why" },
   { href: "#architecture", label: "Architecture" },
   { href: "#measure", label: "Enrichment" },
-  { href: "#role", label: "Foundation" },
   { href: "#system", label: "How it works" },
   { href: "#custodians", label: "Custodians" },
   { href: "#paths", label: "Ways in" },

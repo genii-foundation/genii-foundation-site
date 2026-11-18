@@ -52,6 +52,7 @@ export function SiteFooter() {
               <span>GitHub</span>
             </a>
             <a href="https://www.coherence-thesis.com/">The Coherence Thesis</a>
+            <Link href="/principles">Principles</Link>
             <ContactTrigger className="unified-footer-contact">
               <span>Contact</span>
               <ActionArrow />

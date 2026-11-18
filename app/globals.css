@@ -779,7 +779,10 @@ body:has(.atlas-site[data-route-leaving="true"])
 .site-header .section-navigation {
   border-top: 1px solid rgba(41, 42, 37, 0.16);
   gap: clamp(1rem, 2vw, 2rem);
-  justify-content: center;
+  /* "safe" matters: plain centring pushes the first link off the left edge,
+     out of reach, whenever the links are wider than the row. With it, an
+     overflowing row starts at its first link and scrolls from there. */
+  justify-content: safe center;
   max-width: 100%;
   min-height: 2rem;
   width: 100%;
@@ -1315,7 +1318,12 @@ button.text-link {
 
 .section-panel {
   --section-panel-padding: clamp(3rem, 7vw, 6.5rem);
-  background: rgba(248, 245, 237, 0.78);
+  /* The same paper ground as .panel in v2.module.css: a soft gold glow from the
+     top right and a fainter sage one from the bottom left. Keep the two in step. */
+  background:
+    radial-gradient(circle at 92% 0%, rgba(173, 139, 79, 0.13), transparent 26rem),
+    radial-gradient(circle at 0% 100%, rgba(110, 130, 119, 0.08), transparent 24rem),
+    rgba(248, 245, 237, 0.78);
   border-radius: 0.3rem;
   box-shadow: 0 2.5rem 6rem rgba(51, 47, 38, 0.08);
   margin-top: clamp(6rem, 12vw, 11rem);
@@ -1929,8 +1937,11 @@ button.text-link {
     min-height: 2rem;
   }
 
+  /* A floor between links, so a row too long for the screen scrolls with its
+     labels still apart instead of running them together. When the labels fit,
+     space-evenly spreads them as before. */
   header.unified-header .section-navigation {
-    gap: 0;
+    gap: 0.7rem;
     justify-content: space-evenly;
   }
 
@@ -2109,8 +2120,11 @@ button.text-link {
     --nav-column-gap: 0.3rem;
   }
 
+  /* A floor between links, so a row too long for the screen scrolls with its
+     labels still apart instead of running them together. When the labels fit,
+     space-evenly below spreads them as before. */
   .site-header .section-navigation {
-    gap: 0;
+    gap: 0.7rem;
   }
 
   /* Use the entire track when the labels fit. If they overflow, flexbox falls

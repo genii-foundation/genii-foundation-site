@@ -1,0 +1,1364 @@
+/*
+ * Shared styles for the pages added in site v2: the homepage sections, the
+ * foundation, the three ventures, the deeper pages, and the investing page.
+ *
+ * Everything here builds on the tokens and type already used across the site
+ * (see globals.css and providence.module.css). `.tokens` carries the palette so
+ * the homepage, which keeps its own root element, can share these parts.
+ */
+
+.tokens {
+  --night: #141512;
+  --night-soft: #1d201b;
+  --paper-light: #f4f0e7;
+  --ink: #11120f;
+  --muted: #5c564b;
+  --gold: #806a3f;
+  --gold-bright: #ad8b4f;
+  --gold-on-night: #c4a96e;
+  --line: rgba(35, 36, 31, 0.2);
+  --panel: rgba(248, 245, 237, 0.78);
+  --section-space: clamp(4.5rem, 9vw, 8rem);
+
+  /*
+   * Card grounds. One soft glow from a corner over a plain base, the recipe
+   * the investing page's blocks use. Gold is the main glow; sage answers it
+   * from the opposite corner on the large dark blocks. Keep these quiet: the
+   * glow should be felt as depth, never read as decoration.
+   */
+  --ground-night:
+    radial-gradient(circle at 88% 3%, rgba(173, 139, 79, 0.27), transparent 24rem),
+    radial-gradient(circle at 6% 100%, rgba(110, 130, 119, 0.2), transparent 26rem),
+    var(--night-soft);
+  --ground-paper:
+    radial-gradient(circle at 92% 0%, rgba(173, 139, 79, 0.13), transparent 26rem),
+    radial-gradient(circle at 0% 100%, rgba(110, 130, 119, 0.08), transparent 24rem),
+    var(--panel);
+  --ground-card:
+    radial-gradient(circle at 100% 0%, rgba(173, 139, 79, 0.11), transparent 13rem),
+    rgba(255, 253, 247, 0.55);
+  --ground-card-hover:
+    radial-gradient(circle at 100% 0%, rgba(173, 139, 79, 0.2), transparent 15rem),
+    rgba(255, 253, 247, 0.9);
+}
+
+.page {
+  background: transparent;
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.page h1,
+.page h2,
+.page h3,
+.page h4,
+.page p,
+.block h2,
+.block h3,
+.block h4,
+.block p {
+  margin-top: 0;
+}
+
+.frame {
+  margin: 0 auto;
+  max-width: 70rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: 100%;
+}
+
+/* ---------------------------------------------------------------- Hero */
+
+.hero {
+  padding: clamp(3.5rem, 7vw, 6.5rem) 0 clamp(3rem, 6vw, 5rem);
+  position: relative;
+}
+
+.heroGrid {
+  align-items: end;
+  display: grid;
+  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+  margin-top: 1.25rem;
+}
+
+.hero h1,
+.sectionHead h2,
+.statement h2,
+.card h3,
+.wayIn h3,
+.custodian h3,
+.treeRoot strong,
+.treeLeaf strong,
+.closing h2 {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 6.4vw, 5.9rem);
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+  margin-bottom: 0;
+  max-width: 13ch;
+  text-wrap: balance;
+}
+
+/* The second line of a venture heading: the name stays at display size and
+   the statement beneath it reads as its line, at about half the size. */
+.heroSubtitle {
+  display: block;
+  font-size: 0.5em;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-top: 0.35em;
+  max-width: 18ch;
+}
+
+.heroCopy {
+  border-left: 1px solid var(--line);
+  padding-left: clamp(1.5rem, 3vw, 3rem);
+}
+
+.heroLead {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.3rem, 1.8vw, 1.65rem);
+  line-height: 1.45;
+  margin-bottom: 1.25rem;
+}
+
+.heroCopy p:last-child {
+  margin-bottom: 0;
+}
+
+.heroBody {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+/* A venture's own motif sits behind the top right of its hero. Decorative
+   only, so it never takes pointer events or competes with the reading. */
+.motif {
+  color: var(--gold);
+  height: clamp(14rem, 30vw, 26rem);
+  opacity: 0.2;
+  pointer-events: none;
+  position: absolute;
+  right: max(1.5rem, calc(50% - 35rem));
+  top: clamp(0.5rem, 2vw, 2rem);
+  width: clamp(14rem, 30vw, 26rem);
+  z-index: -1;
+}
+
+.motif svg {
+  height: 100%;
+  overflow: visible;
+  width: 100%;
+}
+
+/* ------------------------------------------------------------- Sections */
+
+.eyebrow {
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+.section {
+  padding: var(--section-space) 0 0;
+}
+
+.section:last-of-type {
+  padding-bottom: var(--section-space);
+}
+
+/* A paper panel, matching the homepage's mission card. */
+.panel {
+  background: var(--ground-paper);
+  border-radius: 0.3rem;
+  box-shadow: 0 2.5rem 6rem rgba(51, 47, 38, 0.08);
+  padding: clamp(2rem, 5vw, 4.5rem);
+}
+
+.sectionHead {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  grid-template-columns: minmax(0, 1.1fr) minmax(16rem, 0.9fr);
+  margin-top: 1.25rem;
+}
+
+.sectionHead h2 {
+  font-size: clamp(2.3rem, 4.4vw, 4rem);
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  margin-bottom: 0;
+  max-width: 16ch;
+  text-wrap: balance;
+}
+
+.sectionHead > div > p,
+.prose p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.sectionHead > div > p:last-child,
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.sectionHead > div > p:first-child,
+.prose .lead {
+  color: var(--ink);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  line-height: 1.5;
+}
+
+.prose {
+  max-width: 44rem;
+}
+
+.sectionBody {
+  margin-top: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+/* ---------------------------------------------------------------- Cards */
+
+.cardGrid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cardGrid[data-columns="2"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cardGrid[data-columns="4"] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.card {
+  background: var(--ground-card);
+  border: 1px solid var(--line);
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 2.4vw, 2.25rem);
+  position: relative;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+a.card:hover,
+a.card:focus-visible {
+  background: var(--ground-card-hover);
+  border-color: rgba(128, 106, 63, 0.6);
+}
+
+.cardNumber {
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1;
+  margin-bottom: 1.1rem;
+}
+
+.card h3 {
+  font-size: clamp(1.9rem, 2.8vw, 2.6rem);
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+.cardRole {
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.card p {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.card p:last-child {
+  margin-bottom: 0;
+}
+
+.cardDetail {
+  color: var(--gold);
+  font-size: 0.88rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+
+.cardAction {
+  align-items: center;
+  color: var(--gold);
+  display: inline-flex;
+  font-size: 0.68rem;
+  font-weight: 700;
+  gap: 0.6rem;
+  letter-spacing: 0.14em;
+  margin-top: auto;
+  padding-top: 1.25rem;
+  text-transform: uppercase;
+}
+
+/* The small tag that says what state a thing is in. */
+.tag {
+  align-self: flex-start;
+  border: 1px solid rgba(128, 106, 63, 0.55);
+  border-radius: 999px;
+  color: var(--gold);
+  display: inline-block;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  margin-bottom: 1.1rem;
+  padding: 0.3rem 0.7rem 0.26rem;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------- Honesty labels */
+
+/*
+ * States the true status of whatever sits above it: proposed, in development,
+ * not deployed. Both founders asked that this discipline carry from the deck
+ * onto the site, so it is one consistent part rather than ad hoc small print.
+ */
+.status {
+  align-items: start;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: clamp(1rem, 3vw, 2rem);
+  grid-template-columns: minmax(8rem, 0.28fr) 1fr;
+  margin-top: clamp(2.25rem, 4vw, 3.5rem);
+  padding-top: 1.35rem;
+}
+
+.status strong {
+  color: var(--gold);
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  padding-top: 0.2rem;
+  text-transform: uppercase;
+}
+
+.status p {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+  max-width: 48rem;
+}
+
+/* ----------------------------------------------------------------- Rows */
+
+/* Label on the left, explanation on the right, a rule between rows and none
+   after the last (see README: the outer edge already closes the region). */
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rows li {
+  align-items: baseline;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0.5rem clamp(1rem, 3vw, 2.5rem);
+  grid-template-columns: 2.5rem minmax(9rem, 0.36fr) 1fr;
+  padding: 1.25rem 0;
+}
+
+.rows[data-numbered="false"] li {
+  grid-template-columns: minmax(10rem, 0.36fr) 1fr;
+}
+
+.rows li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.rows li:last-child {
+  padding-bottom: 0;
+}
+
+.rowNumber {
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.25rem;
+}
+
+.rowLabel {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rows[data-display="true"] .rowLabel {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.4rem, 2vw, 1.75rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+.rowText {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ---------------------------------------------------------------- Steps */
+
+.steps {
+  counter-reset: step;
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.steps[data-columns="3"] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.steps li {
+  border-top: 1px solid var(--gold);
+  counter-increment: step;
+  padding-top: 1rem;
+}
+
+.steps li::before {
+  color: var(--gold);
+  content: counter(step, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.steps strong {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.steps span {
+  color: var(--muted);
+  display: block;
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
+.closingLine {
+  border-top: 1px solid var(--line);
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+  font-style: italic;
+  line-height: 1.45;
+  margin: clamp(2.25rem, 4vw, 3.5rem) 0 0;
+  padding-top: 1.5rem;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* ------------------------------------------------------------ Statement */
+
+/* The night panel used for the one idea a page most wants remembered. */
+.statement {
+  background: var(--ground-night);
+  border-radius: 0.3rem;
+  color: var(--paper-light);
+  padding: clamp(3.5rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4.5rem);
+  text-align: center;
+}
+
+.statement h2 {
+  font-size: clamp(2.8rem, 6.5vw, 5.6rem);
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  margin-bottom: 0;
+}
+
+.statement h2 span {
+  color: var(--gold-on-night);
+  display: block;
+}
+
+.statement hr {
+  background: rgba(196, 169, 110, 0.5);
+  border: 0;
+  height: 1px;
+  margin: clamp(1.75rem, 3vw, 2.5rem) auto;
+  width: 6rem;
+}
+
+.statement p {
+  color: #d6d2c8;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.7;
+  margin: 0 auto 0.35rem;
+  max-width: 44rem;
+}
+
+.statement .statementClose {
+  color: var(--gold-on-night);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+  font-style: italic;
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+/* -------------------------------------------------------------- Actions */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.75rem;
+}
+
+/* The gold pill, as on the deck's link buttons. Used where the reader is sent
+   to real work that lives elsewhere on the web. */
+.button {
+  align-items: center;
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  color: #fff;
+  display: inline-flex;
+  font-size: 0.8rem;
+  font-weight: 700;
+  gap: 0.65rem;
+  letter-spacing: 0.03em;
+  min-height: 2.75rem;
+  padding: 0.6rem 1.15rem 0.6rem 1.3rem;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  background: var(--night);
+  border-color: var(--night);
+  color: var(--paper-light);
+}
+
+.buttonQuiet {
+  background: transparent;
+  color: var(--gold);
+}
+
+.buttonQuiet:hover,
+.buttonQuiet:focus-visible {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #fff;
+}
+
+button.button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.inlineLink {
+  border-bottom: 1px solid var(--gold);
+  color: var(--ink);
+  transition: color 180ms ease;
+}
+
+.inlineLink:hover,
+.inlineLink:focus-visible {
+  color: var(--gold);
+}
+
+/* ----------------------------------------------------- Homepage: GENII bar */
+
+.foundationBar {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 1rem clamp(1.25rem, 3vw, 2.5rem);
+  grid-template-columns: auto auto 1fr auto;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.foundationBar img {
+  width: clamp(7rem, 11vw, 10rem);
+}
+
+.foundationBar span {
+  color: var(--gold);
+  font-size: 0.95rem;
+}
+
+.foundationBar p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------- BOW: gallery */
+
+.shelf {
+  align-items: start;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  grid-template-columns: 5.5rem 1fr;
+  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+}
+
+.shelf:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.shelf:last-of-type {
+  padding-bottom: 0;
+}
+
+.shelfLabel {
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  padding-top: 0.5rem;
+  text-transform: uppercase;
+}
+
+.covers {
+  display: grid;
+  gap: clamp(1rem, 3vw, 2.25rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.covers figure {
+  margin: 0;
+}
+
+/* Every cover is cropped to one book proportion so a row reads as a shelf. */
+.covers img {
+  aspect-ratio: 2 / 3;
+  border-radius: 0.15rem;
+  box-shadow:
+    0 0.15rem 0.3rem rgba(31, 27, 18, 0.2),
+    0 1.2rem 2.4rem rgba(31, 27, 18, 0.22);
+  object-fit: cover;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+}
+
+@media (hover: hover) {
+  .covers li:hover img {
+    transform: translateY(-0.4rem) scale(1.015);
+  }
+}
+
+.covers figcaption {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  margin-top: 1rem;
+}
+
+.covers figcaption a {
+  border-bottom: 1px solid var(--gold);
+}
+
+.volumes {
+  columns: 2;
+  column-gap: clamp(2rem, 5vw, 4rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.volumes li {
+  border-top: 1px solid var(--line);
+  break-inside: avoid;
+  display: grid;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.25rem;
+  gap: 1rem;
+  grid-template-columns: 2.25rem 1fr;
+  line-height: 1.3;
+  padding: 0.8rem 0;
+}
+
+.volumes li span {
+  color: var(--gold);
+}
+
+/* ---------------------------------------------------------- Custodians */
+
+.custodians {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.custodian {
+  text-align: center;
+}
+
+/* The portraits are soft charcoal drawings that fade to transparent at the
+   shoulders, so they sit directly on the paper with no frame. */
+.custodian img {
+  height: clamp(15rem, 26vw, 21rem);
+  margin: 0 auto;
+  object-fit: contain;
+  width: auto;
+}
+
+.custodian h3 {
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  letter-spacing: -0.03em;
+  margin: 0.5rem 0 1rem;
+}
+
+.custodian p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+/* -------------------------------------------------------- Investing: tree */
+
+.tree {
+  text-align: center;
+}
+
+.treeRoot {
+  margin: 0 auto;
+  max-width: 46rem;
+}
+
+.treeRoot img {
+  margin: 0 auto 0.75rem;
+  width: clamp(8rem, 13vw, 11rem);
+}
+
+.treeRoot strong,
+.treeLeaf strong {
+  display: block;
+  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+  letter-spacing: -0.03em;
+}
+
+.treeRoot p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0.5rem 0 0;
+}
+
+/* The branch: one stem down from GENII, a bar across, a drop to each venture. */
+.treeBranch {
+  border: 1px solid rgba(128, 106, 63, 0.55);
+  border-bottom: 0;
+  height: 1.5rem;
+  margin: 2.75rem auto 0;
+  position: relative;
+  width: 66.666%;
+}
+
+.treeBranch::before,
+.treeBranch::after {
+  background: rgba(128, 106, 63, 0.55);
+  content: "";
+  left: 50%;
+  position: absolute;
+  width: 1px;
+}
+
+.treeBranch::before {
+  bottom: 100%;
+  height: 1.5rem;
+}
+
+.treeBranch::after {
+  height: 100%;
+  top: 0;
+}
+
+.treeLeaves {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0.85rem;
+}
+
+.treeLeaf {
+  display: block;
+  padding: 0.25rem 0.5rem;
+}
+
+.treeLeaf span {
+  color: var(--gold);
+  font-size: 0.95rem;
+}
+
+a.treeLeaf:hover strong,
+a.treeLeaf:focus-visible strong {
+  color: var(--gold);
+}
+
+/* ------------------------------------------------------------- Closing */
+
+.closing {
+  display: grid;
+  gap: clamp(2rem, 6vw, 6rem);
+  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+}
+
+.closing h2 {
+  font-size: clamp(2.6rem, 5.4vw, 4.8rem);
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  margin-bottom: 0;
+  max-width: 11ch;
+  text-wrap: balance;
+}
+
+.disclaimer {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.7;
+  padding: 2.5rem 0 var(--section-space);
+}
+
+/* ------------------------------------------------------------ Responsive */
+
+@media (max-width: 900px) {
+  .heroGrid,
+  .sectionHead,
+  .closing {
+    grid-template-columns: 1fr;
+  }
+
+  .heroCopy {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 1.5rem;
+  }
+
+  .cardGrid,
+  .cardGrid[data-columns="4"] {
+    grid-template-columns: 1fr;
+  }
+
+  .cardGrid[data-columns="4"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .foundationBar {
+    grid-template-columns: auto 1fr;
+  }
+
+  .foundationBar p,
+  .foundationBar a {
+    grid-column: 1 / -1;
+  }
+
+  .motif {
+    opacity: 0.16;
+  }
+}
+
+@media (max-width: 700px) {
+  .frame {
+    padding-left: var(--mobile-content-gutter);
+    padding-right: var(--mobile-content-gutter);
+  }
+
+  .cardGrid[data-columns="2"],
+  .cardGrid[data-columns="4"],
+  .custodians {
+    grid-template-columns: 1fr;
+  }
+
+  .status,
+  .rows li,
+  .rows[data-numbered="false"] li {
+    grid-template-columns: 1fr;
+  }
+
+  .rows li {
+    gap: 0.35rem;
+  }
+
+  .shelf,
+  .steps[data-columns="3"] {
+    grid-template-columns: 1fr;
+  }
+
+  .shelfLabel {
+    padding-top: 0;
+  }
+
+  .covers {
+    gap: 0.85rem;
+  }
+
+  .covers figcaption {
+    font-size: 0.95rem;
+  }
+
+  .volumes {
+    columns: 1;
+  }
+
+  .treeBranch {
+    display: none;
+  }
+
+  .treeLeaves {
+    border-top: 1px solid var(--line);
+    grid-template-columns: 1fr;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .covers img,
+  .card,
+  .button {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------- Venture heroes with a figure */
+
+/*
+ * The three venture pages open with copy on the left and a designed figure on
+ * the right, each in its own visual world: covers for BOW, doorways for
+ * Purposeful, the keystone of products for Providence.
+ */
+.heroSplit {
+  align-items: center;
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 6rem);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+}
+
+.heroSplit h1 {
+  margin: 1.25rem 0 0;
+}
+
+.heroSplit .heroLead {
+  margin: clamp(1.5rem, 3vw, 2.25rem) 0 1rem;
+  max-width: 34rem;
+}
+
+.heroSplit .heroBody {
+  max-width: 34rem;
+}
+
+.heroFigure {
+  min-width: 0;
+}
+
+/* BOW: three covers, the flagship coming toward the reader. */
+.fan {
+  aspect-ratio: 1 / 0.86;
+  margin: 0 auto;
+  max-width: 30rem;
+  position: relative;
+}
+
+.fan img {
+  aspect-ratio: 2 / 3;
+  border-radius: 0.2rem;
+  box-shadow:
+    0 0.2rem 0.4rem rgba(31, 27, 18, 0.25),
+    0 1.6rem 3rem rgba(31, 27, 18, 0.28);
+  height: auto;
+  object-fit: cover;
+  position: absolute;
+  top: 12%;
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  width: 40%;
+}
+
+.fan img:nth-child(1) {
+  left: 3%;
+  transform: rotate(-9deg);
+}
+
+.fan img:nth-child(2) {
+  right: 3%;
+  transform: rotate(9deg);
+}
+
+.fan img:nth-child(3) {
+  left: 27%;
+  top: 0;
+  width: 46%;
+}
+
+@media (hover: hover) {
+  .fan:hover img:nth-child(1) {
+    transform: rotate(-13deg) translateX(-5%);
+  }
+
+  .fan:hover img:nth-child(2) {
+    transform: rotate(13deg) translateX(5%);
+  }
+
+  .fan:hover img:nth-child(3) {
+    transform: translateY(-2%) scale(1.03);
+  }
+}
+
+.figureCaption {
+  color: var(--muted);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  margin: 1.25rem 0 0;
+  text-align: center;
+}
+
+/* Purposeful: three doorways, and the Seven Initiates: seven named circles. */
+.drawing {
+  color: var(--gold);
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  max-width: 30rem;
+  width: 100%;
+}
+
+.drawing text {
+  fill: var(--ink);
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.drawing .drawingLabel {
+  fill: var(--gold);
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Providence: four product pictures joined by one disc, as on the deck. */
+.keystone {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0 auto;
+  max-width: 32rem;
+  position: relative;
+}
+
+.keystone figure {
+  background: #fff;
+  box-shadow: 0 0.9rem 2rem rgba(31, 27, 18, 0.2);
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0.4rem;
+}
+
+/* The top pair carry their captions above, so all four pictures meet at the
+   centre and the disc covers picture corners, never words. */
+.keystone figure:nth-child(-n + 2) {
+  flex-direction: column-reverse;
+}
+
+.keystone figure:nth-child(1) {
+  transform: rotate(-1.2deg);
+}
+
+.keystone figure:nth-child(2) {
+  transform: rotate(1deg);
+}
+
+.keystone figure:nth-child(3) {
+  transform: rotate(0.8deg);
+}
+
+.keystone figure:nth-child(4) {
+  transform: rotate(-1deg);
+}
+
+.keystone img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  /* Screenshots keep their top-left corner, where the interface begins. */
+  object-position: left top;
+  width: 100%;
+}
+
+.keystone figcaption {
+  padding: 0.45rem 0.2rem 0.5rem;
+}
+
+.keystone figcaption strong {
+  color: var(--gold);
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.25rem;
+  font-variant-numeric: lining-nums;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.keystone figcaption span {
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.keystoneDisc {
+  align-items: center;
+  aspect-ratio: 1;
+  background: var(--paper-light);
+  border: 1px solid rgba(128, 106, 63, 0.6);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 0.35rem rgba(244, 240, 231, 0.9),
+    0 0.8rem 2rem rgba(31, 27, 18, 0.22);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 34%;
+  z-index: 2;
+}
+
+.keystoneDisc strong {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.05rem, 1.9vw, 1.45rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.keystoneDisc em {
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(0.72rem, 1.1vw, 0.9rem);
+  line-height: 1.2;
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 900px) {
+  .heroSplit {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fan img {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------- Keystone design candidates */
+
+/*
+ * Three alternatives to the white mat, each drawn only from the site palette
+ * (paper, night, gold, sage). Selected with data-design on .keystone. Remove
+ * the two that lose once the owner picks.
+ */
+
+/* A. Night: dark tiles with a gold hairline, like the investing page blocks. */
+.keystone[data-design="night"] {
+  gap: 0.75rem;
+}
+
+.keystone[data-design="night"] figure {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(173, 139, 79, 0.28), transparent 11rem),
+    var(--night-soft);
+  border: 1px solid rgba(196, 169, 110, 0.38);
+  border-radius: 0.35rem;
+  box-shadow: 0 1.4rem 2.6rem rgba(20, 21, 18, 0.28);
+  padding: 0.55rem;
+  transform: none;
+}
+
+.keystone[data-design="night"] img {
+  border-radius: 0.2rem;
+  opacity: 0.94;
+}
+
+.keystone[data-design="night"] figcaption {
+  padding: 0.6rem 0.35rem 0.55rem;
+}
+
+.keystone[data-design="night"] figcaption strong {
+  color: var(--gold-on-night);
+}
+
+.keystone[data-design="night"] figcaption span {
+  color: #cfcabf;
+}
+
+.keystone[data-design="night"] .keystoneDisc {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(173, 139, 79, 0.35), transparent 70%),
+    var(--night);
+  border-color: var(--gold-on-night);
+  box-shadow:
+    0 0 0 0.4rem rgba(222, 217, 206, 0.92),
+    0 0.8rem 2rem rgba(20, 21, 18, 0.35);
+  color: var(--paper-light);
+}
+
+.keystone[data-design="night"] .keystoneDisc em {
+  color: var(--gold-on-night);
+}
+
+/* B. Gold leaf: paper tiles in a fine double gold rule, pictures warmed toward
+   the page so four different interfaces read as one set. */
+.keystone[data-design="leaf"] {
+  gap: 1rem;
+}
+
+.keystone[data-design="leaf"] figure {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(173, 139, 79, 0.16), transparent 12rem),
+    #efe9dc;
+  border: 1px solid rgba(128, 106, 63, 0.7);
+  box-shadow: none;
+  outline: 1px solid rgba(128, 106, 63, 0.3);
+  outline-offset: 0.3rem;
+  padding: 0.6rem;
+  transform: none;
+}
+
+.keystone[data-design="leaf"] img {
+  filter: sepia(0.45) saturate(0.75) contrast(0.96);
+}
+
+.keystone[data-design="leaf"] figcaption {
+  padding: 0.65rem 0.25rem 0.5rem;
+  text-align: center;
+}
+
+.keystone[data-design="leaf"] figcaption strong {
+  color: var(--ink);
+  font-size: 1.4rem;
+}
+
+.keystone[data-design="leaf"] .keystoneDisc {
+  background: #efe9dc;
+  border-color: var(--gold);
+  box-shadow:
+    0 0 0 0.3rem #efe9dc,
+    0 0 0 calc(0.3rem + 1px) rgba(128, 106, 63, 0.45),
+    0 0.6rem 1.6rem rgba(31, 27, 18, 0.16);
+}
+
+/* C. Orbit: no tiles. Four round pictures on one ring around Providence. */
+.keystone[data-design="orbit"] {
+  gap: clamp(1.5rem, 4vw, 3rem) clamp(2.5rem, 7vw, 5.5rem);
+  padding: 0.5rem;
+}
+
+.keystone[data-design="orbit"]::before {
+  border: 1px solid rgba(128, 106, 63, 0.5);
+  border-radius: 50%;
+  content: "";
+  inset: 9% 9% 15%;
+  position: absolute;
+}
+
+.keystone[data-design="orbit"]::after {
+  border: 1px dashed rgba(128, 106, 63, 0.35);
+  border-radius: 50%;
+  content: "";
+  inset: 24% 24% 30%;
+  position: absolute;
+}
+
+.keystone[data-design="orbit"] figure {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  transform: none;
+  z-index: 1;
+}
+
+.keystone[data-design="orbit"] img {
+  aspect-ratio: 1;
+  object-position: center;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 0.3rem rgba(244, 240, 231, 0.95),
+    0 0 0 calc(0.3rem + 1px) rgba(128, 106, 63, 0.4),
+    0 1rem 2rem rgba(31, 27, 18, 0.2);
+}
+
+.keystone[data-design="orbit"] figcaption {
+  padding: 0.9rem 0 0.2rem;
+}
+
+.keystone[data-design="orbit"] figcaption strong {
+  font-size: 1.35rem;
+}
+
+.keystone[data-design="orbit"] .keystoneDisc {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(173, 139, 79, 0.35), transparent 70%),
+    var(--night);
+  border-color: var(--gold-on-night);
+  box-shadow: 0 0.8rem 2rem rgba(20, 21, 18, 0.3);
+  color: var(--paper-light);
+  top: 47%;
+  width: 30%;
+}
+
+.keystone[data-design="orbit"] .keystoneDisc em {
+  color: var(--gold-on-night);
+}
+
+.sampleLabel {
+  border-bottom: 1px solid var(--line);
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin: 0;
+  padding: 2.5rem 0 0.9rem;
+  text-transform: uppercase;
+}

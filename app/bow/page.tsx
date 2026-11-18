@@ -3,22 +3,22 @@ import Image from "next/image";
 
 import { links } from "../content";
 import {
+  CoverFan,
   DeeperLinks,
   LinkButton,
   PageHero,
   PageShell,
   Section,
-  SevenCircles,
   Status,
   Tag,
 } from "../parts";
 import styles from "../v2.module.css";
 
 export const metadata: Metadata = {
-  title: "BOW Media | GENII Foundation",
+  title: "BOW | GENII Foundation",
   description:
-    "BOW Media is GENII's culture venture: original books and media, led by The Coherence Thesis.",
-  alternates: { canonical: "/bow-media" },
+    "BOW is GENII's culture venture: original books and media, led by The Coherence Thesis.",
+  alternates: { canonical: "/bow" },
 };
 
 /*
@@ -85,10 +85,10 @@ export default function BowMediaPage() {
     <PageShell>
       <PageHero
         eyebrow="Venture one · Culture"
-        title="BOW Media. Culture is the doorway."
+        title="BOW. Culture is the doorway."
         lead="Bold, original, mixed-media cultural touchstones, led by The Coherence Thesis, with dozens of further works already in production."
         body="Democratizing long-form publishing and lengthening humanity's attention span."
-        motif={<SevenCircles />}
+        figure={<CoverFan />}
       >
         <div className={styles.actions}>
           <LinkButton href="#catalog" quiet>
@@ -110,7 +110,7 @@ export default function BowMediaPage() {
               educational experiences, and the preservation of wisdom across generations.
             </p>
             <p>
-              Culture is part of the developmental environment. BOW Media&apos;s titles
+              Culture is part of the developmental environment. BOW&apos;s titles
               are written for children, teenagers, and adults.
             </p>
           </>
@@ -124,7 +124,7 @@ export default function BowMediaPage() {
         panel
         intro={
           <p>
-            Nine titles across three shelves, from the growing body of BOW Media
+            Nine titles across three shelves, from the growing body of BOW
             manuscripts.
           </p>
         }

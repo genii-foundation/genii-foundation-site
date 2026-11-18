@@ -9,6 +9,14 @@ const previewHost = previewOrigin ? new URL(previewOrigin).hostname : undefined;
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: previewHost ? [previewHost] : [],
+  // Addresses used by the first draft and by the pitch deck's planning notes.
+  // The foundation page merged into the home page; BOW Media became BOW.
+  async redirects() {
+    return [
+      { source: "/foundation", destination: "/", permanent: false },
+      { source: "/bow-media", destination: "/bow", permanent: false },
+    ];
+  },
 };
 
 export default nextConfig;

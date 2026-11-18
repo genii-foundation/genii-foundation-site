@@ -1019,3 +1019,405 @@ a.treeLeaf:focus-visible strong {
     transition: none;
   }
 }
+
+/* ---------------------------------------------- Venture heroes with a figure */
+
+/*
+ * The three venture pages open with copy on the left and a designed figure on
+ * the right, each in its own visual world: covers for BOW, doorways for
+ * Purposeful, the keystone of products for Providence.
+ */
+.heroSplit {
+  align-items: center;
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 6rem);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+}
+
+.heroSplit h1 {
+  margin: 1.25rem 0 0;
+}
+
+.heroSplit .heroLead {
+  margin: clamp(1.5rem, 3vw, 2.25rem) 0 1rem;
+  max-width: 34rem;
+}
+
+.heroSplit .heroBody {
+  max-width: 34rem;
+}
+
+.heroFigure {
+  min-width: 0;
+}
+
+/* BOW: three covers, the flagship coming toward the reader. */
+.fan {
+  aspect-ratio: 1 / 0.86;
+  margin: 0 auto;
+  max-width: 30rem;
+  position: relative;
+}
+
+.fan img {
+  aspect-ratio: 2 / 3;
+  border-radius: 0.2rem;
+  box-shadow:
+    0 0.2rem 0.4rem rgba(31, 27, 18, 0.25),
+    0 1.6rem 3rem rgba(31, 27, 18, 0.28);
+  height: auto;
+  object-fit: cover;
+  position: absolute;
+  top: 12%;
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  width: 40%;
+}
+
+.fan img:nth-child(1) {
+  left: 3%;
+  transform: rotate(-9deg);
+}
+
+.fan img:nth-child(2) {
+  right: 3%;
+  transform: rotate(9deg);
+}
+
+.fan img:nth-child(3) {
+  left: 27%;
+  top: 0;
+  width: 46%;
+}
+
+@media (hover: hover) {
+  .fan:hover img:nth-child(1) {
+    transform: rotate(-13deg) translateX(-5%);
+  }
+
+  .fan:hover img:nth-child(2) {
+    transform: rotate(13deg) translateX(5%);
+  }
+
+  .fan:hover img:nth-child(3) {
+    transform: translateY(-2%) scale(1.03);
+  }
+}
+
+.figureCaption {
+  color: var(--muted);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  margin: 1.25rem 0 0;
+  text-align: center;
+}
+
+/* Purposeful: three doorways, and the Seven Initiates: seven named circles. */
+.drawing {
+  color: var(--gold);
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  max-width: 30rem;
+  width: 100%;
+}
+
+.drawing text {
+  fill: var(--ink);
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.drawing .drawingLabel {
+  fill: var(--gold);
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Providence: four product pictures joined by one disc, as on the deck. */
+.keystone {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0 auto;
+  max-width: 32rem;
+  position: relative;
+}
+
+.keystone figure {
+  background: #fff;
+  box-shadow: 0 0.9rem 2rem rgba(31, 27, 18, 0.2);
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0.4rem;
+}
+
+/* The top pair carry their captions above, so all four pictures meet at the
+   centre and the disc covers picture corners, never words. */
+.keystone figure:nth-child(-n + 2) {
+  flex-direction: column-reverse;
+}
+
+.keystone figure:nth-child(1) {
+  transform: rotate(-1.2deg);
+}
+
+.keystone figure:nth-child(2) {
+  transform: rotate(1deg);
+}
+
+.keystone figure:nth-child(3) {
+  transform: rotate(0.8deg);
+}
+
+.keystone figure:nth-child(4) {
+  transform: rotate(-1deg);
+}
+
+.keystone img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  width: 100%;
+}
+
+.keystone figcaption {
+  padding: 0.45rem 0.2rem 0.5rem;
+}
+
+.keystone figcaption strong {
+  color: var(--gold);
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.25rem;
+  font-variant-numeric: lining-nums;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.keystone figcaption span {
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.keystoneDisc {
+  align-items: center;
+  aspect-ratio: 1;
+  background: var(--paper-light);
+  border: 1px solid rgba(128, 106, 63, 0.6);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 0.35rem rgba(244, 240, 231, 0.9),
+    0 0.8rem 2rem rgba(31, 27, 18, 0.22);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 34%;
+  z-index: 2;
+}
+
+.keystoneDisc strong {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.05rem, 1.9vw, 1.45rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.keystoneDisc em {
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(0.72rem, 1.1vw, 0.9rem);
+  line-height: 1.2;
+  margin-top: 0.2rem;
+}
+
+/* ------------------------------------------------------ Funding diagram */
+
+/*
+ * Philanthropic support shelters from above; venture investment is the ground
+ * beneath. The foundation and its three ventures stand between the two.
+ */
+.funding {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.canopy,
+.plinth {
+  align-items: center;
+  display: grid;
+  gap: 0.75rem clamp(1.25rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(11rem, 0.32fr) 1fr auto;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.canopy small,
+.plinth small {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+}
+
+.canopy strong,
+.plinth strong {
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.canopy p,
+.plinth p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* A broad arc over everything beneath it, with light falling from its edge. */
+.canopy {
+  background: linear-gradient(rgba(255, 253, 247, 0.96), rgba(250, 247, 240, 0.9));
+  border: 1px solid rgba(128, 106, 63, 0.45);
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0 / 3.25rem 3.25rem 0 0;
+  box-shadow: 0 -0.25rem 0 var(--gold) inset, 0 1.75rem 2.5rem -1.5rem rgba(128, 106, 63, 0.35);
+  padding: clamp(2.25rem, 4vw, 3rem) clamp(1.75rem, 5vw, 4rem) clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.canopy small {
+  color: var(--gold);
+}
+
+.canopy p {
+  color: var(--muted);
+}
+
+.canopy img {
+  width: clamp(5.5rem, 9vw, 8rem);
+}
+
+a.canopy:hover,
+a.canopy:focus-visible {
+  background: #fffdf7;
+}
+
+/* The sheltered ground: a soft wash under the arc that holds the ventures. */
+.sheltered {
+  background: linear-gradient(rgba(128, 106, 63, 0.1), rgba(128, 106, 63, 0.02) 55%, transparent);
+  border-left: 1px solid rgba(128, 106, 63, 0.25);
+  border-right: 1px solid rgba(128, 106, 63, 0.25);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1rem, 3vw, 2rem);
+  text-align: center;
+}
+
+.sheltered a {
+  display: block;
+  padding: 0.5rem;
+}
+
+.sheltered strong {
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  transition: color 180ms ease;
+}
+
+.sheltered span {
+  color: var(--gold);
+  font-size: 0.95rem;
+}
+
+.sheltered a:hover strong,
+.sheltered a:focus-visible strong {
+  color: var(--gold);
+}
+
+/* Solid ground: dark, heavier than anything above it, standing on a step. */
+.plinth {
+  background: var(--night);
+  border: 1px solid var(--night);
+  border-radius: 0 0 0.2rem 0.2rem;
+  box-shadow: 0 0.55rem 0 -0.05rem #2a2c25, 0 1.1rem 0 -0.15rem #3c3e34;
+  color: var(--paper-light);
+  margin-bottom: 1.1rem;
+  padding: clamp(1.5rem, 3vw, 2.1rem) clamp(1.75rem, 5vw, 4rem);
+}
+
+.plinth small {
+  color: var(--gold-on-night);
+}
+
+.plinth p {
+  color: #d6d2c8;
+}
+
+.plinth em {
+  color: var(--gold-on-night);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+a.plinth:hover,
+a.plinth:focus-visible {
+  background: var(--night-soft);
+}
+
+.fundingNote {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: clamp(2.5rem, 4vw, 3rem) 0 0;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .heroSplit {
+    grid-template-columns: 1fr;
+  }
+
+  .canopy,
+  .plinth {
+    grid-template-columns: 1fr;
+  }
+
+  .canopy {
+    border-radius: 50% 50% 0 0 / 2rem 2rem 0 0;
+    text-align: center;
+  }
+
+  .canopy img {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .sheltered {
+    grid-template-columns: 1fr;
+    padding-bottom: 1.25rem;
+    padding-top: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fan img {
+    transition: none;
+  }
+}

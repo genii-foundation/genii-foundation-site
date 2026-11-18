@@ -3,8 +3,8 @@ import Image from "next/image";
 
 import { links } from "../content";
 import {
-  Constellation,
   DeeperLinks,
+  Keystone,
   LinkButton,
   PageHero,
   PageShell,
@@ -86,7 +86,7 @@ export default function ProvidencePage() {
         title="Providence. Intelligence that increases agency."
         lead="A synchronicity engine, built with Terran Labs."
         body="Standalone tools are proven first, then converge into one operating system for personal and social life, where people's intentions can find one another."
-        motif={<Constellation />}
+        figure={<Keystone />}
       >
         <div className={styles.actions}>
           <LinkButton href="#building" quiet>

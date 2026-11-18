@@ -10,21 +10,18 @@ import { PrimaryNavigation, type SectionNavigationItem } from "./PrimaryNavigati
 // The sections a reader is most likely to jump to. The rest are reached by
 // reading down the page.
 const foundationSections = [
+  { href: "#problem", label: "Why" },
   { href: "#architecture", label: "Architecture" },
   { href: "#measure", label: "Enrichment" },
+  { href: "#role", label: "Foundation" },
   { href: "#system", label: "How it works" },
-  { href: "#status", label: "Status" },
+  { href: "#custodians", label: "Custodians" },
   { href: "#paths", label: "Ways in" },
 ] as const;
 
 // On-page links for the site v2 pages, keyed by route.
 const pageSections: Record<string, readonly SectionNavigationItem[]> = {
-  "/foundation": [
-    { href: "#role", label: "Role" },
-    { href: "#ventures", label: "Ventures" },
-    { href: "#custodians", label: "Custodians" },
-  ],
-  "/bow-media": [
+  "/bow": [
     { href: "#studio", label: "Studio" },
     { href: "#catalog", label: "Catalog" },
     { href: "#flagship", label: "Flagship" },

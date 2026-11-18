@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 import { links } from "../../content";
 import {
   DeeperLinks,
+  InitiatesFigure,
   LinkButton,
   PageHero,
   PageShell,
   Rows,
   Section,
-  SevenCircles,
   Status,
 } from "../../parts";
 import styles from "../../v2.module.css";
@@ -91,7 +91,7 @@ export default function SevenInitiatesPage() {
         title="The Seven Initiates."
         lead="Seven capacities at the heart of Purposeful's curriculum."
         body="The practice of presencing genius is applying the Seven Initiates to all of your interactions."
-        motif={<SevenCircles />}
+        figure={<InitiatesFigure />}
       />
 
       <Section

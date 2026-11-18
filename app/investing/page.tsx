@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import {
@@ -8,11 +9,12 @@ import {
 import { FinancialModel } from "./FinancialModel";
 import { InvestingTimeline } from "./InvestingTimeline";
 import styles from "../providence.module.css";
+import v2 from "../v2.module.css";
 
 export const metadata: Metadata = {
   title: "Fund GENII and Its Ventures | GENII Foundation",
   description:
-    "Two ways to fund one mission: philanthropic support for GENII Foundation, and venture investment in BOW Media, Purposeful, and Providence.",
+    "Two ways to fund one mission: philanthropic support for GENII Foundation, and venture investment in BOW, Purposeful, and Providence.",
   alternates: { canonical: "/investing" },
   openGraph: {
     title: "Two ways to fund. One mission.",
@@ -39,8 +41,8 @@ export const metadata: Metadata = {
 const ventures = [
   {
     id: "bow-media",
-    name: "BOW Media",
-    href: "/bow-media",
+    name: "BOW",
+    href: "/bow",
     role: "Culture",
     summary:
       "Awakens curiosity and transmits wisdom through original cultural work.",
@@ -67,7 +69,7 @@ type VentureId = (typeof ventures)[number]["id"];
 
 // What each venture offers commercially. Only Purposeful's retreats and
 // network and Providence's app and partner system carry modeled figures in
-// FinancialModel. BOW Media's one commercial fact is the Publisher milestone
+// FinancialModel. BOW's one commercial fact is the Publisher milestone
 // from the timeline; nothing else is claimed for it.
 const commercialPathways: Record<
   VentureId,
@@ -119,7 +121,7 @@ const commercialPathways: Record<
 // One honest line per venture about what this page does and does not model.
 const ventureNotes: Record<VentureId, string> = {
   "bow-media":
-    "BOW Media's commercial model is not yet modeled on this page.",
+    "BOW's commercial model is not yet modeled on this page.",
   purposeful:
     "Retreats and the mentorship and practitioner network are modeled below. The curriculum is not yet modeled.",
   providence:
@@ -180,7 +182,7 @@ export default function InvestingPage() {
                 </p>
                 <p>
                   GENII keeps the fire: the research, principles, and stewardship
-                  every venture draws on. BOW Media, Purposeful, and Providence
+                  every venture draws on. BOW, Purposeful, and Providence
                   carry the business models.
                 </p>
                 <a
@@ -190,6 +192,59 @@ export default function InvestingPage() {
                   See both paths <ProvidenceArrow />
                 </a>
               </div>
+            </div>
+
+            {/* The funding picture, as on the deck's capital slide. Philanthropic
+                support arches over everything as shelter; venture investment is
+                the ground the ventures stand on. Read top to bottom it is also
+                the plain order: who supports the foundation, the ventures, who
+                invests in them. */}
+            <div className={`${v2.tokens} ${v2.funding}`} id="structure">
+              <a className={v2.canopy} href="#philanthropy">
+                <span>
+                  <small>Philanthropic partners</small>
+                  <strong>Foundation support</strong>
+                </span>
+                <p>
+                  Stewardship, research, governance, institutional capacity, cultural
+                  and public-benefit infrastructure, and the conditions for independent
+                  learning.
+                </p>
+                <Image
+                  alt="GENII Foundation"
+                  height={238}
+                  src="/brand/genii-wordmark-black.png"
+                  width={1135}
+                />
+              </a>
+
+              <div className={v2.sheltered} aria-label="GENII ventures">
+                {ventures.map((venture) => (
+                  <Link href={venture.href} key={venture.id}>
+                    <strong>{venture.name}</strong>
+                    <span>{venture.role}</span>
+                  </Link>
+                ))}
+              </div>
+
+              <a className={v2.plinth} href="#investors">
+                <span>
+                  <small>Venture investors</small>
+                  <strong>Commercial investment</strong>
+                </span>
+                <p>
+                  A defined venture, working product, technical team, initial pilots, a
+                  credible market hypothesis, and an evidence-based next stage.
+                </p>
+                <em>One or more ventures</em>
+              </a>
+
+              {/* The deck states this as intent. No mechanism is agreed, so the
+                  sentence must not read as a commitment. */}
+              <p className={v2.fundingNote}>
+                As the ventures grow, GENII intends for them to sustain the foundation.
+                No mechanism for that is agreed yet.
+              </p>
             </div>
 
             <aside className={styles.investingStatus} aria-label="Formation status">
@@ -205,7 +260,6 @@ export default function InvestingPage() {
 
         <section
           className={[styles.premise, styles.investingPremise].join(" ")}
-          id="structure"
           aria-labelledby="premise-title"
         >
           <div className={styles.contentFrame}>
@@ -230,47 +284,6 @@ export default function InvestingPage() {
                 </p>
               </div>
             </div>
-
-            {/* Plain list markup so the tree reads in order without CSS: the
-                foundation, its funding path, the ventures, theirs. The
-                connectors are drawn by providence.module.css. */}
-            <div className={styles.fundingTree}>
-              <div className={styles.treeRoot}>
-                <div className={`${styles.treeNode} ${styles.treeFoundation}`}>
-                  <p className={styles.treeRole}>Foundation</p>
-                  <h3>GENII Foundation</h3>
-                  <p>Research, principles, and stewardship. Holds the vision and values.</p>
-                </div>
-                <p className={styles.treeFunding}>
-                  <span>Philanthropic support</span>
-                  <a href="#philanthropy">Fund the foundation</a>
-                </p>
-              </div>
-
-              <ul className={styles.treeBranches} aria-label="GENII ventures">
-                {ventures.map((venture) => (
-                  <li className={styles.treeNode} key={venture.id}>
-                    <p className={styles.treeRole}>{venture.role}</p>
-                    <h3>
-                      <Link href={venture.href}>{venture.name}</Link>
-                    </h3>
-                    <p>{venture.summary}</p>
-                  </li>
-                ))}
-              </ul>
-
-              <p className={`${styles.treeFunding} ${styles.treeFundingVentures}`}>
-                <span>Venture investment</span>
-                <a href="#investors">Back one or more ventures</a>
-              </p>
-            </div>
-
-            {/* The deck states this as intent. No mechanism is agreed, so the
-                sentence must not read as a commitment. */}
-            <p className={styles.treeIntent}>
-              As the ventures grow, GENII intends for them to help sustain the
-              foundation. No mechanism for that is agreed yet.
-            </p>
           </div>
         </section>
 
@@ -479,9 +492,9 @@ export default function InvestingPage() {
             <div className={styles.sectionHeading}>
               <h2 id="venture-title">Each venture carries its own business model.</h2>
               <p>
-                BOW Media carries culture, Purposeful carries development, and
+                BOW carries culture, Purposeful carries development, and
                 Providence carries coordination. Purposeful and Providence have
-                modeled revenue surfaces on this page; BOW Media does not yet.
+                modeled revenue surfaces on this page; BOW does not yet.
                 GENII retains stewardship of the public-interest layer.
               </p>
             </div>
@@ -777,7 +790,7 @@ export default function InvestingPage() {
                 <p>Mission-aligned commercial entities</p>
                 <h3>The ventures</h3>
                 <ul>
-                  <li>BOW Media: original cultural work and publishing</li>
+                  <li>BOW: original cultural work and publishing</li>
                   <li>Purposeful: mentorship network, retreats, and curriculum</li>
                   <li>Providence: app, partner licenses, and consent infrastructure</li>
                   <li>Implementation, training, and support</li>

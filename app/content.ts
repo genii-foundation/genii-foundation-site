@@ -7,8 +7,8 @@
 
 export const ventures = [
   {
-    href: "/bow-media",
-    name: "BOW Media",
+    href: "/bow",
+    name: "BOW",
     role: "Culture",
     summary: "Awakens curiosity and transmits wisdom through original cultural work.",
     detail: "Flagship: The Coherence Thesis",
@@ -55,11 +55,6 @@ export const links = {
 /** The pages behind the main story, listed wherever a reader may want more. */
 export const deeperPages = [
   {
-    href: "/foundation",
-    title: "The foundation",
-    text: "What GENII is, what it holds, and who its custodians are.",
-  },
-  {
     href: "/research",
     title: "The Coherence Thesis",
     text: "Nine volumes, read as a research program with questions that can be tested.",
@@ -78,6 +73,11 @@ export const deeperPages = [
     href: "/coherence-economy",
     title: "The Coherence Economy",
     text: "A research proposition about what an economy could reward.",
+  },
+  {
+    href: "/principles",
+    title: "The ten principles",
+    text: "The commitments that govern every Providence product, partnership, and financing.",
   },
   {
     href: "/investing",

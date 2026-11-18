@@ -13,9 +13,8 @@ import { usePathname } from "next/navigation";
 import { ContactTrigger, useContactDialog } from "./ContactDialog";
 
 const navigationItems = [
-  { href: "/", label: "Overview" },
-  { href: "/foundation", label: "Foundation" },
-  { href: "/bow-media", label: "BOW Media" },
+  { href: "/", label: "Foundation" },
+  { href: "/bow", label: "BOW" },
   { href: "/purposeful", label: "Purposeful" },
   { href: "/providence", label: "Providence" },
   { href: "/investing", label: "Investing" },
@@ -170,11 +169,14 @@ export function PrimaryNavigation({
       return element ? [{ element, href }] : [];
     });
     const pageTop = document.querySelector<HTMLElement>("main > section:first-of-type");
+    // The opening of the page belongs to the first on-page link, so that link
+    // is selected while the reader is still at the top.
+    const firstHref = sectionItems[0]?.href ?? null;
     const targets: Array<{
       element: HTMLElement;
       href: string | null;
     }> = pageTop
-      ? [{ element: pageTop, href: null }, ...sectionTargets]
+      ? [{ element: pageTop, href: firstHref }, ...sectionTargets]
       : sectionTargets;
     const visibleTargets = new Set<HTMLElement>();
 
@@ -215,6 +217,13 @@ export function PrimaryNavigation({
     return () => observer.disconnect();
   }, [sectionItems]);
 
+  // Until the observer reports, and whenever the stored link belongs to another
+  // page, fall back to the first link. This keeps one item selected on arrival
+  // without setting state during a route change.
+  const selectedSectionHref = sectionItems.some(({ href }) => href === activeSectionHref)
+    ? activeSectionHref
+    : (sectionItems[0]?.href ?? null);
+
   return (
     <div className="navigation-stack" data-section-count={sectionItems.length}>
       <ScrollableNavigation
@@ -245,7 +254,7 @@ export function PrimaryNavigation({
       >
         {sectionItems.map(({ href, label }) => (
           <a
-            aria-current={activeSectionHref === href ? "location" : undefined}
+            aria-current={selectedSectionHref === href ? "location" : undefined}
             href={href}
             key={href}
             onClick={() => {

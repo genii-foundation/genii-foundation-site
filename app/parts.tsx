@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -27,6 +28,7 @@ export function PageHero({
   body,
   children,
   eyebrow,
+  figure,
   lead,
   motif,
   title,
@@ -34,13 +36,34 @@ export function PageHero({
   body?: ReactNode;
   children?: ReactNode;
   eyebrow: string;
+  /** A designed figure for the right half. Copy then stacks on the left. */
+  figure?: ReactNode;
   lead: ReactNode;
   /** A decorative drawing for this page's visual world. */
   motif?: ReactNode;
   title: ReactNode;
 }) {
+  if (figure) {
+    return (
+      <section className={styles.hero} id="intro" aria-labelledby="page-title">
+        <div className={styles.frame}>
+          <div className={styles.heroSplit}>
+            <div>
+              <p className={styles.eyebrow}>{eyebrow}</p>
+              <h1 id="page-title">{title}</h1>
+              <p className={styles.heroLead}>{lead}</p>
+              {body ? <p className={styles.heroBody}>{body}</p> : null}
+              {children}
+            </div>
+            <div className={styles.heroFigure}>{figure}</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className={styles.hero} aria-labelledby="page-title">
+    <section className={styles.hero} id="intro" aria-labelledby="page-title">
       {motif ? (
         <div className={styles.motif} aria-hidden="true">
           {motif}
@@ -261,85 +284,162 @@ export function DeeperLinks({ current }: { current?: string }) {
   );
 }
 
-/* ------------------------------------------------------------- Motifs */
+/* ------------------------------------------------------ Hero figures */
+
+/** BOW: three covers, one from each shelf, the flagship nearest the reader. */
+export function CoverFan() {
+  const covers = [
+    { file: "08-kids-108", title: "108" },
+    { file: "06-teen-yo-where-did-all-the-elders-go", title: "Yo, Where Did All the Elders Go?" },
+    { file: "01-adult-the-coherence-thesis", title: "The Coherence Thesis" },
+  ] as const;
+
+  return (
+    <>
+      <div className={styles.fan}>
+        {covers.map((cover) => (
+          <Image
+            alt={`Cover of ${cover.title}`}
+            height={960}
+            key={cover.file}
+            priority
+            sizes="(max-width: 900px) 40vw, 14rem"
+            src={`/bow/${cover.file}.jpg`}
+            width={640}
+          />
+        ))}
+      </div>
+      <p className={styles.figureCaption}>For children, teenagers, and adults.</p>
+    </>
+  );
+}
 
 /**
- * Seven equal circles, six around one, each touching its neighbours. The deck
- * uses this figure for BOW Media's mark and behind the Seven Initiates.
+ * Purposeful: three doorways. The thesis calls the ways in "Doors", and the
+ * Seven Initiates sit behind all three.
  */
-export function SevenCircles() {
-  const radius = 16;
-  const ring = Array.from({ length: 6 }, (_, index) => {
+export function ThreeDoors() {
+  const doors = [
+    { x: 20, name: "Study", kind: "Curriculum" },
+    { x: 120, name: "Mentorship", kind: "Referral network" },
+    { x: 220, name: "Gatherings", kind: "Retreats" },
+  ] as const;
+
+  return (
+    <svg
+      aria-label="Three doorways into Purposeful: study, mentorship, and gatherings"
+      className={styles.drawing}
+      role="img"
+      viewBox="0 0 300 250"
+    >
+      {doors.map((door) => (
+        <g key={door.name}>
+          {/* The doorway, with a smaller arch inside it for depth. */}
+          <path
+            d={`M${door.x} 190V78a30 30 0 0 1 60 0V190`}
+            fill="rgba(255,253,247,0.55)"
+            stroke="currentColor"
+            strokeWidth="0.9"
+          />
+          <path
+            d={`M${door.x + 9} 190V80a21 21 0 0 1 42 0V190`}
+            fill="none"
+            stroke="currentColor"
+            strokeDasharray="1 3"
+            strokeWidth="0.7"
+          />
+          <circle cx={door.x + 30} cy="96" fill="currentColor" r="2.2" />
+          <text fontSize="15" textAnchor="middle" x={door.x + 30} y="214">
+            {door.name}
+          </text>
+          <text className={styles.drawingLabel} fontSize="5.4" textAnchor="middle" x={door.x + 30} y="228">
+            {door.kind}
+          </text>
+        </g>
+      ))}
+      <line stroke="currentColor" strokeWidth="0.9" x1="6" x2="294" y1="190" y2="190" />
+      <text className={styles.drawingLabel} fontSize="5.4" textAnchor="middle" x="150" y="22">
+        Three ways in
+      </text>
+    </svg>
+  );
+}
+
+/**
+ * The Seven Initiates as seven equal circles. Providence sits at the centre:
+ * the thesis calls it "the prior six made actual".
+ */
+export function InitiatesFigure() {
+  const radius = 46;
+  const outer = ["Listening", "Intimacy", "Balance", "Art & Alchemy", "Embodiment", "Worship"];
+  const ring = outer.map((name, index) => {
     const angle = (Math.PI / 3) * index - Math.PI / 2;
     return {
-      cx: 50 + 2 * radius * Math.cos(angle),
-      cy: 50 + 2 * radius * Math.sin(angle),
+      name,
+      cx: 150 + 2 * radius * Math.cos(angle),
+      cy: 150 + 2 * radius * Math.sin(angle),
     };
   });
 
   return (
-    <svg fill="none" stroke="currentColor" strokeWidth="0.5" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r={radius} />
-      {ring.map(({ cx, cy }) => (
-        <circle cx={cx.toFixed(3)} cy={cy.toFixed(3)} key={`${cx}-${cy}`} r={radius} />
+    <svg
+      aria-label="The Seven Initiates: Listening, Intimacy, Balance, Art and Alchemy, Embodiment and Worship around Providence"
+      className={styles.drawing}
+      role="img"
+      viewBox="0 0 300 300"
+    >
+      {[{ name: "Providence", cx: 150, cy: 150 }, ...ring].map(({ name, cx, cy }, index) => (
+        <g key={name}>
+          <circle
+            cx={cx.toFixed(2)}
+            cy={cy.toFixed(2)}
+            fill={index === 0 ? "rgba(128,106,63,0.12)" : "rgba(255,253,247,0.5)"}
+            r={radius}
+            stroke="currentColor"
+            strokeWidth="0.8"
+          />
+          <text fontSize="12.5" textAnchor="middle" x={cx.toFixed(2)} y={(cy + 4).toFixed(2)}>
+            {name}
+          </text>
+        </g>
       ))}
     </svg>
   );
 }
 
-/** Providence's figure: separate points, and the lines by which they meet. */
-export function Constellation() {
-  const points = [
-    [50, 8],
-    [86, 28],
-    [92, 68],
-    [58, 92],
-    [20, 80],
-    [8, 40],
-    [50, 50],
-    [34, 30],
-    [68, 60],
-  ] as const;
-  const lines = [
-    [0, 7],
-    [7, 5],
-    [7, 6],
-    [6, 8],
-    [8, 2],
-    [8, 3],
-    [6, 4],
-    [0, 1],
-    [1, 8],
-    [5, 4],
-    [1, 6],
+/**
+ * Providence: the keystone from the deck. Four standalone products, pictured
+ * with public demonstration images, joined by one disc where they meet.
+ */
+export function Keystone() {
+  const pieces = [
+    { file: "freed-feed", name: "Freed", line: "Liberating legacy social media." },
+    { file: "vorton-council-small", name: "Vorton", line: "Sovereign life OS." },
+    { file: "vorteo-profiles", name: "Vorteo", line: "Open-source agent platform." },
+    { file: "syn3h-world", name: "SYN3H", line: "Next-generation social experiences." },
   ] as const;
 
   return (
-    <svg fill="none" stroke="currentColor" strokeWidth="0.4" viewBox="0 0 100 100">
-      {lines.map(([from, to]) => (
-        <line
-          key={`${from}-${to}`}
-          x1={points[from][0]}
-          x2={points[to][0]}
-          y1={points[from][1]}
-          y2={points[to][1]}
-        />
+    <div className={styles.keystone}>
+      {pieces.map((piece) => (
+        <figure key={piece.name}>
+          <Image
+            alt={`${piece.name}, shown with demonstration data`}
+            height={600}
+            sizes="(max-width: 900px) 45vw, 16rem"
+            src={`/providence/${piece.file}.jpg`}
+            width={800}
+          />
+          <figcaption>
+            <strong>{piece.name}</strong>
+            <span>{piece.line}</span>
+          </figcaption>
+        </figure>
       ))}
-      {points.map(([cx, cy]) => (
-        <circle cx={cx} cy={cy} fill="currentColor" key={`${cx}-${cy}`} r="1.4" stroke="none" />
-      ))}
-      <circle cx="50" cy="50" r="44" strokeDasharray="1 3" />
-    </svg>
-  );
-}
-
-/** The foundation's figure: one flame held inside a ring. "GENII keeps the fire." */
-export function Hearth() {
-  return (
-    <svg fill="none" stroke="currentColor" strokeWidth="0.5" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="44" />
-      <circle cx="50" cy="50" r="30" strokeDasharray="1 3" />
-      <path d="M50 24c9 12 15 20 15 30a15 15 0 0 1-30 0c0-6 3-11 7-15 1 5 3 8 6 9-2-9-1-17 2-24Z" />
-    </svg>
+      <div className={styles.keystoneDisc}>
+        <strong>Providence</strong>
+        <em>Synchronicity, by design</em>
+      </div>
+    </div>
   );
 }

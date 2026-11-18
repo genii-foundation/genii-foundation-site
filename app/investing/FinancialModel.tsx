@@ -7,7 +7,7 @@ type Projection = {
   year: string;
 };
 
-// Each modeled surface belongs to one venture. BOW Media has no modeled
+// Each modeled surface belongs to one venture. BOW has no modeled
 // surface yet, so it does not appear in this list; the heading says so.
 type Venture = "Purposeful" | "Providence";
 
@@ -348,7 +348,7 @@ function PortfolioProjection() {
             <div>
               <dt>Not yet modeled</dt>
               <dd>
-                BOW Media, the Purposeful curriculum, and Providence&apos;s work
+                BOW, the Purposeful curriculum, and Providence&apos;s work
                 with Terran Labs
               </dd>
             </div>
@@ -415,7 +415,7 @@ export function FinancialModel() {
           Each surface is a testable economic hypothesis and names the venture it
           belongs to. Expand a row to inspect pricing, operating drivers,
           contribution economics, the three-year base case, and the evidence
-          required to replace each assumption. BOW Media&apos;s commercial model is
+          required to replace each assumption. BOW&apos;s commercial model is
           not yet modeled on this page.
         </p>
       </div>

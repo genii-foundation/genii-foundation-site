@@ -9,10 +9,10 @@ import {
   PageShell,
   Rows,
   Section,
-  SevenCircles,
   Status,
   Steps,
   Tag,
+  ThreeDoors,
 } from "../parts";
 import styles from "../v2.module.css";
 
@@ -73,7 +73,7 @@ export default function PurposefulPage() {
         title="Purposeful. Development is the work."
         lead="A pathway through which curiosity becomes practice, relationship, contribution, and stewardship."
         body="Purposeful helps people become who they are capable of becoming, and find one another."
-        motif={<SevenCircles />}
+        figure={<ThreeDoors />}
       />
 
       <Section
@@ -176,7 +176,7 @@ export default function PurposefulPage() {
         intro={
           <>
             <p>
-              BOW Media opens the door, and the thesis volume Purposeful sets out the
+              BOW opens the door, and the thesis volume Purposeful sets out the
               thinking in full. Providence then extends the work across distance and
               time.
             </p>

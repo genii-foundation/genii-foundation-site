@@ -5,18 +5,38 @@ import { ActionArrow } from "./ActionArrow";
 import { ContactTrigger } from "./ContactDialog";
 import { SiteFooter } from "./SiteFooter";
 import { links } from "./content";
-import { DeeperLinks, LinkButton, Status, Steps, VentureCards } from "./parts";
+import { DeeperLinks, LinkButton, Rows, Status, Steps, VentureCards } from "./parts";
 import styles from "./v2.module.css";
 
 /*
- * The homepage is the one place that shows how everything fits together: the
- * foundation, the three ventures, the measure they share, and how each feeds
- * the next. Every venture and every deeper question opens its own page.
+ * The Foundation page is the site's home. It is the one place that shows how
+ * everything fits together: what GENII is and holds, the three ventures, the
+ * measure they share, how each feeds the next, and who the custodians are.
+ * Every venture and every deeper question opens its own page.
  */
+
+const holds = [
+  {
+    label: "Vision and values",
+    text: "What the work is for, and the measure it answers to: enrichment in the lives people lead, over engagement with a platform.",
+  },
+  {
+    label: "Research",
+    text: "The Coherence Thesis is the intellectual map: nine volumes of research behind the ventures.",
+  },
+  {
+    label: "Principles",
+    text: "The design commitments on human sovereignty, and the ten principles that govern every Providence product, partnership, and financing.",
+  },
+  {
+    label: "Stewardship",
+    text: "Care for the mission over time, so that the ventures can grow without losing what they were started to do.",
+  },
+] as const;
 
 const system = [
   { label: "Insight", text: "The thesis clarifies what to investigate." },
-  { label: "Culture", text: "BOW Media makes wisdom culturally accessible." },
+  { label: "Culture", text: "BOW makes wisdom culturally accessible." },
   { label: "Practice", text: "Purposeful turns interest into capacity." },
   { label: "Coordination", text: "Providence supports meaningful action." },
   { label: "Learning", text: "Evidence returns to the entire system." },
@@ -30,7 +50,7 @@ const journey = [
   { label: "Learn", text: "The outcome informs research, curriculum, and culture." },
   {
     label: "Demonstrate",
-    text: "BOW Media shares the results as new stories, restarting discovery.",
+    text: "BOW shares the results as new stories, restarting discovery.",
   },
 ] as const;
 
@@ -145,9 +165,9 @@ export default function Home() {
                 GENII keeps the fire: the research, principles, and stewardship every
                 venture draws on.
               </p>
-              <Link className={styles.cardAction} href="/foundation" style={{ paddingTop: 0 }}>
-                The foundation <ActionArrow />
-              </Link>
+              <a className={styles.cardAction} href="#role" style={{ paddingTop: 0 }}>
+                What GENII holds <ActionArrow />
+              </a>
             </div>
             <VentureCards />
             <p className={styles.closingLine}>
@@ -175,6 +195,43 @@ export default function Home() {
             <p className={styles.statementClose}>
               We measure progress in the lives people lead beyond the platform.
             </p>
+          </div>
+        </section>
+
+        <section
+          className={`${styles.section} ${styles.block}`}
+          id="role"
+          aria-labelledby="role-title"
+        >
+          <p className={styles.eyebrow}>What GENII is</p>
+          <div className={styles.sectionHead}>
+            <h2 id="role-title">A foundation. The ventures carry the business.</h2>
+            <div>
+              <p>
+                GENII keeps the fire: the research, principles, and stewardship every
+                venture draws on. It exists for the meeting of wisdom, culture, and
+                technology, each made stronger by the others.
+              </p>
+              <p>
+                Three complementary ventures work under it. Each has its own business
+                model, and each can be funded on its own terms. As the ventures grow,
+                they are expected to sustain the foundation.
+              </p>
+              <p>
+                The foundation is also a meeting ground. It can stand behind work it
+                does not operate: the tools behind Providence are built by Terran Labs,
+                and GENII does not run them.
+              </p>
+            </div>
+          </div>
+          <div className={styles.sectionBody}>
+            <Rows items={holds} numbered={false} />
+            <Status label="Formation status">
+              GENII Foundation and the entities for its ventures are under legal design.
+              This site describes an intended structure. No legal form has been chosen,
+              and how the ventures will sustain the foundation is an intent with no
+              agreed mechanism yet.
+            </Status>
           </div>
         </section>
 
@@ -263,6 +320,74 @@ export default function Home() {
         </section>
 
         <section
+          className={`section-panel ${styles.block}`}
+          id="custodians"
+          aria-labelledby="custodians-title"
+          style={{ marginTop: "var(--section-space)" }}
+        >
+          <p className={styles.eyebrow}>The Custodians</p>
+          <div className={styles.sectionHead}>
+            <h2 id="custodians-title">
+              A partnership across technical invention and human-development research.
+            </h2>
+            <div>
+              <p>
+                A technical founder and a wisdom-keeper, working together because the
+                two are more together than either alone.
+              </p>
+            </div>
+          </div>
+          <div className={styles.sectionBody}>
+            <div className={styles.custodians}>
+              <article className={styles.custodian}>
+                <Image
+                  alt="Aubrey Falconer, drawn in soft charcoal"
+                  height={900}
+                  src="/custodians/aubrey-falconer.png"
+                  width={675}
+                />
+                <h3>Aubrey Falconer</h3>
+                <p>
+                  Aubrey has written software running on over a billion devices and
+                  helped found multiple successful technology companies. His work
+                  synthesizes intentional communities, exponential technologies, and
+                  entropic stability. He&apos;s building tools for less addictive social
+                  media, more addictive long-form publications, and organized care for
+                  some of the most vulnerable children on this planet. He also helps
+                  teams scale technology in service of all life.
+                </p>
+                <LinkButton href={links.aubrey} quiet>
+                  AubreyFalconer.com
+                </LinkButton>
+              </article>
+
+              <article className={styles.custodian}>
+                <Image
+                  alt="Robert James Ryan III, drawn in soft charcoal"
+                  height={900}
+                  src="/custodians/robert-james-ryan-iii.png"
+                  width={675}
+                />
+                <h3>Robert James Ryan III</h3>
+                <p>
+                  Robert is an artist, writer, researcher, and facilitator whose work
+                  bridges consciousness, human development, and civilizational design.
+                  Over thirty years, he has co-founded foundations exploring alternative
+                  currencies, responsible psychoactive medicine practices, humane
+                  technology, and regenerative civilization. His collected work, The
+                  Atlas of Anthropos in Anamnesis, is devoted to remembering ourselves
+                  completely and helping humanity and all life flourish.
+                </p>
+              </article>
+            </div>
+            <Status label="What comes next">
+              The first funded stage must also build the scientific, legal, governance,
+              and operating capacity required for execution.
+            </Status>
+          </div>
+        </section>
+
+        <section
           className={`${styles.section} ${styles.block}`}
           id="paths"
           aria-labelledby="paths-title"
@@ -290,6 +415,11 @@ export default function Home() {
         <div style={{ margin: "0 -1.5rem" }}>
           <DeeperLinks />
         </div>
+
+        <p className={styles.closingLine} style={{ borderTop: 0 }}>
+          We are Earth learning to participate more intelligently in the ongoing service
+          and evolution of life.
+        </p>
 
         <section className="contact section-panel" id="contact" aria-labelledby="contact-title">
           <p className="eyebrow">Contact</p>

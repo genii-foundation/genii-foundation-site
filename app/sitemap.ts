@@ -3,8 +3,7 @@ import type { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: "https://genii.foundation" },
-    { url: "https://genii.foundation/foundation" },
-    { url: "https://genii.foundation/bow-media" },
+    { url: "https://genii.foundation/bow" },
     { url: "https://genii.foundation/purposeful" },
     { url: "https://genii.foundation/purposeful/seven-initiates" },
     { url: "https://genii.foundation/providence" },

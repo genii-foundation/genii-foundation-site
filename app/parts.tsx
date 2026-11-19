@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { ActionArrow } from "./ActionArrow";
 import { ContactTrigger } from "./ContactDialog";
 import { SiteFooter } from "./SiteFooter";
-import { deeperPages, ventures } from "./content";
+import { deeperPages, thesisTotals, thesisVolumes, ventures } from "./content";
 import styles from "./v2.module.css";
 
 /**
@@ -290,6 +290,92 @@ export function DeeperLinks({ current }: { current?: string }) {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * The thesis map: nine volumes on the left, the three ventures on the right,
+ * and a line wherever a volume makes a venture's central argument.
+ *
+ * The geometry is a fixed grid so it holds at any width: every volume row is
+ * the same height, the drawing is 100 units tall per row, and each venture
+ * sits at the midpoint of the rows that reach it. The drawing is decoration;
+ * the venture labels state the same mapping in words for screen readers.
+ */
+export function ThesisMap() {
+  const centre = (row: number) => row * 100 + 50;
+  const rowsFor = (name: string) =>
+    thesisVolumes.flatMap((volume, row) =>
+      "grounds" in volume && volume.grounds === name ? [row] : [],
+    );
+  const span = thesisVolumes.length * 100;
+
+  const grounded = (["Providence", "Purposeful"] as const).map((name) => {
+    const rows = rowsFor(name);
+    const y = rows.reduce((sum, row) => sum + centre(row), 0) / rows.length;
+    const numerals = rows.map((row) => thesisVolumes[row].numeral);
+    return {
+      name,
+      href: `/${name.toLowerCase()}`,
+      note: `Volumes ${numerals.join(" and ")}`,
+      rows,
+      y,
+    };
+  });
+  // BOW Media publishes the whole thesis, so it hangs off the spine near the top.
+  const publisher = { name: "BOW Media", href: "/bow", note: "Publishes all nine", y: 100 };
+
+  return (
+    <figure className={styles.thesisMap}>
+      <dl className={styles.mapTotals}>
+        {thesisTotals.map((total) => (
+          <div key={total.label}>
+            <dt>{total.label}</dt>
+            <dd>{total.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <div className={styles.mapGrid}>
+        <ol className={styles.mapVolumes}>
+          {thesisVolumes.map((volume) => (
+            <li data-grounds={"grounds" in volume ? volume.grounds : undefined} key={volume.numeral}>
+              <span>{volume.numeral}</span>
+              {volume.title}
+            </li>
+          ))}
+        </ol>
+        <svg
+          aria-hidden="true"
+          className={styles.mapLines}
+          preserveAspectRatio="none"
+          viewBox={`0 0 100 ${span}`}
+        >
+          {/* The spine: every volume reaches the publisher. */}
+          <path
+            className={styles.mapSpine}
+            d={`${thesisVolumes.map((_, row) => `M0 ${centre(row)}H22`).join("")}M22 ${centre(0)}V${centre(thesisVolumes.length - 1)}M22 ${publisher.y}H100`}
+          />
+          {grounded.flatMap((venture) =>
+            venture.rows.map((row) => (
+              <path
+                d={`M0 ${centre(row)}C55 ${centre(row)} 45 ${venture.y} 100 ${venture.y}`}
+                key={`${venture.name}-${row}`}
+              />
+            )),
+          )}
+        </svg>
+        <ul className={styles.mapVentures}>
+          {[publisher, ...grounded].map((venture) => (
+            <li key={venture.name} style={{ top: `${(venture.y / span) * 100}%` }}>
+              <Link href={venture.href}>
+                <strong>{venture.name}</strong>
+                <span>{venture.note}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </figure>
   );
 }
 

@@ -1362,3 +1362,415 @@ a.treeLeaf:focus-visible strong {
   padding: 2.5rem 0 0.9rem;
   text-transform: uppercase;
 }
+
+/* ---------------------------------------------------- Home: thesis map */
+
+/*
+ * Nine volume rows, a band of lines, and the three ventures. --map-row is the
+ * one measure everything hangs on: the drawing is stretched to nine rows, so
+ * a line that leaves the middle of a row arrives at the middle of its venture.
+ */
+.thesisMap {
+  --map-row: 3.5rem;
+  margin: 0;
+}
+
+.mapTotals {
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem clamp(2rem, 6vw, 5rem);
+  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+  padding-bottom: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.mapTotals div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.mapTotals dd {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+}
+
+.mapTotals dt {
+  color: var(--gold);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+}
+
+.mapGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(2.5rem, 16vw, 14rem) minmax(7rem, 17rem);
+}
+
+.mapVolumes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mapVolumes li {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  display: grid;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  gap: 0.75rem;
+  grid-template-columns: 2.25rem 1fr;
+  height: var(--map-row);
+  line-height: 1.15;
+  padding-right: 1rem;
+  position: relative;
+}
+
+.mapVolumes li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.mapVolumes li span {
+  color: var(--gold);
+}
+
+/* The volumes a venture rests on are set in ink and end in a gold dot. */
+.mapVolumes li[data-grounds] {
+  color: var(--ink);
+}
+
+.mapVolumes li::after {
+  background: var(--paper-light);
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  content: "";
+  height: 0.45rem;
+  position: absolute;
+  right: -0.225rem;
+  top: calc(50% - 0.225rem);
+  width: 0.45rem;
+  z-index: 1;
+}
+
+.mapVolumes li[data-grounds]::after {
+  background: var(--gold);
+}
+
+.mapLines {
+  height: calc(var(--map-row) * 9);
+  overflow: visible;
+  width: 100%;
+}
+
+.mapLines path {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.mapLines .mapSpine {
+  stroke: rgba(128, 106, 63, 0.4);
+  stroke-dasharray: 1 4;
+  stroke-linecap: round;
+  stroke-width: 1.2;
+}
+
+.mapVentures {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.mapVentures li {
+  left: 0;
+  position: absolute;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.mapVentures a {
+  background: var(--ground-card);
+  border: 1px solid var(--line);
+  border-radius: 0.25rem;
+  display: block;
+  padding: clamp(0.7rem, 1.4vw, 1.1rem) clamp(0.75rem, 1.6vw, 1.35rem);
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.mapVentures a:hover,
+.mapVentures a:focus-visible {
+  background: var(--ground-card-hover);
+  border-color: rgba(128, 106, 63, 0.6);
+}
+
+.mapVentures strong {
+  display: block;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.1rem, 2vw, 1.7rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.mapVentures span {
+  color: var(--gold);
+  display: block;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-top: 0.4rem;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------- BOW: library wall, statuses */
+
+.coverStatus {
+  color: var(--muted);
+  display: block;
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  margin-top: 0.45rem;
+  text-transform: uppercase;
+}
+
+.coverStatus[data-published="true"] {
+  color: var(--gold);
+}
+
+/*
+ * The wall comes toward the reader: each cover starts set back and tipped
+ * away, and stands up as its row scrolls into view. This is driven by scroll
+ * position alone, so it runs nowhere that lacks scroll timelines or where the
+ * reader asked for less motion; there the wall simply stands still.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .covers {
+      perspective: 60rem;
+    }
+
+    .covers li {
+      animation: coverApproach linear both;
+      animation-range: entry 0% cover 34%;
+      animation-timeline: view();
+      transform-origin: 50% 100%;
+    }
+
+    .covers li:nth-child(2) {
+      animation-range: entry 8% cover 40%;
+    }
+
+    .covers li:nth-child(3) {
+      animation-range: entry 16% cover 46%;
+    }
+  }
+}
+
+@keyframes coverApproach {
+  from {
+    opacity: 0.25;
+    transform: translate3d(0, 2rem, -16rem) rotateX(16deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------- BOW: look inside */
+
+.turners {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.turner {
+  margin: 0;
+  min-width: 0;
+}
+
+.turnerTrack {
+  border-radius: 0.2rem;
+  box-shadow:
+    0 0.15rem 0.3rem rgba(31, 27, 18, 0.2),
+    0 1.2rem 2.4rem rgba(31, 27, 18, 0.22);
+  display: flex;
+  list-style: none;
+  margin: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 0;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.turnerTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.turnerTrack li {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.turnerTrack img {
+  aspect-ratio: 4 / 5;
+  display: block;
+  height: auto;
+  object-fit: cover;
+  width: 100%;
+}
+
+.turner figcaption {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.turnerTitle {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.25;
+}
+
+.turnerControls {
+  align-items: center;
+  color: var(--muted);
+  display: flex;
+  flex: none;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  gap: 0.55rem;
+}
+
+.turnerControls button {
+  align-items: center;
+  background: transparent;
+  border: 1px solid rgba(128, 106, 63, 0.55);
+  border-radius: 50%;
+  color: var(--gold);
+  cursor: pointer;
+  display: inline-flex;
+  height: 2.5rem;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 180ms ease, color 180ms ease, opacity 180ms ease;
+  width: 2.5rem;
+}
+
+.turnerControls button:hover:not(:disabled),
+.turnerControls button:focus-visible {
+  background: var(--gold);
+  color: #fff;
+}
+
+.turnerControls button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.turnerControls svg {
+  fill: none;
+  height: 0.9rem;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+  width: 0.9rem;
+}
+
+/* ------------------------------------------------------- BOW: listen */
+
+.listen {
+  align-items: center;
+  background: var(--ground-card);
+  border: 1px solid var(--line);
+  border-radius: 0.25rem;
+  display: grid;
+  gap: 0.75rem clamp(1.25rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  margin: 0 0 clamp(2rem, 4vw, 3rem);
+  padding: clamp(1.25rem, 2.4vw, 2rem);
+}
+
+.listen strong {
+  color: var(--gold);
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+.listen figcaption span {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  line-height: 1.3;
+}
+
+.listen audio {
+  width: 100%;
+}
+
+.listen p {
+  color: var(--muted);
+  font-size: 0.82rem;
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .turners {
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    max-width: 24rem;
+  }
+
+  .listen {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .thesisMap {
+    --map-row: 3.75rem;
+  }
+
+  .mapGrid {
+    grid-template-columns: minmax(0, 1fr) 2.25rem 7.25rem;
+  }
+
+  .coverStatus {
+    font-size: 0.56rem;
+    letter-spacing: 0.06em;
+  }
+
+  .mapVolumes li {
+    font-size: 0.95rem;
+    gap: 0.4rem;
+    grid-template-columns: 1.6rem 1fr;
+    padding-right: 0.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mapVentures a,
+  .turnerControls button {
+    transition: none;
+  }
+}

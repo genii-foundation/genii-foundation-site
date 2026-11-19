@@ -99,9 +99,15 @@ export default function ProvidencePage() {
               Terran Labs builds the tools Providence will join: Vorton, Freed, Vorteo,
               and SYN3H. Each stands on its own today, and GENII does not operate them.
             </p>
-            <p>The Terran Labs site shows what each one is and where it stands.</p>
+            <p>
+              The Terran Labs site shows what each one is and where it stands, and its
+              updates page lists what has shipped lately.
+            </p>
             <div className={styles.actions}>
               <LinkButton href={links.terranLabs}>Explore TerranLabs.com</LinkButton>
+              <LinkButton href={links.terranUpdates} quiet>
+                Recent releases
+              </LinkButton>
             </div>
           </>
         }

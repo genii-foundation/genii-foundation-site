@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ActionArrow } from "./ActionArrow";
 import { SiteFooter } from "./SiteFooter";
 import { links } from "./content";
-import { ContactButton, LinkButton, Status, VentureCards } from "./parts";
+import { ContactButton, LinkButton, Status, ThesisMap, VentureCards } from "./parts";
 import styles from "./v2.module.css";
 
 /*
@@ -37,7 +37,7 @@ const alliances = [
   {
     title: "Try what is built",
     text: "Terran Labs is proving the tools behind Providence as standalone products you can open today.",
-    href: "/providence#building",
+    href: "/providence#terran-labs",
     action: "See the tools",
   },
 ] as const;
@@ -114,6 +114,36 @@ export default function Home() {
               foundation and the entities for its ventures are under legal design; this
               site describes an intended structure.
             </Status>
+          </div>
+        </section>
+
+        <section
+          className={`${styles.section} ${styles.block}`}
+          id="thesis"
+          aria-labelledby="thesis-title"
+        >
+          <p className={styles.eyebrow}>The research beneath</p>
+          <div className={styles.sectionHead}>
+            <h2 id="thesis-title">Nine volumes under three ventures.</h2>
+            <div>
+              <p>
+                The Coherence Thesis is the research and conceptual foundation for
+                everything GENII does.
+              </p>
+              <p>
+                BOW Media publishes it. Providence and Purposeful each take their
+                central argument from it.
+              </p>
+              <div className={styles.actions}>
+                <LinkButton href={links.thesis}>Read the thesis</LinkButton>
+                <LinkButton href="/research" quiet>
+                  The thesis as research
+                </LinkButton>
+              </div>
+            </div>
+          </div>
+          <div className={styles.sectionBody}>
+            <ThesisMap />
           </div>
         </section>
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 
-import { links } from "../content";
+import { links, thesisVolumes } from "../content";
 import {
   CoverFan,
   DeeperLinks,
@@ -13,6 +13,7 @@ import {
   Tag,
 } from "../parts";
 import styles from "../v2.module.css";
+import { PageTurner } from "./PageTurner";
 
 export const metadata: Metadata = {
   title: "BOW Media | GENII Foundation",
@@ -23,9 +24,15 @@ export const metadata: Metadata = {
 
 /*
  * The nine covers the founders selected for the deck, in the same three rows.
- * Only The Coherence Thesis has a public home to link to. No source gives a
- * publication status for the other titles, so the page claims none.
+ * Only The Coherence Thesis has a public home to link to. Each cover carries
+ * a status label. The thesis is published and Purposeful is its fifth volume;
+ * no source gives a publication status for the other seven, so they say only
+ * "In development". Covers beyond these nine wait on Robbie confirming each
+ * title's status and author.
  */
+const published = "Published";
+const developing = "In development";
+
 const shelves = [
   {
     label: "Adult",
@@ -34,9 +41,19 @@ const shelves = [
         title: "The Coherence Thesis",
         file: "01-adult-the-coherence-thesis",
         href: links.thesis,
+        status: published,
       },
-      { title: "Purposeful", file: "02-adult-purposeful", href: links.thesis },
-      { title: "Non-Duality and the Law", file: "03-adult-non-duality-and-the-law" },
+      {
+        title: "Purposeful",
+        file: "02-adult-purposeful",
+        href: links.thesis,
+        status: published,
+      },
+      {
+        title: "Non-Duality and the Law",
+        file: "03-adult-non-duality-and-the-law",
+        status: developing,
+      },
     ],
   },
   {
@@ -45,11 +62,17 @@ const shelves = [
       {
         title: "Yo, But What's Really Up With Money?",
         file: "04-teen-yo-but-what-s-really-up-with-money",
+        status: developing,
       },
-      { title: "Yo, But What About Birth?", file: "05-teen-yo-but-what-about-birth" },
+      {
+        title: "Yo, But What About Birth?",
+        file: "05-teen-yo-but-what-about-birth",
+        status: developing,
+      },
       {
         title: "Yo, Where Did All the Elders Go?",
         file: "06-teen-yo-where-did-all-the-elders-go",
+        status: developing,
       },
     ],
   },
@@ -59,26 +82,29 @@ const shelves = [
       {
         title: "Falling Towards Each Other Continuously",
         file: "07-kids-falling-towards-each-other-continuously",
+        status: developing,
       },
-      { title: "108", file: "08-kids-108" },
-      { title: "We Breathe Plankton Farts!", file: "09-kids-we-breathe-plankton-farts" },
+      { title: "108", file: "08-kids-108", status: developing },
+      {
+        title: "We Breathe Plankton Farts!",
+        file: "09-kids-we-breathe-plankton-farts",
+        status: developing,
+      },
     ],
   },
 ] as const;
 
-const volumes = [
-  "Humanity's Most Viable Future",
-  "Wielding Intelligence",
-  "The Providence Imperative",
-  "Architecting Providence",
-  "Purposeful",
-  "The Nest",
-  "Presencing Genius",
-  "A Misanthropic Artifice",
-  "The Cardinal Scale",
+/*
+ * Sample pages from three children's books, taken from the review editions in
+ * the founders' handoff archive: each book's cover and three inside pages.
+ * The title pages are left out. The Rainbow cover itself carries its authors'
+ * names, which the founders have not yet confirmed for publication.
+ */
+const insideBooks = [
+  { title: "The Longest Eight Minutes", slug: "eight", pages: 4 },
+  { title: "The Secret Inside a Rainbow", slug: "rainbow", pages: 4 },
+  { title: "The World of Color", slug: "color", pages: 4 },
 ] as const;
-
-const numerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"] as const;
 
 export default function BowMediaPage() {
   return (
@@ -93,7 +119,7 @@ export default function BowMediaPage() {
       >
         <div className={styles.actions}>
           <LinkButton href="#catalog" quiet>
-            See the catalog
+            See the library
           </LinkButton>
           <LinkButton href={links.thesis}>Read The Coherence Thesis</LinkButton>
         </div>
@@ -121,7 +147,7 @@ export default function BowMediaPage() {
       <Section
         id="catalog"
         eyebrow="Selected works"
-        title="The catalog."
+        title="The library."
         panel
         intro={
           <p>
@@ -146,6 +172,9 @@ export default function BowMediaPage() {
                     />
                     <figcaption>
                       {"href" in book ? <a href={book.href}>{book.title}</a> : book.title}
+                      <span className={styles.coverStatus} data-published={book.status === published}>
+                        {book.status}
+                      </span>
                     </figcaption>
                   </figure>
                 </li>
@@ -157,6 +186,28 @@ export default function BowMediaPage() {
           Selected works shown. The Coherence Thesis is published, and Purposeful is its
           fifth volume. The other titles shown, and further
           titles and media programs, remain in development.
+        </Status>
+      </Section>
+
+      <Section
+        id="inside"
+        eyebrow="Look inside"
+        title="Three books for children."
+        intro={
+          <p>
+            Turn a few pages of each: where sunlight comes from, why a rainbow has
+            its colors, and how light and matter make everything glow.
+          </p>
+        }
+      >
+        <div className={styles.turners}>
+          {insideBooks.map((book) => (
+            <PageTurner key={book.slug} {...book} />
+          ))}
+        </div>
+        <Status>
+          Sample pages from review editions. These three titles are in development and
+          are not yet among the nine in the library above.
         </Status>
       </Section>
 
@@ -180,11 +231,22 @@ export default function BowMediaPage() {
           </>
         }
       >
+        <figure className={styles.listen}>
+          <figcaption>
+            <strong>Listen</strong>
+            <span>Orientation, the opening of Volume I. About a minute.</span>
+          </figcaption>
+          {/* preload="none": nobody downloads the recording unless they press play. */}
+          <audio controls preload="none" src="/bow/listen/thesis-orientation.m4a">
+            <a href="/bow/listen/thesis-orientation.m4a">Download the recording</a>
+          </audio>
+          <p>Machine-narrated, from the audio edition in the thesis reader.</p>
+        </figure>
         <ol className={styles.volumes}>
-          {volumes.map((volume, index) => (
-            <li key={volume}>
-              <span>{numerals[index]}</span>
-              {volume}
+          {thesisVolumes.map((volume) => (
+            <li key={volume.numeral}>
+              <span>{volume.numeral}</span>
+              {volume.title}
             </li>
           ))}
         </ol>

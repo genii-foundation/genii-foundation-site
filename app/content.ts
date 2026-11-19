@@ -49,9 +49,36 @@ export const links = {
   vorton: "https://terranlabs.com/vorton",
   vorteo: "https://terranlabs.com/vorteo",
   terranLabs: "https://terranlabs.com",
+  terranUpdates: "https://terranlabs.com/updates",
   coherenceApp: "https://github.com/genii-foundation/coherence-app",
   aubrey: "https://aubreyfalconer.com",
 } as const;
+
+/**
+ * The nine volumes of The Coherence Thesis, in order. `grounds` names the
+ * venture whose central argument a volume makes: III and IV carry Providence
+ * in their titles, V is Purposeful, and VII sets out the Seven Initiates that
+ * Purposeful teaches. BOW Media publishes all nine, so it is not listed per
+ * volume. The founders have not yet reviewed this mapping line by line.
+ */
+export const thesisVolumes = [
+  { numeral: "I", title: "Humanity's Most Viable Future" },
+  { numeral: "II", title: "Wielding Intelligence" },
+  { numeral: "III", title: "The Providence Imperative", grounds: "Providence" },
+  { numeral: "IV", title: "Architecting Providence", grounds: "Providence" },
+  { numeral: "V", title: "Purposeful", grounds: "Purposeful" },
+  { numeral: "VI", title: "The Nest" },
+  { numeral: "VII", title: "Presencing Genius", grounds: "Purposeful" },
+  { numeral: "VIII", title: "A Misanthropic Artifice" },
+  { numeral: "IX", title: "The Cardinal Scale" },
+] as const;
+
+/** Counted from the published reader's own section list, August 2026 edition. */
+export const thesisTotals = [
+  { value: "9", label: "volumes" },
+  { value: "525", label: "sections" },
+  { value: "202,000", label: "words, about" },
+] as const;
 
 /** The pages behind the main story, listed wherever a reader may want more. */
 export const deeperPages = [

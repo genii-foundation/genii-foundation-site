@@ -13,6 +13,7 @@ import { PrimaryNavigation, type SectionNavigationItem } from "./PrimaryNavigati
 // The first link is the one selected at the top of the page.
 const foundationSections = [
   { href: "#architecture", label: "Architecture" },
+  { href: "#thesis", label: "Thesis" },
   { href: "#measure", label: "Enrichment" },
   { href: "#custodians", label: "Custodians" },
   { href: "#alliances", label: "Alliances" },
@@ -22,7 +23,8 @@ const foundationSections = [
 const pageSections: Record<string, readonly SectionNavigationItem[]> = {
   "/bow": [
     { href: "#studio", label: "Studio" },
-    { href: "#catalog", label: "Catalog" },
+    { href: "#catalog", label: "Library" },
+    { href: "#inside", label: "Look inside" },
     { href: "#flagship", label: "Flagship" },
     { href: "#publisher", label: "Publisher" },
   ],
